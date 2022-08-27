@@ -5,20 +5,19 @@ namespace App\Http\Controllers;
 use DB;
 use Hash;
 use App\Models\User;
-use App\Models\Business;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Spatie\Permission\Models\Role;
+use Spatie\shop\Models\Role;
 
-class UserController extends Controller
+class ShopController extends Controller
 {
     
     function __construct()
     {
-         $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index','store']]);
-         $this->middleware('permission:user-create', ['only' => ['create','store']]);
-         $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:shop-list|shop-create|shop-edit|shop-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:shop-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:shop-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:shop-delete', ['only' => ['destroy']]);
     }
 
    
@@ -26,16 +25,13 @@ class UserController extends Controller
     {
         $data = User::orderBy('id', 'desc')->paginate(5);
         
-        return view('users.index', compact('data'));
+        return view('shop.index', compact('data'));
     }
 
     
     public function create()
     {
-        $roles = Role::pluck('name','name')->all();
-        
-        $business = Business::where('status','=',1)->pluck('name', 'id')->all();
-        return view('users.create', compact('roles','business'));
+        return view('shop.create');
     }
 
     public function store(Request $request)
@@ -53,7 +49,7 @@ class UserController extends Controller
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
     
-        return redirect()->route('users.index')
+        return redirect()->route('shop.index')
             ->with('success', 'User created successfully.');
     }
 
@@ -62,17 +58,17 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        return view('users.show', compact('user'));
+        return view('shop.show', compact('user'));
     }
 
  
     public function edit($id)
     {
-        $user = User::find($id);
+        $post = User::find($id);
         $roles = Role::pluck('name', 'name')->all();
-        $userRole = $user->roles->pluck('name', 'name')->all();
+        $userRole = $post->roles->pluck('name', 'name')->all();
         $business = Business::where('status','=',1)->pluck('name', 'id')->all();
-        return view('users.edit', compact('user', 'roles', 'userRole','business'));
+        return view('shop.edit', compact('post', 'roles', 'userRole','business'));
     }
 
     
@@ -102,7 +98,7 @@ class UserController extends Controller
     
         $user->assignRole($request->input('roles'));
     
-        return redirect()->route('users.index')
+        return redirect()->route('shop.index')
             ->with('success', 'User updated successfully.');
     }
 
@@ -110,7 +106,7 @@ class UserController extends Controller
     {
         User::find($id)->delete();
 
-        return redirect()->route('users.index')
+        return redirect()->route('shop.index')
             ->with('success', 'User deleted successfully.');
     }
 }
