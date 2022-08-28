@@ -22,28 +22,20 @@
             <div class="card-body">
                 {!! Form::model($post, ['route' => ['categorys.update', $post->id], 'method'=>'PATCH']) !!}
                 <div class="row">
-            
-                <div class="col-md-3">
+            <div class="col-md-12">
                     <div class="form-group">
                         <strong>Category Name:</strong>
-                        {!! Form::text('category_name', null, array('placeholder' => 'Name','class' => 'form-control','required' =>'required')) !!}
+                        {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control','required' =>'required')) !!}
                     </div>
                 </div>    
-                <div class="col-md-3">
+                
+                <div class="col-md-12">
                     <div class="form-group">
-                        <strong>Category Code:</strong>
-
-                        {!! Form::text('category_code', null, array('placeholder' => 'Category Code','class' => 'form-control','required' =>'required')) !!}
-                        
-                        <!-- {!! Form::text('name', null, array('placeholder' => 'Category Code','class' => 'form-control','required' =>'required','readonly','value'=>'')) !!} -->
+                        <strong>Category Description:</strong>
+                        {!! Form::textarea('description', null, array('placeholder' => 'Category Description','class' => 'form-control','required' =>'required','value'=>'')) !!}
                     </div>
-                </div> 
-            <div class="col-md-3">
-                    <div class="form-group">
-                        <strong>Bussiness:</strong>
-                        {!! Form::select('bussiness_id', $business,null, array('class' => 'form-control')) !!}
-                    </div>
-                </div> 
+                </div>      
+                
                 <div class="col-md-3">
                     <div class="form-group">
                         <strong>Status:</strong>

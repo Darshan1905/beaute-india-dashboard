@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Subcategorie extends Model
+class Product extends Model
 {
     use HasFactory;
 
@@ -15,6 +15,6 @@ class Subcategorie extends Model
      * @var array
      */
     protected $fillable = [
-        'bussiness_id', 'sub_category_name', 'sub_category_code','category_id',
+        'name', 'shor_description', 'log_description','normal_price', 'sale_price', 'inventory_count', 'product_size', 'sku_no', 'stock_status', 'shipping_price', 'category_id',
     ];
 }

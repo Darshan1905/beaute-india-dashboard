@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Businessactivitie;
 use App\Models\Business;
 use App\Models\Categorie;
-
+use Auth;
 class CategoryController extends Controller
 {
     
@@ -29,8 +29,6 @@ class CategoryController extends Controller
         $industry = Categorie::get();
         return datatables()->of($industry)
             ->editColumn('created_at', '{{ date("d-m-Y", strtotime($created_at)) }}')
-            ->editColumn('bussiness', function($row) {
-                return Business::where('id','=',$row->bussiness_id)->first()->name; })
             ->addColumn('action', function($row) {
                 $btn = '';
                 $btn .= '<div class="btn-group">';
@@ -48,22 +46,18 @@ class CategoryController extends Controller
 
     
     public function create()
-    {
-        
-        $businessactivitie = Businessactivitie::where('status','=',1)->pluck('name', 'id')->all();
-        $business = Business::where('status','=',1)->pluck('name', 'id')->all();
-        return view('category.create',compact('businessactivitie','business'));
+    {   
+        return view('category.create');
     }
 
     public function store(Request $request)
     {
         $this->validate($request, [
-            'category_name' => 'required',
-            'bussiness_id'=>'required',
-            'category_code'=>'required'
+            'name' => 'required',
+            'description'=>'required',
         ]);
         $input = $request->except(['_token']);
-    
+        $input['user_id'] = Auth::user()->id;
         Categorie::create($input);
     
         return redirect()->route('categorys.index')
@@ -81,18 +75,14 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $post = Categorie::find($id);
-        $businessactivitie = Businessactivitie::where('status','=',1)->pluck('name', 'id')->all();
-        $business = Business::where('status','=',1)->pluck('name', 'id')->all();
-       
-
-        return view('category.edit',compact('post','businessactivitie','business'));
+        return view('category.edit',compact('post'));
     }
 
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'category_name' => 'required',
-            'bussiness_id'=>'required',
+            'name' => 'required',
+            'description'=>'required',
         ]);
 
         $post = Categorie::find($id);

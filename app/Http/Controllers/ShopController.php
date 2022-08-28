@@ -23,9 +23,24 @@ class ShopController extends Controller
    
     public function index(Request $request)
     {
-        $data = User::orderBy('id', 'desc')->paginate(5);
-        
-        return view('shop.index', compact('data'));
+        return view('shop.index');
+    } 
+
+    public function shopList() {
+        $industry = User::where('type','shop')->orderBy('id', 'desc')->get();
+        return datatables()->of($industry)
+            ->editColumn('created_at', '{{ date("d-m-Y", strtotime($created_at)) }}')
+            ->addColumn('action', function($row) {
+                $btn = '';
+                $btn .= '<div class="btn-group">';
+                $btn .= ' <a class="btn btn-primary" href="' . route('shop.edit', [$row->id]) . '">Edit</a>';
+                return $btn;
+            })
+            ->rawColumns([
+                'status' => 'status',
+                'action' => 'action'
+            ])
+            ->make(true);
     }
 
     
@@ -39,18 +54,17 @@ class ShopController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
+            'shopname' => 'required|unique:users,shopname',
             'password' => 'required|confirmed',
-            'roles' => 'required'
         ]);
     
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
-    
+        $input['type'] = 'shop';
         $user = User::create($input);
-        $user->assignRole($request->input('roles'));
     
         return redirect()->route('shop.index')
-            ->with('success', 'User created successfully.');
+            ->with('success', 'Shop created successfully.');
     }
 
     
@@ -65,10 +79,7 @@ class ShopController extends Controller
     public function edit($id)
     {
         $post = User::find($id);
-        $roles = Role::pluck('name', 'name')->all();
-        $userRole = $post->roles->pluck('name', 'name')->all();
-        $business = Business::where('status','=',1)->pluck('name', 'id')->all();
-        return view('shop.edit', compact('post', 'roles', 'userRole','business'));
+        return view('shop.edit', compact('post'));
     }
 
     
@@ -90,6 +101,7 @@ class ShopController extends Controller
         }
     
         $user = User::find($id);
+        $input['type'] = 'shop';
         $user->update($input);
 
         DB::table('model_has_roles')

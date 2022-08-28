@@ -16,97 +16,64 @@
                 </div>
             @endif
                 <span class="float-right">
-                    <a class="btn btn-primary" href="{{ route('businesses.index') }}">Back</a>
+                    <a class="btn btn-primary" href="{{ route('shop.index') }}">Back</a>
                 </span>
             </div>
             <div class="card-body">
-                {!! Form::model($post, ['route' => ['businesses.update', $post->id], 'method'=>'PATCH']) !!}
-                <div class="row">
-            <div class="col-md-6">
-                    <div class="form-group">
-                        <strong>Industry Segment:</strong>
-                        {!! Form::select('industrysegment_id', $industrysegment,null, array('class' => 'form-control')) !!}
-                    </div>
-                </div>    
+                {!! Form::model($post, ['route' => ['shop.update', $post->id], 'method'=>'PATCH']) !!}
+            <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <strong>Name:</strong>
+                                {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                            </div>
+                        </div> 
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <strong>Email:</strong>
+                                {!! Form::email('email', null, array('placeholder' => 'Email','class' => 'form-control')) !!}
+                            </div>
+                        </div>   
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <strong>Contact:</strong>
+                                {!! Form::number('contact', null, array('placeholder' => 'Contact','class' => 'form-control')) !!}
+                            </div>
+                        </div>   
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <strong>Shop Name:</strong>
+                                {!! Form::text('shopname', null, array('placeholder' => 'Shop Name','class' => 'form-control','required')) !!}
+                            </div>
+                        </div>   
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <strong>Address:</strong>
+                                {!! Form::textarea('address', null, array('placeholder' => 'Address','class' => 'form-control','required' =>'required')) !!}
                 
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <strong>Name:</strong>
-                        {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control','required' =>'required')) !!}
-                    </div>
-                </div>    
-                
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <strong>Address:</strong>
-                        {!! Form::textarea('address', null, array('placeholder' => 'Address','class' => 'form-control','required' =>'required')) !!}
-                    </div>
-                </div> 
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <strong>Country:</strong>
-                        {!! Form::select('country_id', $countries,null, array('placeholder' => 'Select Country','id' => 'country','class' => 'form-control','required', 'onchange' => "getStateFn()")) !!}
+                            </div>
+                        </div>    
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <strong>Password:</strong>
+                                {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control')) !!}
+                            </div>
+                        </div>    
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <strong>Confirm Password:</strong>
+                                {!! Form::password('password_confirmation', array('placeholder' => 'Confirm Password','class' => 'form-control')) !!}
+                            </div>
+                        </div>                       
+                      
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <strong>Status:</strong>
+                                {!! Form::select('status', array(1=>'Active',0 => 'Disable'),null, array('class' => 'form-control')) !!}
+                            </div>
+                        </div>    
                     </div>   
-                </div>  
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <strong>State:</strong>
-                        {!! Form::select('state_id', $state,null, array('placeholder' => 'Select State','id' => 'state','class' => 'form-control','required','onchange' => "getCityFn()")) !!}
-                    </div>   
-                </div>   
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <strong>City:</strong>
-                        {!! Form::select('city',$city,null, array('placeholder' => 'Select City','id' => 'city','class' => 'form-control','required')) !!}
-                    </div>   
-                </div>   
-
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <strong>Contact:</strong>
-                        {!! Form::number('contact', null, array('placeholder' => 'Contact','class' => 'form-control','required' =>'required')) !!}
-                    </div>
-                </div> 
-                   
-
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <strong>Email:</strong>
-                        {!! Form::email('email', null, array('placeholder' => 'Email','class' => 'form-control','required' =>'required')) !!}
-                    </div>
-                </div> 
-                   
-
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <strong>CIN:</strong>
-                        {!! Form::number('cin', null, array('placeholder' => 'CIN','class' => 'form-control')) !!}
-                    </div>
-                </div> 
-                   
-
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <strong>GST:</strong>
-                        {!! Form::number('gst', null, array('placeholder' => 'GST','class' => 'form-control')) !!}
-                    </div>
-                </div> 
-                   
-
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <strong>LOGO:</strong>
-                        {!! Form::file('logo', null, array('placeholder' => 'LOGO','class' => 'form-control')) !!}
-                    </div>
-                </div> 
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <strong>Status:</strong>
-                        {!! Form::select('status', array(1=>'Active',0 => 'Disable'),null, array('class' => 'form-control')) !!}
-                    </div>
-                </div>   
-                   
-                </div> 
                 
                     <button type="submit" class="btn btn-primary">Submit</button>
                 {!! Form::close() !!}

@@ -2,32 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Branch;
 use Illuminate\Http\Request;
-use App\Models\Businessactivitie;
-use App\Models\Business;
 use App\Models\Categorie;
-use App\Models\Subcategorie;
+use App\Models\Product;
 
-class SubcategoryController extends Controller
+class ProductController extends Controller
 {
     
     function __construct()
     {
-         $this->middleware('permission:subcategorys-list|subcategorys-create|subcategorys-edit|subcategorys-delete', ['only' => ['index', 'show']]);
-         $this->middleware('permission:subcategorys-create', ['only' => ['create', 'store']]);
-         $this->middleware('permission:subcategorys-edit', ['only' => ['edit', 'update']]);
-         $this->middleware('permission:subcategorys-delete', ['only' => ['destroy']]);
+         $this->middleware('permission:product-list|product-create|product-edit|product-delete', ['only' => ['index', 'show']]);
+         $this->middleware('permission:product-create', ['only' => ['create', 'store']]);
+         $this->middleware('permission:product-edit', ['only' => ['edit', 'update']]);
+         $this->middleware('permission:product-delete', ['only' => ['destroy']]);
     }
 
    
     public function index(Request $request)
     {
-        return view('subcategorys.index');
+        return view('product.index');
     }
 
-    public function subcategorysList() {
-        $industry = Subcategorie::get();
+    public function productList() {
+        $industry = Product::get();
         
         return datatables()->of($industry)
             ->editColumn('created_at', '{{ date("d-m-Y", strtotime($created_at)) }}')
@@ -53,10 +50,8 @@ class SubcategoryController extends Controller
     public function create()
     {
         
-        $businessactivitie = Businessactivitie::where('status','=',1)->pluck('name', 'id')->all();
-        $business = Business::where('status','=',1)->pluck('name', 'id')->all();
-        $category = Categorie::where('status','=',1)->pluck('category_name', 'id')->all();
-        return view('subcategorys.create',compact('businessactivitie','business','category'));
+        $category = Categorie::where('status','=',1)->pluck('name', 'id')->all();
+        return view('product.create',compact('category'));
     }
 
     public function store(Request $request)
@@ -71,8 +66,8 @@ class SubcategoryController extends Controller
     
         Subcategorie::create($input);
     
-        return redirect()->route('subcategorys.index')
-            ->with('success','sub Category created successfully.');
+        return redirect()->route('product.index')
+            ->with('success','product created successfully.');
     }
 
    
@@ -80,7 +75,7 @@ class SubcategoryController extends Controller
     {
         $post = Subcategorie::find($id);
 
-        return view('subcategorys.show', compact('post'));
+        return view('product.show', compact('post'));
     }
 
     public function edit($id)
@@ -91,7 +86,7 @@ class SubcategoryController extends Controller
         $business = Business::where('status','=',1)->pluck('name', 'id')->all();
        
 
-        return view('subcategorys.edit',compact('post','businessactivitie','business','category'));
+        return view('product.edit',compact('post','businessactivitie','business','category'));
     }
 
     public function update(Request $request, $id)
@@ -106,14 +101,14 @@ class SubcategoryController extends Controller
     
         $post->update($request->all());
     
-        return redirect()->route('subcategorys.index')
-            ->with('success', 'Sub Category updated successfully.');
+        return redirect()->route('product.index')
+            ->with('success', 'product updated successfully.');
     }
 
     public function destroy($id)
     {
         Branch::find($id)->update(array('status' => 0));
-        return redirect()->route('subcategorys.index')
-            ->with('success', 'Category deleted successfully.');
+        return redirect()->route('product.index')
+            ->with('success', 'product deleted successfully.');
     }
 }

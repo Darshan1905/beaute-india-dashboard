@@ -4,10 +4,10 @@
       <!-- Page Header -->
       <div class="page-header">
         <div>
-            <h2 class="main-content-title tx-24 mg-b-5">Business</h2>
+            <h2 class="main-content-title tx-24 mg-b-5">Shop</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ URL::to('/') }}">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Business</li>
+                <li class="breadcrumb-item active" aria-current="page">Shop</li>
             </ol>
         </div>
         
@@ -21,7 +21,7 @@
                 <div class="card-body">
                     <div>
                    
-                        <h6 class="card-title mb-1">Business</h6>
+                        <h6 class="card-title mb-1">Shop</h6>
                         @if (\Session::has('success'))
                             <div class="alert alert-success">
                                 <p>{{ \Session::get('success') }}</p>
@@ -29,7 +29,7 @@
                         @endif
                         @can('role-create')
                             <span class="float-right">
-                                <a class="btn btn-primary" href="{{ route('businesses.create') }}">Create Business</a>
+                                <a class="btn btn-primary" href="{{ route('shop.create') }}">Create Shop</a>
                             </span>
                         @endcan
                     </div>
@@ -39,11 +39,11 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Indsutry Segment</th>
                                 <th>Name</th>
                                 <th>Address</th>
                                 <th>Contact</th>
                                 <th>Email</th>
+                                <th>Shopname</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -92,16 +92,16 @@
             responsive: true,
             serverSide: true,
             ajax: {
-                "url": "{{ route('businesses-list') }}",
+                "url": "{{ route('shops-list') }}",
                 "type": "get",
             },
             columns: [
-                {data: 'id', name: 'id'},
-                {data: 'industrysegment', name: 'industrysegment'},
-                {data: 'name', name: 'name'},
+                {data: 'DT_RowIndex', name: 'id'},
+                {data: 'name', name: 'status'},
                 {data: 'address', name: 'address'},
                 {data: 'contact', name: 'contact'},
                 {data: 'email', name: 'email'},
+                {data: 'shopname', name: 'shopname'},
                 {data: 'status', name: 'status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],

@@ -8,8 +8,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\shopController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubcategoryController;
-
-
+use App\Http\Controllers\ProductController;
 
 
 /*
@@ -34,13 +33,17 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('permissions', PermissionController::class);
     
     Route::resource('shop', shopController::class);
-    Route::get('shopList/', [shopController::class, 'shopList'])->name('shop-list');
+    Route::get('shop-List/', [shopController::class, 'shopList'])->name('shops-list');
     
     Route::resource('categorys', CategoryController::class);
     Route::get('category-list/', [CategoryController::class, 'categoryList'])->name('category-list');
    
+    Route::resource('product', ProductController::class);
+    Route::get('product-list/', [ProductController::class, 'productList'])->name('product-list');
+
     Route::resource('subcategorys', SubcategoryController::class);
     Route::get('subcategorys-list/', [SubcategoryController::class, 'subcategorysList'])->name('subcategorys-list');
+
     Route::get('state-list/', [HomeController::class, 'stateList'])->name('state-list');
     Route::get('city-list/', [HomeController::class, 'cityList'])->name('city-list');
    

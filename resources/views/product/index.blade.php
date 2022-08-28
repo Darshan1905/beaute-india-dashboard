@@ -4,10 +4,10 @@
       <!-- Page Header -->
       <div class="page-header">
         <div>
-            <h2 class="main-content-title tx-24 mg-b-5">Sub Category</h2>
+            <h2 class="main-content-title tx-24 mg-b-5">Product</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ URL::to('/') }}">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Sub Category</li>
+                <li class="breadcrumb-item active" aria-current="page">Product</li>
             </ol>
         </div>
         
@@ -21,7 +21,7 @@
                 <div class="card-body">
                     <div>
                    
-                        <h6 class="card-title mb-1">Sub Category</h6>
+                        <h6 class="card-title mb-1">Product</h6>
                         @if (\Session::has('success'))
                             <div class="alert alert-success">
                                 <p>{{ \Session::get('success') }}</p>
@@ -29,7 +29,7 @@
                         @endif
                         @can('role-create')
                             <span class="float-right">
-                                <a class="btn btn-primary" href="{{ route('subcategorys.create') }}">Create Sub Category</a>
+                                <a class="btn btn-primary" href="{{ route('product.create') }}">Create Sub Product</a>
                             </span>
                         @endcan
                     </div>

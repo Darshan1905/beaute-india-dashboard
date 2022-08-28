@@ -39,9 +39,9 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Category Name</th>
-                                <th>Bussiness Id</th>
-                                <th>Category Code</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -94,9 +94,9 @@
             },
             columns: [
                 {data: 'id', name: 'id'},
-                {data: 'category_name', name: 'category_name'},
-                {data: 'bussiness', name: 'bussiness'},
-                {data: 'category_code', name: 'category_code'},
+                {data: 'name', name: 'name'},
+                {data: 'description', name: 'description'},
+                {data: 'status', name: 'status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],
             "fnDrawCallback": function () {

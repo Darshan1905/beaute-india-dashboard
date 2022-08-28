@@ -38,7 +38,7 @@
 							<a class="nav-link" href="{{ URL::to('categorys') }}"><i class="fe fe-layers"></i><span class="sidemenu-label">Category</span></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="{{ URL::to('subcategorys') }}"><i class="fe fe-layers"></i><span class="sidemenu-label">Sub Category</span></a>
+							<a class="nav-link" href="{{ URL::to('product') }}"><i class="fe fe-layers"></i><span class="sidemenu-label">Product</span></a>
 						</li>
 						
 					</ul>

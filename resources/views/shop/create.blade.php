@@ -31,7 +31,7 @@
                 </div>
             @endif
                 <span class="float-right">
-                    <a class="btn btn-primary" href="{{ route('businesses.index') }}">Back</a>
+                    <a class="btn btn-primary" href="{{ route('shop.index') }}">Back</a>
                 </span>
             </div>
             <div class="card-body">
@@ -53,6 +53,13 @@
                             <div class="form-group">
                                 <strong>Contact:</strong>
                                 {!! Form::number('contact', null, array('placeholder' => 'Contact','class' => 'form-control')) !!}
+                            </div>
+                        </div>   
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <strong>Shop Name:</strong>
+                                {!! Form::text('shopname', null, array('placeholder' => 'Shop Name','class' => 'form-control','required')) !!}
                             </div>
                         </div>   
                         <div class="col-md-12">

@@ -4,7 +4,7 @@
       <!-- Page Header -->
       <div class="page-header">
         <div>
-            <h2 class="main-content-title tx-24 mg-b-5">Sub Category</h2>
+            <h2 class="main-content-title tx-24 mg-b-5">Product</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ URL::to('/') }}">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Create</li>
@@ -19,7 +19,7 @@
         <div class="col-sm-12 col-xl-12 col-lg-12">
             <div class="card custom-card">
            
-            <div class="card-header">Create Sub Category
+            <div class="card-header">Create Product
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
                     <strong>Opps!</strong> Something went wrong, please check below errors.<br><br>
@@ -39,8 +39,8 @@
             <div class="row">
             <div class="col-md-3">
                     <div class="form-group">
-                        <strong>Sub Category Name:</strong>
-                        {!! Form::text('sub_category_name', null, array('placeholder' => 'Sub Category Name','class' => 'form-control','required' =>'required')) !!}
+                        <strong>Name:</strong>
+                        {!! Form::text('name', null, array('placeholder'=> 'Product Name','class' => 'form-control','required' =>'required')) !!}
                     </div>
                 </div>    
                 
