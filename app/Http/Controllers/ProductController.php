@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Categorie;
 use App\Models\Product;
+use App\Models\Size;
+use App\Models\Color;
 use App\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ImportProduct;
@@ -43,7 +45,9 @@ class ProductController extends Controller
                 return '<img src="'.URL::to('/').'/'.$row->image.'" style="width: 50px; height:50px;">'; })
             ->editColumn('category', function($row) {
                 return Categorie::where('id','=',$row->category_id)->first()->name; })
-
+            ->editColumn('status', function($row) {
+                            return $row->status == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">In-Active</span>';
+                        })
             ->addIndexColumn()
             ->addColumn('action', function($row) {
                 $btn = '';
@@ -53,6 +57,7 @@ class ProductController extends Controller
             })
             
             ->rawColumns([
+                'status' => 'status',
                 'image' => 'image',
                 'category' => 'category',
                 'action' => 'action'
@@ -65,7 +70,9 @@ class ProductController extends Controller
     {
         $shop = User::where(array('status' => 1,'type' => 'shop'))->pluck('name', 'id')->all();
         $category = Categorie::where('status','=',1)->pluck('name', 'id')->all();
-        return view('product.create',compact('category','shop'));
+        $size = Size::where('status','=',1)->pluck('name', 'id')->all();
+        $color = Color::where('status','=',1)->pluck('name', 'id')->all();
+        return view('product.create',compact('category','shop','size','color'));
     }
 
     public function store(Request $request)
@@ -98,7 +105,11 @@ class ProductController extends Controller
         $post = Product::find($id);
         $shop = User::where(array('status' => 1,'type' => 'shop'))->pluck('name', 'id')->all();
         $category = Categorie::where('status','=',1)->pluck('name', 'id')->all();
-        return view('product.edit',compact('post','category','shop'));
+        $vendor = User::where('id', $post->vendor_id)->pluck('name', 'id')->all();
+        $size = Size::where('status','=',1)->pluck('name', 'id')->all();
+        $color = Color::where('status','=',1)->pluck('name', 'id')->all();
+       
+        return view('product.edit',compact('post','category','shop','vendor','size','color'));
     }
 
     public function update(Request $request, $id)

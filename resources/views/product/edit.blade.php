@@ -4,7 +4,7 @@
     <div class="justify-content-center">
         
         <div class="card">
-            <div class="card-header">Edit Branch 
+            <div class="card-header">Edit Vendor 
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
                     <strong>Opps!</strong> Something went wrong, please check below errors.<br><br>
@@ -21,13 +21,19 @@
             </div>
             <div class="card-body">
                 {!! Form::model($post, ['route' => ['product.update', $post->id], 'method'=>'PATCH','enctype' => 'multipart/form-data']) !!}
-                  <div class="row">
-                    <div class="col-md-3">
-                    <div class="form-group">
-                        <strong>Shop:</strong>
-                        {!! Form::select('shop_id', $shop,null, array('class' => 'form-control')) !!}
-                    </div>   
+                     <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <strong>Shop:</strong>
+                    {!! Form::select('shop_id', $shop,null, array('id' => 'shop_id','class' => 'form-control','onchange' => "getVendorFn()")) !!}
                 </div>   
+            </div>   
+            <div class="col-md-3">
+                <div class="form-group">
+                    <strong>Vendor:</strong>
+                    {!! Form::select('vendor_id', $vendor,null, array('id'=>'vendor_id' ,'class' => 'form-control')) !!}
+                </div>   
+            </div>   
             <div class="col-md-3">
                 <div class="form-group">
                     <strong>Category:</strong>
@@ -53,12 +59,7 @@
                         {!! Form::number('sale_price', null, array('placeholder'=> 'Sales Price','class' => 'form-control','required' =>'required')) !!}
                     </div>
                 </div> 
-               <div class="col-md-3">
-                    <div class="form-group">
-                        <strong>Product Size:</strong>
-                        {!! Form::number('product_size', null, array('placeholder'=> 'Product Size','class' => 'form-control','required' =>'required')) !!}
-                    </div>
-                </div> 
+              
                 <div class="col-md-3">
                     <div class="form-group">
                         <strong>Shipping Price:</strong>
@@ -70,11 +71,23 @@
                         <strong>Qty:</strong>
                         {!! Form::number('inventory_count', null, array('placeholder' => 'Qty','id' => 'inventory_count','class' => 'form-control','required' =>'required')) !!}
                     </div>
-                </div>      
+                </div>   
+                  <div class="col-md-3">
+                    <div class="form-group">
+                        <strong>Size:</strong>
+                        {!! Form::select('product_size', $size,null, array('class' => 'form-control')) !!}
+                    </div>
+                </div>     
+               <div class="col-md-3">
+                    <div class="form-group">
+                        <strong>Color:</strong>
+                        {!! Form::select('product_color', $color,null, array('class' => 'form-control')) !!}
+                    </div>
+                </div>        
                 <div class="col-md-3">
                     <div class="form-group">
                         <strong>Image:</strong>
-                        {!! Form::file('image', null, array('placeholder' => 'image','id' => 'image','class' => 'form-control')) !!}
+                        {!! Form::file('image', null, array('placeholder' => 'image','id' => 'image','class' => 'form-control','required' =>'required')) !!}
                     </div>
                 </div>      
                 <div class="col-md-12">
@@ -122,5 +135,43 @@ function makeid(length) {
    return result;
 }
 $('#code').val(makeid(2));
+</script>
+
+<script>
+    $(document).ready(function () {
+
+        getVendorFn = function () {
+            var shop_id = $('#shop_id').val();
+            $.ajax({
+                type: "get",
+                contentType: 'application/json',
+                "url": "{{ route('fetch-vendor') }}",
+                data:{shop_id: shop_id},
+                success: function (res) {
+                    $('#vendor_id').html('');
+                    if (res != '') {
+                        var states = res;
+                        $.each(states, function () {
+                            $("#vendor_id").append('<option value="' + this.id + '">' + this.name + '</option>');
+                        });
+                    } else {
+                        $("#vendor_id").append('<option value="">Select Vendor</option>');
+                    }
+                    getCityFn();
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+      
+        
+    });
+
+    $(window).on('load',function(){
+
+getVendorFn();
+    })
 </script>
 @endsection

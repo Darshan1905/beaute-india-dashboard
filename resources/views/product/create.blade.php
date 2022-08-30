@@ -74,12 +74,7 @@
                         {!! Form::number('sale_price', null, array('placeholder'=> 'Sales Price','class' => 'form-control','required' =>'required')) !!}
                     </div>
                 </div> 
-               <div class="col-md-3">
-                    <div class="form-group">
-                        <strong>Product Size:</strong>
-                        {!! Form::number('product_size', null, array('placeholder'=> 'Product Size','class' => 'form-control','required' =>'required')) !!}
-                    </div>
-                </div> 
+             
                 <div class="col-md-3">
                     <div class="form-group">
                         <strong>Shipping Price:</strong>
@@ -92,6 +87,18 @@
                         {!! Form::number('inventory_count', null, array('placeholder' => 'Qty','id' => 'inventory_count','class' => 'form-control','required' =>'required')) !!}
                     </div>
                 </div>      
+                  <div class="col-md-3">
+                    <div class="form-group">
+                        <strong>Size:</strong>
+                        {!! Form::select('product_size', $size,null, array('class' => 'form-control')) !!}
+                    </div>
+                </div>     
+              <div class="col-md-3">
+                    <div class="form-group">
+                        <strong>Color:</strong>
+                        {!! Form::select('product_color', $color,null, array('class' => 'form-control')) !!}
+                    </div>
+                </div>     
                 <div class="col-md-3">
                     <div class="form-group">
                         <strong>Image:</strong>

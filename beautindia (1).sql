@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Aug 25, 2022 at 05:18 AM
--- Server version: 10.5.15-MariaDB-cll-lve
--- PHP Version: 7.2.34
+-- Host: 127.0.0.1
+-- Generation Time: Aug 30, 2022 at 11:32 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,38 +18,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `u856076643_dashleand`
+-- Database: `beautindia`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `branches`
---
-
-CREATE TABLE `branches` (
-  `id` int(255) NOT NULL,
-  `business` int(255) NOT NULL,
-  `business_activity_id` int(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `address` text NOT NULL,
-  `contact` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `gst` int(255) NOT NULL,
-  `country_id` int(11) DEFAULT NULL,
-  `state_id` int(11) DEFAULT NULL,
-  `city` int(11) DEFAULT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `branches`
---
-
-INSERT INTO `branches` (`id`, `business`, `business_activity_id`, `name`, `address`, `contact`, `email`, `gst`, `country_id`, `state_id`, `city`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 't branch', '555', '2656565', 'admin@gmail.com', 56569, NULL, NULL, NULL, 1, '2022-08-24 12:02:16', '2022-08-24 11:03:59');
 
 -- --------------------------------------------------------
 
@@ -74,27 +44,6 @@ CREATE TABLE `brands` (
 
 INSERT INTO `brands` (`id`, `business`, `name`, `companyname`, `brandcode`, `status`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Praveen s', 'sdds', 'BWI', 1, '2022-08-24 07:17:29', '2022-08-24 07:26:03');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `businessactivities`
---
-
-CREATE TABLE `businessactivities` (
-  `id` int(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `businessactivities`
---
-
-INSERT INTO `businessactivities` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'te activity', 1, '2022-08-24 11:58:27', '2022-08-24 11:58:27');
 
 -- --------------------------------------------------------
 
@@ -136,9 +85,9 @@ INSERT INTO `businesses` (`id`, `industrysegment_id`, `name`, `address`, `contac
 
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
-  `category_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `bussiness_id` int(11) NOT NULL,
-  `category_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `status` int(11) NOT NULL DEFAULT 1
@@ -148,8 +97,9 @@ CREATE TABLE `categories` (
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `category_name`, `bussiness_id`, `category_code`, `created_at`, `updated_at`, `status`) VALUES
-(5, 'Category One', 2, 'ZG', '2022-08-24 08:47:17', '2022-08-24 08:47:17', 1);
+INSERT INTO `categories` (`id`, `name`, `description`, `user_id`, `created_at`, `updated_at`, `status`) VALUES
+(5, 'Category One', 'ZG', NULL, '2022-08-24 08:47:17', '2022-08-24 08:47:17', 1),
+(6, 'sandeep s', 'dsdsds', NULL, '2022-08-28 23:42:55', '2022-08-28 23:42:55', 1);
 
 -- --------------------------------------------------------
 
@@ -48136,18 +48086,24 @@ INSERT INTO `cities` (`id`, `name`, `state_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `contacts`
+-- Table structure for table `colors`
 --
 
-CREATE TABLE `contacts` (
+CREATE TABLE `colors` (
   `id` int(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `contact` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `deleted_at` varchar(255) DEFAULT NULL
+  `name` varchar(200) NOT NULL,
+  `color_code` varchar(200) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `colors`
+--
+
+INSERT INTO `colors` (`id`, `name`, `color_code`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'sandeep s d', '9998', 1, '2022-08-30 03:43:45', '2022-08-30 03:46:13');
 
 -- --------------------------------------------------------
 
@@ -48417,33 +48373,6 @@ INSERT INTO `countries` (`id`, `shortname`, `name`, `phonecode`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customermasters`
---
-
-CREATE TABLE `customermasters` (
-  `id` int(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `business_address` text NOT NULL,
-  `communication_address` text NOT NULL,
-  `contact` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `gst` int(255) DEFAULT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `customermasters`
---
-
-INSERT INTO `customermasters` (`id`, `name`, `business_address`, `communication_address`, `contact`, `email`, `gst`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'st', 'adde', 'rtydfg', '544454545', 'g25mai@gmail.com', 46464, 1, '2022-08-24 11:57:11', '2022-08-24 11:53:35'),
-(2, 'test', 'test add', 'test com add', '1457875', 'admin@mediacity.co.in', NULL, 1, '2022-08-24 07:26:57', '2022-08-24 07:30:20');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `failed_jobs`
 --
 
@@ -48455,28 +48384,6 @@ CREATE TABLE `failed_jobs` (
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `industrysegments`
---
-
-CREATE TABLE `industrysegments` (
-  `id` int(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `industrysegments`
---
-
-INSERT INTO `industrysegments` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'test', 1, '2022-08-24 11:56:30', '2022-08-24 11:56:30'),
-(2, 'd', 1, '2022-08-24 13:06:19', '2022-08-24 13:06:52');
 
 -- --------------------------------------------------------
 
@@ -48585,7 +48492,10 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Models\\User', 17),
 (1, 'App\\Models\\User', 18),
 (1, 'App\\Models\\User', 19),
-(1, 'App\\Models\\User', 20);
+(1, 'App\\Models\\User', 20),
+(3, 'App\\Models\\User', 25),
+(3, 'App\\Models\\User', 26),
+(3, 'App\\Models\\User', 27);
 
 -- --------------------------------------------------------
 
@@ -48630,66 +48540,30 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 (10, 'user-create', 'web', '2022-08-23 13:47:29', '2022-08-23 13:47:29'),
 (11, 'user-edit', 'web', '2022-08-23 13:47:39', '2022-08-23 13:47:39'),
 (12, 'user-delete', 'web', '2022-08-23 13:47:49', '2022-08-23 13:47:49'),
-(13, 'industrysegments-list', 'web', '2022-08-23 16:11:45', '2022-08-23 16:15:10'),
-(14, 'industrysegments-create', 'web', '2022-08-23 16:15:22', '2022-08-23 16:15:22'),
-(15, 'industrysegments-edit', 'web', '2022-08-23 16:15:32', '2022-08-23 16:15:32'),
-(16, 'industrysegments-delete', 'web', '2022-08-23 16:15:48', '2022-08-23 16:15:48'),
-(17, 'businessactivities-list', 'web', '2022-08-23 17:47:11', '2022-08-23 17:47:11'),
-(18, 'businessactivities-create', 'web', '2022-08-23 17:47:22', '2022-08-23 17:47:22'),
-(19, 'businessactivities-edit', 'web', '2022-08-23 17:47:38', '2022-08-23 17:47:38'),
-(20, 'businessactivities-delete', 'web', '2022-08-23 17:47:55', '2022-08-23 17:47:55'),
-(21, 'uoms-list', 'web', '2022-08-23 18:14:29', '2022-08-23 18:14:29'),
-(22, 'uoms-create', 'web', '2022-08-23 18:14:40', '2022-08-23 18:14:40'),
-(23, 'uoms-delete', 'web', '2022-08-23 18:14:50', '2022-08-23 18:14:50'),
-(24, 'uoms-edit', 'web', '2022-08-23 18:15:10', '2022-08-23 18:15:10'),
-(25, 'taxes-list', 'web', '2022-08-23 18:30:31', '2022-08-23 18:30:31'),
-(26, 'taxes-create', 'web', '2022-08-23 18:30:47', '2022-08-23 18:30:47'),
-(27, 'taxes-edit', 'web', '2022-08-23 18:30:57', '2022-08-23 18:30:57'),
-(28, 'taxes-delete', 'web', '2022-08-23 18:31:12', '2022-08-23 18:31:12'),
-(29, 'businesses-list', 'web', '2022-08-23 19:11:38', '2022-08-23 19:11:38'),
-(30, 'businesses-create', 'web', '2022-08-23 19:11:46', '2022-08-23 19:11:46'),
-(31, 'businesses-edit', 'web', '2022-08-23 19:12:00', '2022-08-23 19:12:00'),
-(32, 'businesses-delete', 'web', '2022-08-23 19:12:10', '2022-08-23 19:12:10'),
-(33, 'branches-list', 'web', '2022-08-23 20:42:03', '2022-08-23 20:42:03'),
-(34, 'branches-create', 'web', '2022-08-23 20:42:11', '2022-08-23 20:42:11'),
-(35, 'branches-edit', 'web', '2022-08-23 20:42:24', '2022-08-23 20:42:24'),
-(36, 'branches-delete', 'web', '2022-08-23 20:42:38', '2022-08-23 20:42:38'),
-(37, 'userbranches-list', 'web', '2022-08-24 06:23:13', '2022-08-24 06:23:13'),
-(38, 'userbranches-create', 'web', '2022-08-24 06:23:21', '2022-08-24 06:23:21'),
-(39, 'userbranches-edit', 'web', '2022-08-24 06:23:32', '2022-08-24 06:23:32'),
-(40, 'userbranches-delete', 'web', '2022-08-24 06:23:42', '2022-08-24 06:23:42'),
 (41, 'category-list', 'web', '2022-08-24 06:28:41', '2022-08-24 06:28:41'),
 (42, 'categorys-create', 'web', '2022-08-24 06:28:53', '2022-08-24 06:28:53'),
 (43, 'categorys-edit', 'web', '2022-08-24 06:29:02', '2022-08-24 06:29:02'),
 (44, 'categorys-delete', 'web', '2022-08-24 06:29:11', '2022-08-24 06:29:11'),
-(45, 'customermaster-list', 'web', '2022-08-24 06:41:59', '2022-08-24 06:41:59'),
-(46, 'customermaster-create', 'web', '2022-08-24 06:42:10', '2022-08-24 06:42:10'),
-(47, 'customermaster-edit', 'web', '2022-08-24 06:42:18', '2022-08-24 06:42:18'),
-(48, 'customermaster-delete', 'web', '2022-08-24 06:42:26', '2022-08-24 06:42:26'),
-(49, 'brands-list', 'web', '2022-08-24 06:57:45', '2022-08-24 06:57:45'),
-(50, 'brands-create', 'web', '2022-08-24 06:57:55', '2022-08-24 06:57:55'),
-(51, 'brands-edit', 'web', '2022-08-24 06:58:06', '2022-08-24 06:58:06'),
-(52, 'brands-delete', 'web', '2022-08-24 06:58:15', '2022-08-24 06:58:15'),
-(53, 'subcategorys-create', 'web', '2022-08-24 08:04:27', '2022-08-24 08:04:27'),
-(54, 'subcategorys-edit', 'web', '2022-08-24 08:04:41', '2022-08-24 08:04:41'),
-(55, 'subcategorys-delete', 'web', '2022-08-24 08:04:51', '2022-08-24 08:04:51'),
-(56, 'subcategorys-list', 'web', '2022-08-24 08:05:35', '2022-08-24 08:05:35'),
-(57, 'vendors-list', 'web', '2022-08-24 08:32:08', '2022-08-24 08:32:08'),
-(58, 'vendors-create', 'web', '2022-08-24 08:32:23', '2022-08-24 08:32:23'),
-(59, 'vendors-edit', 'web', '2022-08-24 08:32:36', '2022-08-24 08:32:36'),
-(60, 'vendors-delete', 'web', '2022-08-24 08:32:48', '2022-08-24 08:32:48'),
-(61, 'material-list', 'web', '2022-08-24 09:16:54', '2022-08-24 09:16:54'),
-(62, 'material-create', 'web', '2022-08-24 09:17:01', '2022-08-24 09:17:01'),
-(63, 'material-edit', 'web', '2022-08-24 09:17:09', '2022-08-24 09:17:09'),
-(64, 'material-delete', 'web', '2022-08-24 09:17:17', '2022-08-24 09:17:17'),
-(65, 'materialvendor-list', 'web', '2022-08-24 09:36:20', '2022-08-24 09:36:20'),
-(66, 'materialvendor-create', 'web', '2022-08-24 09:36:29', '2022-08-24 09:36:29'),
-(67, 'materialvendor-edit', 'web', '2022-08-24 09:36:38', '2022-08-24 09:36:38'),
-(68, 'materialvendor-delete', 'web', '2022-08-24 09:36:48', '2022-08-24 09:36:48'),
-(69, 'vendorbrands-list', 'web', '2022-08-24 11:06:07', '2022-08-24 11:06:07'),
-(70, 'vendorbrands-create', 'web', '2022-08-24 11:06:17', '2022-08-24 11:06:17'),
-(71, 'vendorbrands-edit', 'web', '2022-08-24 11:06:32', '2022-08-24 11:06:32'),
-(72, 'vendorbrands-delete', 'web', '2022-08-24 11:06:49', '2022-08-24 11:06:49');
+(73, 'shop-list', 'web', '2022-08-26 07:18:10', '2022-08-26 07:18:10'),
+(74, 'shop-create', 'web', '2022-08-26 07:18:20', '2022-08-26 07:18:20'),
+(75, 'shop-edit', 'web', '2022-08-26 07:18:29', '2022-08-26 07:18:29'),
+(76, 'shop-delete', 'web', '2022-08-26 07:18:37', '2022-08-26 07:18:37'),
+(77, 'product-list', 'web', '2022-08-28 23:43:37', '2022-08-28 23:43:37'),
+(78, 'product-create', 'web', '2022-08-28 23:43:45', '2022-08-28 23:43:45'),
+(79, 'product-edit', 'web', '2022-08-28 23:43:57', '2022-08-28 23:43:57'),
+(80, 'product-delete', 'web', '2022-08-28 23:44:04', '2022-08-28 23:44:04'),
+(81, 'vendors-list', 'web', '2022-08-29 03:41:34', '2022-08-29 03:41:34'),
+(82, 'vendors-create', 'web', '2022-08-29 03:41:41', '2022-08-29 03:41:41'),
+(83, 'vendors-edit', 'web', '2022-08-29 03:41:50', '2022-08-29 03:41:50'),
+(84, 'vendors-delete', 'web', '2022-08-29 03:41:59', '2022-08-29 03:41:59'),
+(85, 'color-list', 'web', '2022-08-30 03:38:00', '2022-08-30 03:38:00'),
+(86, 'color-create', 'web', '2022-08-30 03:38:21', '2022-08-30 03:38:21'),
+(87, 'color-edit', 'web', '2022-08-30 03:38:25', '2022-08-30 03:38:25'),
+(88, 'color-delete', 'web', '2022-08-30 03:38:33', '2022-08-30 03:38:33'),
+(89, 'size-list', 'web', '2022-08-30 03:39:02', '2022-08-30 03:39:02'),
+(90, 'size-create', 'web', '2022-08-30 03:39:09', '2022-08-30 03:39:09'),
+(91, 'size-edit', 'web', '2022-08-30 03:39:16', '2022-08-30 03:39:16'),
+(92, 'size-delete', 'web', '2022-08-30 03:39:24', '2022-08-30 03:39:24');
 
 -- --------------------------------------------------------
 
@@ -48712,16 +48586,40 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `posts`
+-- Table structure for table `products`
 --
 
-CREATE TABLE `posts` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `body` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `products` (
+  `id` int(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `short_description` text DEFAULT NULL,
+  `long_description` text DEFAULT NULL,
+  `normal_price` double(10,2) DEFAULT NULL,
+  `sale_price` double(10,2) DEFAULT NULL,
+  `inventory_count` int(255) DEFAULT NULL,
+  `product_size` int(255) DEFAULT NULL,
+  `product_color` int(255) NOT NULL,
+  `sku_no` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `stock_status` int(255) DEFAULT NULL,
+  `shop_id` int(255) NOT NULL,
+  `vendor_id` int(255) NOT NULL,
+  `shipping_price` double(10,2) DEFAULT NULL,
+  `category_id` int(255) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `name`, `short_description`, `long_description`, `normal_price`, `sale_price`, `inventory_count`, `product_size`, `product_color`, `sku_no`, `image`, `stock_status`, `shop_id`, `vendor_id`, `shipping_price`, `category_id`, `status`, `created_at`, `updated_at`) VALUES
+(6, 'sandeep s', '<p>dsds</p>', '<p>dsds</p>', 10.00, 3001.00, 10, 5, 0, 'PRO00006', 'public/image/202208290731_9556.png', NULL, 0, 0, 400.00, 5, 1, '2022-08-29 01:06:45', '2022-08-29 02:01:08'),
+(15, 'sandeep s', '<p>dsds</p>', '<p>dsds</p>', 200.00, 300.00, 12, 20, 0, 'PRO000015', 'public/image/202208291217_8584.png', NULL, 26, 0, 20.00, 6, 1, '2022-08-29 06:47:26', '2022-08-29 06:47:26'),
+(16, 'sandeep', '<p>dsds</p>', '<p>dsds</p>', 1200.00, 2255.00, 22, 225, 0, 'PRO000016', 'public/image/202208291219_4798.jpg', NULL, 26, 5, 22.00, 6, 1, '2022-08-29 06:49:49', '2022-08-29 23:58:17'),
+(17, 'sandeep s', '<p>dsds</p>', '<p>dsds</p>', 200.00, 100.00, 55, 1, 1, 'PRO000017', 'public/image/202208300931_4393.jpg', NULL, 26, 5, 25.00, 6, 1, '2022-08-30 04:01:03', '2022-08-30 04:01:03');
 
 -- --------------------------------------------------------
 
@@ -48733,6 +48631,7 @@ CREATE TABLE `roles` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -48741,8 +48640,9 @@ CREATE TABLE `roles` (
 -- Dumping data for table `roles`
 --
 
-INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', 'web', '2022-08-23 13:49:38', '2022-08-23 13:49:38');
+INSERT INTO `roles` (`id`, `name`, `guard_name`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'Admin', 'web', 17, '2022-08-23 13:49:38', '2022-08-26 06:23:40'),
+(3, 'Shop', 'web', NULL, '2022-08-29 05:29:30', '2022-08-29 05:29:30');
 
 -- --------------------------------------------------------
 
@@ -48761,77 +48661,98 @@ CREATE TABLE `role_has_permissions` (
 
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (1, 1),
+(1, 3),
 (2, 1),
+(2, 3),
 (3, 1),
+(3, 3),
 (4, 1),
+(4, 3),
 (5, 1),
+(5, 3),
 (6, 1),
+(6, 3),
 (7, 1),
+(7, 3),
 (8, 1),
+(8, 3),
 (9, 1),
+(9, 3),
 (10, 1),
+(10, 3),
 (11, 1),
+(11, 3),
 (12, 1),
-(13, 1),
-(14, 1),
-(15, 1),
-(16, 1),
-(17, 1),
-(18, 1),
-(19, 1),
-(20, 1),
-(21, 1),
-(22, 1),
-(23, 1),
-(24, 1),
-(25, 1),
-(26, 1),
-(27, 1),
-(28, 1),
-(29, 1),
-(30, 1),
-(31, 1),
-(32, 1),
-(33, 1),
-(34, 1),
-(35, 1),
-(36, 1),
-(37, 1),
-(38, 1),
-(39, 1),
-(40, 1),
+(12, 3),
 (41, 1),
+(41, 3),
 (42, 1),
+(42, 3),
 (43, 1),
+(43, 3),
 (44, 1),
-(45, 1),
-(46, 1),
-(47, 1),
-(48, 1),
-(49, 1),
-(50, 1),
-(51, 1),
-(52, 1),
-(53, 1),
-(54, 1),
-(55, 1),
-(56, 1),
-(57, 1),
-(58, 1),
-(59, 1),
-(60, 1),
-(61, 1),
-(62, 1),
-(63, 1),
-(64, 1),
-(65, 1),
-(66, 1),
-(67, 1),
-(68, 1),
-(69, 1),
-(70, 1),
-(71, 1),
-(72, 1);
+(44, 3),
+(73, 1),
+(73, 3),
+(74, 1),
+(74, 3),
+(75, 1),
+(75, 3),
+(76, 1),
+(76, 3),
+(77, 1),
+(77, 3),
+(78, 1),
+(78, 3),
+(79, 1),
+(79, 3),
+(80, 1),
+(80, 3),
+(81, 1),
+(81, 3),
+(82, 1),
+(82, 3),
+(83, 1),
+(83, 3),
+(84, 1),
+(84, 3),
+(85, 1),
+(85, 3),
+(86, 1),
+(86, 3),
+(87, 1),
+(87, 3),
+(88, 1),
+(88, 3),
+(89, 1),
+(89, 3),
+(90, 1),
+(90, 3),
+(91, 1),
+(91, 3),
+(92, 1),
+(92, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sizes`
+--
+
+CREATE TABLE `sizes` (
+  `id` int(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `sizes`
+--
+
+INSERT INTO `sizes` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'sandeep d', 1, '2022-08-30 03:52:17', '2022-08-30 03:55:10');
 
 -- --------------------------------------------------------
 
@@ -52970,75 +52891,6 @@ INSERT INTO `subcategories` (`id`, `bussiness_id`, `sub_category_name`, `sub_cat
 -- --------------------------------------------------------
 
 --
--- Table structure for table `taxes`
---
-
-CREATE TABLE `taxes` (
-  `id` int(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `percentage` int(255) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `taxes`
---
-
-INSERT INTO `taxes` (`id`, `name`, `percentage`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'dd', 20, 0, '2022-08-24 13:09:03', '2022-08-24 13:09:09');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `uoms`
---
-
-CREATE TABLE `uoms` (
-  `id` int(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `uoms`
---
-
-INSERT INTO `uoms` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'asdf', 1, '2022-08-24 11:01:47', '2022-08-24 11:01:47'),
-(2, 'dsds', 0, '2022-08-24 13:07:40', '2022-08-24 13:07:47');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `userbranches`
---
-
-CREATE TABLE `userbranches` (
-  `id` int(255) NOT NULL,
-  `branch_id` int(255) NOT NULL,
-  `user_id` int(255) NOT NULL,
-  `country_id` int(11) DEFAULT NULL,
-  `state_id` int(11) DEFAULT NULL,
-  `city` int(11) DEFAULT NULL,
-  `status` int(255) NOT NULL DEFAULT 1,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `userbranches`
---
-
-INSERT INTO `userbranches` (`id`, `branch_id`, `user_id`, `country_id`, `state_id`, `city`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 17, 101, 19, 1859, 1, '2022-08-24 06:37:51', '2022-08-24 11:17:16');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `users`
 --
 
@@ -53050,6 +52902,9 @@ CREATE TABLE `users` (
   `designation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `business` int(255) DEFAULT NULL,
+  `type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
+  `shop_id` int(255) DEFAULT NULL,
+  `shopname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -53062,30 +52917,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `contact`, `designation`, `address`, `business`, `status`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(17, 'Admin', 'admin@gmail.com', NULL, NULL, 'dsdsds', 1, 1, NULL, '$2y$10$TgbOAXCZkXo66PsmWkbkPevg7rgqCzCe4gUBDz82qbOaLO03RFcEy', NULL, '2022-08-18 13:42:25', '2022-08-24 06:07:12');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `vendorbrands`
---
-
-CREATE TABLE `vendorbrands` (
-  `id` int(255) NOT NULL,
-  `vendor_id` int(255) NOT NULL,
-  `brand_id` int(255) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `vendorbrands`
---
-
-INSERT INTO `vendorbrands` (`id`, `vendor_id`, `brand_id`, `status`, `created_at`, `updated_at`) VALUES
-(1, 2, 1, 1, '2022-08-24 11:18:23', '2022-08-24 11:28:15');
+INSERT INTO `users` (`id`, `name`, `email`, `contact`, `designation`, `address`, `business`, `type`, `shop_id`, `shopname`, `status`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(17, 'Admin', 'admin@gmail.com', NULL, NULL, 'dsdsds', 1, 'admin', NULL, NULL, 1, NULL, '$2y$10$TgbOAXCZkXo66PsmWkbkPevg7rgqCzCe4gUBDz82qbOaLO03RFcEy', NULL, '2022-08-18 13:42:25', '2022-08-24 06:07:12'),
+(26, 'sandeep s', 'ravi@gmail.com', '9780808060', NULL, 'dsds', NULL, 'shop', 26, 'newshop', 1, NULL, '$2y$10$dTpAdCAp64ZcUTRSeKIUReWky60iyHAGSY8zPwTE0eJz8QP/QSrrS', NULL, '2022-08-29 06:38:16', '2022-08-29 06:40:46'),
+(27, 'Agate', 'ggate@gmail.com', '9780808060', NULL, 'dasdsds', NULL, 'shop', 27, 'newshopee', 1, NULL, '$2y$10$tWR/ADN7v.j/uMaFksKFg.3cjN92zNdsRSL./CugHgP14tu3hnd/W', NULL, '2022-08-29 06:49:13', '2022-08-29 06:49:14');
 
 -- --------------------------------------------------------
 
@@ -53096,7 +52931,7 @@ INSERT INTO `vendorbrands` (`id`, `vendor_id`, `brand_id`, `status`, `created_at
 CREATE TABLE `vendors` (
   `id` int(255) NOT NULL,
   `vendorcode` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `business` int(255) NOT NULL,
+  `shop_id` int(255) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `contact` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -53117,30 +52952,17 @@ CREATE TABLE `vendors` (
 -- Dumping data for table `vendors`
 --
 
-INSERT INTO `vendors` (`id`, `vendorcode`, `business`, `name`, `contact`, `email`, `address`, `country_id`, `state_id`, `city`, `pincode`, `pdf`, `pan`, `gst`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Pr21000001', 2, 'Praveen', '88888888888', 'admin@gmail.com', 'sddsds', 101, 21, 2229, 452001, '/tmp/phpitqcGe', '645455445', 45454, 1, '2022-08-24 10:17:03', '2022-08-24 10:17:03'),
-(2, 'Ne21000002', 1, 'new', '54445', 'admin@gmail.com', 'sdsdds', 101, 21, 2229, 452001, '/tmp/phprUgFHk', '44454', 55, 1, '2022-08-24 10:39:37', '2022-08-24 10:39:37');
+INSERT INTO `vendors` (`id`, `vendorcode`, `shop_id`, `name`, `contact`, `email`, `address`, `country_id`, `state_id`, `city`, `pincode`, `pdf`, `pan`, `gst`, `status`, `created_at`, `updated_at`) VALUES
+(5, 'SA-21-000001', 26, 'sandeep s', '8085210252', 'admin@gmail.com', 'dsds', 101, 21, 2070, 452001, 'C:\\xampp2\\tmp\\php82F1.tmp', '25646', 56465456, 1, '2022-08-29 06:42:40', '2022-08-29 06:42:40');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `branches`
---
-ALTER TABLE `branches`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `brands`
 --
 ALTER TABLE `brands`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `businessactivities`
---
-ALTER TABLE `businessactivities`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -53162,9 +52984,9 @@ ALTER TABLE `cities`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `contacts`
+-- Indexes for table `colors`
 --
-ALTER TABLE `contacts`
+ALTER TABLE `colors`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -53174,21 +52996,9 @@ ALTER TABLE `countries`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `customermasters`
---
-ALTER TABLE `customermasters`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `industrysegments`
---
-ALTER TABLE `industrysegments`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -53245,9 +53055,9 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Indexes for table `posts`
+-- Indexes for table `products`
 --
-ALTER TABLE `posts`
+ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -53265,6 +53075,12 @@ ALTER TABLE `role_has_permissions`
   ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
 
 --
+-- Indexes for table `sizes`
+--
+ALTER TABLE `sizes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `states`
 --
 ALTER TABLE `states`
@@ -53277,35 +53093,11 @@ ALTER TABLE `subcategories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `taxes`
---
-ALTER TABLE `taxes`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `uoms`
---
-ALTER TABLE `uoms`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `userbranches`
---
-ALTER TABLE `userbranches`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
-
---
--- Indexes for table `vendorbrands`
---
-ALTER TABLE `vendorbrands`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `vendors`
@@ -53318,21 +53110,9 @@ ALTER TABLE `vendors`
 --
 
 --
--- AUTO_INCREMENT for table `branches`
---
-ALTER TABLE `branches`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `businessactivities`
---
-ALTER TABLE `businessactivities`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
@@ -53345,7 +53125,7 @@ ALTER TABLE `businesses`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `cities`
@@ -53354,10 +53134,10 @@ ALTER TABLE `cities`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48357;
 
 --
--- AUTO_INCREMENT for table `contacts`
+-- AUTO_INCREMENT for table `colors`
 --
-ALTER TABLE `contacts`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `colors`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `countries`
@@ -53366,22 +53146,10 @@ ALTER TABLE `countries`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=249;
 
 --
--- AUTO_INCREMENT for table `customermasters`
---
-ALTER TABLE `customermasters`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `industrysegments`
---
-ALTER TABLE `industrysegments`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `materials`
@@ -53405,7 +53173,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -53414,16 +53182,22 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `posts`
+-- AUTO_INCREMENT for table `products`
 --
-ALTER TABLE `posts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `products`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `sizes`
+--
+ALTER TABLE `sizes`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `states`
@@ -53438,40 +53212,16 @@ ALTER TABLE `subcategories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `taxes`
---
-ALTER TABLE `taxes`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `uoms`
---
-ALTER TABLE `uoms`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `userbranches`
---
-ALTER TABLE `userbranches`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
---
--- AUTO_INCREMENT for table `vendorbrands`
---
-ALTER TABLE `vendorbrands`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `vendors`
 --
 ALTER TABLE `vendors`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables

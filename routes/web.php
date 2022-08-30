@@ -9,6 +9,8 @@ use App\Http\Controllers\shopController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SizeController;
+use App\Http\Controllers\ColorController;
 
 
 /*
@@ -49,7 +51,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('vendors', VendorController::class);
     Route::get('vendorsList/', [VendorController::class, 'vendorsList'])->name('vendors-list');
 
-
+    Route::resource('color', ColorController::class);
+    Route::get('color-List/', [ColorController::class, 'colorList'])->name('color-list');
   
+    Route::resource('size', SizeController::class);
+    Route::get('size-List/', [SizeController::class, 'sizeList'])->name('size-list');
   
 });

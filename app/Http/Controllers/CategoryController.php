@@ -29,6 +29,9 @@ class CategoryController extends Controller
         $industry = Categorie::get();
         return datatables()->of($industry)
             ->editColumn('created_at', '{{ date("d-m-Y", strtotime($created_at)) }}')
+            ->editColumn('status', function($row) {
+                            return $row->status == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">In-Active</span>';
+                        })
             ->addColumn('action', function($row) {
                 $btn = '';
                 $btn .= '<div class="btn-group">';
@@ -36,6 +39,7 @@ class CategoryController extends Controller
                 return $btn;
             })
             ->rawColumns([
+                'status' => 'status',
                 'category_name' => 'category_name',
                 'bussiness' => 'bussiness',
                 'category_code' => 'category_code',
