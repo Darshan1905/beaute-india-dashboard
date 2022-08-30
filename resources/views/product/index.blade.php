@@ -28,8 +28,11 @@
                             </div>
                         @endif
                         @can('role-create')
+                            <span class="float-left">
+                                <a class="btn btn-success" data-target="#modaldemo1" data-toggle="modal" href="javascript: void(0);">Import Bulk Products</a>
+                            </span>
                             <span class="float-right">
-                                <a class="btn btn-primary" href="{{ route('product.create') }}">Create Sub Product</a>
+                                <a class="btn btn-primary" href="{{ route('product.create') }}">Create Product</a>
                             </span>
                         @endcan
                     </div>
@@ -39,9 +42,13 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Sub Category Name</th>
-                                <th>Category Name</th>
-                                <th>Sub Category Code</th>
+                                <th>SKU No.</th>
+                                <th>Image</th>
+                                <th>Category</th>
+                                <th>Name</th>
+                                <th>MRP</th>
+                                <th>Sale Price</th>
+                                <th>QTY</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -60,7 +67,42 @@
 
     </div>
 	
-
+    <!-- Excel Import modal -->
+    <div class="modal" id="modaldemo1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-content-demo">
+                <form enctype="multipart/form-data" action="{{ route('import') }}" id="importfile" method="POST">
+                @csrf
+                <div class="modal-header">
+                    <h6 class="modal-title">Product Excel Import</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row row-sm">
+                        <div class="col-lg">
+                            <select class="form-control" name="category_id" required>
+                                @if($category)
+                                @foreach ($category as $key => $value)
+                                     <option value="{{ $value['id'] }}">{{ $value['name'] }}</option>
+                                @endforeach
+                                @endif
+                            </select>
+                        </div>
+                        <div class="col-lg">
+                            <input class="form-control" name="file" placeholder="Input box" type="file">
+                            <a href="{{ URL::to('/') }}/public/products.xlsx" download="">Example Product Excel File</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn ripple btn-primary" type="submit">Import</button>
+                    <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">Close</button>
+                </div>
+               </form>
+               
+            </div>
+        </div>
+    </div>
+    <!-- End  Excel Import modal -->
 
 @endsection
 
@@ -89,14 +131,18 @@
             responsive: true,
             serverSide: true,
             ajax: {
-                "url": "{{ route('subcategorys-list') }}",
+                "url": "{{ route('product-list') }}",
                 "type": "get",
             },
             columns: [
-                {data: 'id', name: 'id'},
-                {data: 'sub_category_name', name: 'category_name'},
+                {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                {data: 'sku_no', name: 'sku_no'},
+                {data: 'image', name: 'image'},
                 {data: 'category', name: 'category'},
-                {data: 'sub_category_code', name: 'category_code'},
+                {data: 'name', name: 'name'},
+                {data: 'normal_price', name: 'normal_price'},
+                {data: 'sale_price', name: 'sale_price'},
+                {data: 'inventory_count', name: 'inventory_count'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],
             "fnDrawCallback": function () {

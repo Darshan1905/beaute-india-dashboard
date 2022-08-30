@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\State;
 use App\Models\Cities;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -26,6 +27,17 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function fetchvendorsList(Request $request) {
+
+        $input = $request->all();
+        $states = Vendor::where('shop_id', $input['shop_id'])->get()->toArray();
+        return $states;
+        if (count($states)) {
+            $message = 'Success';
+            return Response()->json($states);
+        }
     }
 
 

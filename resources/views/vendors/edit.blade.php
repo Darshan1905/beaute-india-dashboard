@@ -4,7 +4,7 @@
     <div class="justify-content-center">
         
         <div class="card">
-            <div class="card-header">Edit Brand 
+            <div class="card-header">Edit Vendor 
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
                     <strong>Opps!</strong> Something went wrong, please check below errors.<br><br>
@@ -24,8 +24,8 @@
                 <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
-                        <strong>Business:</strong>
-                        {!! Form::select('business', $business,null, array('class' => 'form-control')) !!}
+                        <strong>Shop:</strong>
+                        {!! Form::select('shop_id', $shop,null, array('class' => 'form-control')) !!}
                     </div>   
                 </div>   
                 <div class="col-md-3">

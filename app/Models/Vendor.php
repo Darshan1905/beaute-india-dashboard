@@ -15,6 +15,6 @@ class Vendor extends Model
      * @var array
      */
     protected $fillable = [
-        'vendorcode', 'business', 'name',  'country_id',  'state_id',  'city', 'pincode', 'contact', 'email', 'address', 'pdf', 'pan', 'gst','status'	
+        'vendorcode', 'business', 'name',  'country_id',  'state_id',  'city', 'pincode', 'contact', 'email', 'address', 'pdf', 'pan', 'gst','status','shop_id'	
     ];
 }

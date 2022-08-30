@@ -39,7 +39,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>VendorCode</th>
-                                <th>Business</th>
+                                <th>Shop</th>
                                 <th>Name</th>
                                 <th>Contact</th>
                                 <th>Email</th>
@@ -97,7 +97,7 @@
             columns: [
                 {data: 'id', name: 'id'},
                 {data: 'vendorcode', name: 'vendorcode'},
-                {data: 'business', name: 'business'},
+                {data: 'shop', name: 'shop'},
                 {data: 'name', name: 'name'},
                 {data: 'contact', name: 'contact'},
                 {data: 'email', name: 'email'},

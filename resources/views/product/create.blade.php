@@ -31,40 +31,85 @@
                 </div>
             @endif
                 <span class="float-right">
-                    <a class="btn btn-primary" href="{{ route('subcategorys.index') }}">Back</a>
+                    <a class="btn btn-primary" href="{{ route('product.index') }}">Back</a>
                 </span>
             </div>
             <div class="card-body">
-            {!! Form::open(array('route' => 'subcategorys.store', 'method'=>'POST','enctype' => 'multipart/form-data')) !!}
+            {!! Form::open(array('route' => 'product.store', 'method'=>'POST','enctype' => 'multipart/form-data')) !!}
             <div class="row">
             <div class="col-md-3">
-                    <div class="form-group">
-                        <strong>Name:</strong>
-                        {!! Form::text('name', null, array('placeholder'=> 'Product Name','class' => 'form-control','required' =>'required')) !!}
-                    </div>
-                </div>    
+                <div class="form-group">
+                    <strong>Shop:</strong>
+                    {!! Form::select('shop_id', $shop,null, array('id' => 'shop_id','class' => 'form-control','onchange' => "getVendorFn()")) !!}
+                </div>   
+            </div>   
+            <div class="col-md-3">
+                <div class="form-group">
+                    <strong>Vendor:</strong>
+                    {!! Form::select('vendor_id', [],null, array('id'=>'vendor_id' ,'class' => 'form-control')) !!}
+                </div>   
+            </div>   
+            <div class="col-md-3">
+                <div class="form-group">
+                    <strong>Category:</strong>
+                    {!! Form::select('category_id', $category,null, array('class' => 'form-control')) !!}
+                </div>
+            </div>     
+            <div class="col-md-3">
+                <div class="form-group">
+                    <strong>Name:</strong>
+                    {!! Form::text('name', null, array('placeholder'=> 'Product Name','class' => 'form-control','required' =>'required')) !!}
+                </div>
+            </div>    
                 
             <div class="col-md-3">
                     <div class="form-group">
-                        <strong>Bussiness:</strong>
-                        {!! Form::select('bussiness_id', $business,null, array('class' => 'form-control')) !!}
+                        <strong>MRP:</strong>
+                        {!! Form::number('normal_price', null, array('placeholder'=> 'MRP','class' => 'form-control','required' =>'required')) !!}
                     </div>
                 </div> 
                 <div class="col-md-3">
                     <div class="form-group">
-                        <strong>Category:</strong>
-                        {!! Form::select('category_id', $category,null, array('class' => 'form-control')) !!}
+                        <strong>Sales Price:</strong>
+                        {!! Form::number('sale_price', null, array('placeholder'=> 'Sales Price','class' => 'form-control','required' =>'required')) !!}
+                    </div>
+                </div> 
+               <div class="col-md-3">
+                    <div class="form-group">
+                        <strong>Product Size:</strong>
+                        {!! Form::number('product_size', null, array('placeholder'=> 'Product Size','class' => 'form-control','required' =>'required')) !!}
                     </div>
                 </div> 
                 <div class="col-md-3">
                     <div class="form-group">
-                        <strong>Sub Category Code:</strong>
-                    
-                        {!! Form::text('sub_category_code', null, array('placeholder' => 'Sub category code','id' => 'code','class' => 'form-control','required' =>'required')) !!}
-                      
+                        <strong>Shipping Price:</strong>
+                        {!! Form::number('shipping_price', null, array('placeholder'=> 'Product Size','class' => 'form-control','required' =>'required')) !!}
+                    </div>
+                </div> 
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <strong>Qty:</strong>
+                        {!! Form::number('inventory_count', null, array('placeholder' => 'Qty','id' => 'inventory_count','class' => 'form-control','required' =>'required')) !!}
                     </div>
                 </div>      
-                
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <strong>Image:</strong>
+                        {!! Form::file('image', null, array('placeholder' => 'image','id' => 'image','class' => 'form-control','required' =>'required')) !!}
+                    </div>
+                </div>      
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <strong>Short Description:</strong>
+                        {!! Form::textarea('short_description', null, array('placeholder' => 'Short Description','id' => 'shor_description','class' => 'form-control','required' =>'required')) !!}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <strong>Long Description:</strong>
+                         {!! Form::textarea('long_description', null, array('placeholder' => 'Short Description','id' => 'log_description','class' => 'form-control','required' =>'required')) !!}
+                    </div>
+                </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <strong>Status:</strong>
@@ -83,7 +128,13 @@
 </div>
 @endsection
 @section('scripts')
+<script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
 <script>
+        CKEDITOR.replace( 'short_description' );
+        CKEDITOR.replace( 'long_description' );
+</script>
+<script>
+
 function makeid(length) {
     var result           = '';
     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -95,5 +146,43 @@ function makeid(length) {
    return result;
 }
 $('#code').val(makeid(2));
+</script>
+
+<script>
+    $(document).ready(function () {
+
+        getVendorFn = function () {
+            var shop_id = $('#shop_id').val();
+            $.ajax({
+                type: "get",
+                contentType: 'application/json',
+                "url": "{{ route('fetch-vendor') }}",
+                data:{shop_id: shop_id},
+                success: function (res) {
+                    $('#vendor_id').html('');
+                    if (res != '') {
+                        var states = res;
+                        $.each(states, function () {
+                            $("#vendor_id").append('<option value="' + this.id + '">' + this.name + '</option>');
+                        });
+                    } else {
+                        $("#vendor_id").append('<option value="">Select Vendor</option>');
+                    }
+                    getCityFn();
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+      
+        
+    });
+
+    $(window).on('load',function(){
+
+getVendorFn();
+    })
 </script>
 @endsection

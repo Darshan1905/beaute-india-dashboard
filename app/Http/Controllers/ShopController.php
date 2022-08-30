@@ -36,6 +36,8 @@ class ShopController extends Controller
                 $btn .= ' <a class="btn btn-primary" href="' . route('shop.edit', [$row->id]) . '">Edit</a>';
                 return $btn;
             })
+
+            ->addIndexColumn()
             ->rawColumns([
                 'status' => 'status',
                 'action' => 'action'
@@ -62,7 +64,9 @@ class ShopController extends Controller
         $input['password'] = Hash::make($input['password']);
         $input['type'] = 'shop';
         $user = User::create($input);
-    
+        $user->assignRole($request->input('roles'));
+         User::where('id',$user->id)->update(array('shop_id' =>$user->id));
+       
         return redirect()->route('shop.index')
             ->with('success', 'Shop created successfully.');
     }
@@ -89,7 +93,6 @@ class ShopController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'confirmed',
-            'roles' => 'required'
         ]);
     
         $input = $request->all();
@@ -104,11 +107,6 @@ class ShopController extends Controller
         $input['type'] = 'shop';
         $user->update($input);
 
-        DB::table('model_has_roles')
-            ->where('model_id', $id)
-            ->delete();
-    
-        $user->assignRole($request->input('roles'));
     
         return redirect()->route('shop.index')
             ->with('success', 'User updated successfully.');

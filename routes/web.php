@@ -7,7 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\shopController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\VendorController;
 use App\Http\Controllers\ProductController;
 
 
@@ -39,16 +39,17 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('category-list/', [CategoryController::class, 'categoryList'])->name('category-list');
    
     Route::resource('product', ProductController::class);
-    Route::get('product-list/', [ProductController::class, 'productList'])->name('product-list');
-
-    Route::resource('subcategorys', SubcategoryController::class);
-    Route::get('subcategorys-list/', [SubcategoryController::class, 'subcategorysList'])->name('subcategorys-list');
+    Route::get('product-list/', [ProductController::class, 'productList'])->name('product-list');  
+    Route::post('/import',[ProductController::class,'import'])->name('import');
 
     Route::get('state-list/', [HomeController::class, 'stateList'])->name('state-list');
     Route::get('city-list/', [HomeController::class, 'cityList'])->name('city-list');
-   
+    Route::get('fetchvendorsList/', [HomeController::class, 'fetchvendorsList'])->name('fetch-vendor');
 
     Route::resource('vendors', VendorController::class);
     Route::get('vendorsList/', [VendorController::class, 'vendorsList'])->name('vendors-list');
+
+
+  
   
 });

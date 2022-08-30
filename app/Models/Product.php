@@ -11,10 +11,10 @@ class Product extends Model
 
     /**
      * The attributes that are mass assignable.
-     *
+     * 
      * @var array
      */
     protected $fillable = [
-        'name', 'shor_description', 'log_description','normal_price', 'sale_price', 'inventory_count', 'product_size', 'sku_no', 'stock_status', 'shipping_price', 'category_id',
+        'name', 'short_description', 'long_description','normal_price', 'sale_price', 'inventory_count', 'product_size', 'sku_no', 'stock_status', 'shipping_price', 'category_id','image','shop_id','vendor_id'
     ];
 }

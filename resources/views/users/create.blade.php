@@ -31,7 +31,7 @@
                 </div>
             @endif
                 <span class="float-right">
-                    <a class="btn btn-primary" href="{{ route('uoms.index') }}">Back</a>
+                    <a class="btn btn-primary" href="{{ route('users.index') }}">Back</a>
                 </span>
             </div>
             <div class="card-body">
@@ -57,19 +57,6 @@
                         </div>   
                         <div class="col-md-3">
                             <div class="form-group">
-                                <strong>Designation:</strong>
-                                {!! Form::text('designation', null, array('placeholder' => 'Designation','class' => 'form-control')) !!}
-                            </div>
-                        </div>   
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <strong>Address:</strong>
-                                {!! Form::textarea('address', null, array('placeholder' => 'Address','class' => 'form-control','required' =>'required')) !!}
-                
-                            </div>
-                        </div>    
-                        <div class="col-md-3">
-                            <div class="form-group">
                                 <strong>Password:</strong>
                                 {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control')) !!}
                             </div>
@@ -86,12 +73,7 @@
                                 {!! Form::select('roles[]', $roles,[], array('class' => 'form-control','multiple')) !!}
                             </div>
                         </div>   
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <strong>Bussiness:</strong>
-                                {!! Form::select('business', $business,null, array('class' => 'form-control')) !!}
-                            </div>
-                        </div>    
+                       
                         <div class="col-md-3">
                             <div class="form-group">
                                 <strong>Status:</strong>

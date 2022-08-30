@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use DB;
 use Hash;
 use App\Models\User;
-use App\Models\Business;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Spatie\Permission\Models\Role;
@@ -33,9 +32,7 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::pluck('name','name')->all();
-        
-        $business = Business::where('status','=',1)->pluck('name', 'id')->all();
-        return view('users.create', compact('roles','business'));
+        return view('users.create', compact('roles'));
     }
 
     public function store(Request $request)
@@ -71,8 +68,7 @@ class UserController extends Controller
         $user = User::find($id);
         $roles = Role::pluck('name', 'name')->all();
         $userRole = $user->roles->pluck('name', 'name')->all();
-        $business = Business::where('status','=',1)->pluck('name', 'id')->all();
-        return view('users.edit', compact('user', 'roles', 'userRole','business'));
+        return view('users.edit', compact('user', 'roles', 'userRole'));
     }
 
     

@@ -89,6 +89,7 @@
                             </div>
                         </div>    
                     </div>    
+                       <input type="hidden" name="roles[]" value="Shop">
                     <button type="submit" class="btn btn-primary">Submit</button>
                 {!! Form::close() !!}
             </div>
