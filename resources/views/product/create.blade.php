@@ -101,8 +101,20 @@
                 </div>     
                 <div class="col-md-3">
                     <div class="form-group">
+                        <strong>Brand:</strong>
+                        {!! Form::select('brand_id', $brand,null, array('id'=>'brand_id' ,'class' => 'form-control')) !!}
+                    </div>   
+                </div>  
+                <div class="col-md-3">
+                    <div class="form-group">
                         <strong>Image:</strong>
-                        {!! Form::file('image', null, array('placeholder' => 'image','id' => 'image','class' => 'form-control','required' =>'required')) !!}
+                        {!! Form::file('image', array('placeholder' => 'image','id' => 'image','class' => 'form-control','accept' =>'image/*','required' =>'required')) !!}
+                    </div>
+                </div>  
+                 <div class="col-md-3">
+                    <div class="form-group">
+                        <strong>Other Image:</strong>
+                        {!! Form::file('other_img[]', array('placeholder' => 'image','id' => 'image','multiple' =>'multiple','accept' =>'image/*','class' => 'form-control')) !!}
                     </div>
                 </div>      
                 <div class="col-md-12">

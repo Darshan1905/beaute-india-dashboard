@@ -4,7 +4,7 @@
     <div class="justify-content-center">
         
         <div class="card">
-            <div class="card-header">Edit Business 
+            <div class="card-header">Edit Shop 
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
                     <strong>Opps!</strong> Something went wrong, please check below errors.<br><br>
@@ -54,6 +54,12 @@
                 
                             </div>
                         </div>    
+                         <div class="col-md-3">
+                            <div class="form-group">
+                                <strong>Shop Banner Image:</strong>
+                                {!! Form::file('image', null, array('placeholder' => 'image','id' => 'image','class' => 'form-control')) !!}
+                            </div>
+                        </div>  
                         <div class="col-md-3">
                             <div class="form-group">
                                 <strong>Password:</strong>

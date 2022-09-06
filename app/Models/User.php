@@ -26,6 +26,7 @@ class User extends Authenticatable
         'shopname',
         'status',
         'name',
+        'bannerimage',
         'type'
     ];
 

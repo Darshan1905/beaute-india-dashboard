@@ -69,6 +69,12 @@
                 
                             </div>
                         </div>    
+                       <div class="col-md-3">
+                            <div class="form-group">
+                                <strong>Shop Banner Image:</strong>
+                                {!! Form::file('image', null, array('placeholder' => 'image','id' => 'image','class' => 'form-control','required' =>'required')) !!}
+                            </div>
+                        </div>  
                         <div class="col-md-3">
                             <div class="form-group">
                                 <strong>Password:</strong>

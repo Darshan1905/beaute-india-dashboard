@@ -83,13 +83,37 @@
                         <strong>Color:</strong>
                         {!! Form::select('product_color', $color,null, array('class' => 'form-control')) !!}
                     </div>
-                </div>        
+                </div>     
+                 <div class="col-md-3">
+                    <div class="form-group">
+                        <strong>Brand:</strong>
+                        {!! Form::select('brand_id', $brand,null, array('id'=>'brand_id' ,'class' => 'form-control')) !!}
+                    </div>   
+                </div>     
                 <div class="col-md-3">
                     <div class="form-group">
                         <strong>Image:</strong>
                         {!! Form::file('image', null, array('placeholder' => 'image','id' => 'image','class' => 'form-control','required' =>'required')) !!}
                     </div>
-                </div>      
+                </div>  
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <strong>Other Image:</strong>
+                        {!! Form::file('other_img[]', array('placeholder' => 'image','id' => 'image','multiple' =>'multiple','accept' =>'image/*','class' => 'form-control')) !!}
+                    </div>
+                </div> 
+                @if($images)
+                @foreach($images as $value)
+                
+                <div class="col-md-2">
+                
+                <img src="{{URL::to('/')}}/{{$value['image']}}" style="width: 50%; height: 50%;">
+                <a href="{{URL::to('/')}}/delete-image/{{$value['id']}}">Delete</a>
+                </div> 
+                @endforeach
+                @endif
+                       
+
                 <div class="col-md-12">
                     <div class="form-group">
                         <strong>Short Description:</strong>

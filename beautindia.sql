@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 30, 2022 at 11:32 AM
+-- Generation Time: Sep 02, 2022 at 03:59 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -29,10 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `brands` (
   `id` int(255) NOT NULL,
-  `business` int(255) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `companyname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `brandcode` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` int(11) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -42,8 +39,10 @@ CREATE TABLE `brands` (
 -- Dumping data for table `brands`
 --
 
-INSERT INTO `brands` (`id`, `business`, `name`, `companyname`, `brandcode`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Praveen s', 'sdds', 'BWI', 1, '2022-08-24 07:17:29', '2022-08-24 07:26:03');
+INSERT INTO `brands` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Praveen s', 1, '2022-08-24 07:17:29', '2022-08-24 07:26:03'),
+(2, 'sandeep s', 1, '2022-09-01 23:58:29', '2022-09-01 23:58:29'),
+(3, 'sandeep s', 1, '2022-09-01 23:59:01', '2022-09-01 23:59:01');
 
 -- --------------------------------------------------------
 
@@ -48500,6 +48499,27 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `otherimages`
+--
+
+CREATE TABLE `otherimages` (
+  `id` int(255) NOT NULL,
+  `product_id` int(255) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `otherimages`
+--
+
+INSERT INTO `otherimages` (`id`, `product_id`, `image`, `created_at`, `updated_at`) VALUES
+(3, 23, 'public/image/202209021112_3593.jpg', '2022-09-02 05:42:10', '2022-09-02 05:42:10');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `password_resets`
 --
 
@@ -48563,7 +48583,15 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 (89, 'size-list', 'web', '2022-08-30 03:39:02', '2022-08-30 03:39:02'),
 (90, 'size-create', 'web', '2022-08-30 03:39:09', '2022-08-30 03:39:09'),
 (91, 'size-edit', 'web', '2022-08-30 03:39:16', '2022-08-30 03:39:16'),
-(92, 'size-delete', 'web', '2022-08-30 03:39:24', '2022-08-30 03:39:24');
+(92, 'size-delete', 'web', '2022-08-30 03:39:24', '2022-08-30 03:39:24'),
+(93, 'brands-list', 'web', '2022-09-01 23:53:34', '2022-09-01 23:53:55'),
+(94, 'brands-create', 'web', '2022-09-01 23:54:04', '2022-09-01 23:54:04'),
+(95, 'brands-edit', 'web', '2022-09-01 23:54:11', '2022-09-01 23:54:11'),
+(96, 'brands-delete', 'web', '2022-09-01 23:54:18', '2022-09-01 23:54:18'),
+(97, 'sliders-list', 'web', '2022-09-02 04:10:24', '2022-09-02 04:10:24'),
+(98, 'sliders-create', 'web', '2022-09-02 04:10:34', '2022-09-02 04:10:34'),
+(99, 'sliders-edit', 'web', '2022-09-02 04:10:42', '2022-09-02 04:10:42'),
+(100, 'sliders-delete', 'web', '2022-09-02 04:13:41', '2022-09-02 04:13:41');
 
 -- --------------------------------------------------------
 
@@ -48604,6 +48632,7 @@ CREATE TABLE `products` (
   `stock_status` int(255) DEFAULT NULL,
   `shop_id` int(255) NOT NULL,
   `vendor_id` int(255) NOT NULL,
+  `brand_id` int(255) DEFAULT NULL,
   `shipping_price` double(10,2) DEFAULT NULL,
   `category_id` int(255) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1,
@@ -48615,11 +48644,8 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `short_description`, `long_description`, `normal_price`, `sale_price`, `inventory_count`, `product_size`, `product_color`, `sku_no`, `image`, `stock_status`, `shop_id`, `vendor_id`, `shipping_price`, `category_id`, `status`, `created_at`, `updated_at`) VALUES
-(6, 'sandeep s', '<p>dsds</p>', '<p>dsds</p>', 10.00, 3001.00, 10, 5, 0, 'PRO00006', 'public/image/202208290731_9556.png', NULL, 0, 0, 400.00, 5, 1, '2022-08-29 01:06:45', '2022-08-29 02:01:08'),
-(15, 'sandeep s', '<p>dsds</p>', '<p>dsds</p>', 200.00, 300.00, 12, 20, 0, 'PRO000015', 'public/image/202208291217_8584.png', NULL, 26, 0, 20.00, 6, 1, '2022-08-29 06:47:26', '2022-08-29 06:47:26'),
-(16, 'sandeep', '<p>dsds</p>', '<p>dsds</p>', 1200.00, 2255.00, 22, 225, 0, 'PRO000016', 'public/image/202208291219_4798.jpg', NULL, 26, 5, 22.00, 6, 1, '2022-08-29 06:49:49', '2022-08-29 23:58:17'),
-(17, 'sandeep s', '<p>dsds</p>', '<p>dsds</p>', 200.00, 100.00, 55, 1, 1, 'PRO000017', 'public/image/202208300931_4393.jpg', NULL, 26, 5, 25.00, 6, 1, '2022-08-30 04:01:03', '2022-08-30 04:01:03');
+INSERT INTO `products` (`id`, `name`, `short_description`, `long_description`, `normal_price`, `sale_price`, `inventory_count`, `product_size`, `product_color`, `sku_no`, `image`, `stock_status`, `shop_id`, `vendor_id`, `brand_id`, `shipping_price`, `category_id`, `status`, `created_at`, `updated_at`) VALUES
+(23, 'sandeep s', '<p>dsds</p>', '<p>dsds</p>', 200.00, 100.00, 5, 1, 1, 'PRO000023', 'public/image/202209021056_6329.jpeg', NULL, 26, 5, 1, 55.00, 5, 1, '2022-09-02 05:26:02', '2022-09-02 05:26:02');
 
 -- --------------------------------------------------------
 
@@ -48731,7 +48757,15 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (91, 1),
 (91, 3),
 (92, 1),
-(92, 3);
+(92, 3),
+(93, 1),
+(94, 1),
+(95, 1),
+(96, 1),
+(97, 1),
+(98, 1),
+(99, 1),
+(100, 1);
 
 -- --------------------------------------------------------
 
@@ -48753,6 +48787,28 @@ CREATE TABLE `sizes` (
 
 INSERT INTO `sizes` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'sandeep d', 1, '2022-08-30 03:52:17', '2022-08-30 03:55:10');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sliders`
+--
+
+CREATE TABLE `sliders` (
+  `id` int(255) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `status` int(11) DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `sliders`
+--
+
+INSERT INTO `sliders` (`id`, `image`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'public/image/202209021018_655.jpg', 0, '2022-09-02 04:48:58', '2022-09-02 05:07:45'),
+(2, 'public/image/202209021019_1577.jpg', 1, '2022-09-02 04:49:29', '2022-09-02 04:49:29');
 
 -- --------------------------------------------------------
 
@@ -52901,10 +52957,11 @@ CREATE TABLE `users` (
   `contact` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `designation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `business` int(255) DEFAULT NULL,
   `type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
   `shop_id` int(255) DEFAULT NULL,
   `shopname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bannerimage` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `otp` int(100) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -52917,10 +52974,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `contact`, `designation`, `address`, `business`, `type`, `shop_id`, `shopname`, `status`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(17, 'Admin', 'admin@gmail.com', NULL, NULL, 'dsdsds', 1, 'admin', NULL, NULL, 1, NULL, '$2y$10$TgbOAXCZkXo66PsmWkbkPevg7rgqCzCe4gUBDz82qbOaLO03RFcEy', NULL, '2022-08-18 13:42:25', '2022-08-24 06:07:12'),
-(26, 'sandeep s', 'ravi@gmail.com', '9780808060', NULL, 'dsds', NULL, 'shop', 26, 'newshop', 1, NULL, '$2y$10$dTpAdCAp64ZcUTRSeKIUReWky60iyHAGSY8zPwTE0eJz8QP/QSrrS', NULL, '2022-08-29 06:38:16', '2022-08-29 06:40:46'),
-(27, 'Agate', 'ggate@gmail.com', '9780808060', NULL, 'dasdsds', NULL, 'shop', 27, 'newshopee', 1, NULL, '$2y$10$tWR/ADN7v.j/uMaFksKFg.3cjN92zNdsRSL./CugHgP14tu3hnd/W', NULL, '2022-08-29 06:49:13', '2022-08-29 06:49:14');
+INSERT INTO `users` (`id`, `name`, `email`, `contact`, `designation`, `address`, `type`, `shop_id`, `shopname`, `bannerimage`, `otp`, `status`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(17, 'Admin', 'admin@gmail.com', NULL, NULL, 'dsdsds', 'admin', NULL, NULL, NULL, 9364, 1, NULL, '$2y$10$TgbOAXCZkXo66PsmWkbkPevg7rgqCzCe4gUBDz82qbOaLO03RFcEy', NULL, '2022-08-18 13:42:25', '2022-08-24 06:07:12'),
+(26, 'sandeep s', 'ravi@gmail.com', '9780808060', NULL, 'dsds', 'shop', 26, 'newshop', NULL, 0, 1, NULL, '$2y$10$dTpAdCAp64ZcUTRSeKIUReWky60iyHAGSY8zPwTE0eJz8QP/QSrrS', NULL, '2022-08-29 06:38:16', '2022-08-29 06:40:46'),
+(27, 'Agate', 'ggate@gmail.com', '9780808060', NULL, 'dasdsds', 'shop', 27, 'newshopee', NULL, 0, 1, NULL, '$2y$10$tWR/ADN7v.j/uMaFksKFg.3cjN92zNdsRSL./CugHgP14tu3hnd/W', NULL, '2022-08-29 06:49:13', '2022-08-29 06:49:14'),
+(28, 'Admin', 'admins@gmail.com', '8085210252', NULL, NULL, 'user', NULL, NULL, NULL, 0, 1, NULL, '$2y$10$IB/z7FQOlR4CkQFHyn2Bw.V.R4ADKBW7SXZw4PNzO9EckytXk4U4.', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -52940,7 +52998,7 @@ CREATE TABLE `vendors` (
   `state_id` int(255) DEFAULT NULL,
   `city` int(255) DEFAULT NULL,
   `pincode` int(100) DEFAULT NULL,
-  `pdf` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pdf` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `pan` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `gst` int(255) NOT NULL,
   `status` int(11) NOT NULL DEFAULT 1,
@@ -53034,6 +53092,12 @@ ALTER TABLE `model_has_roles`
   ADD KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`);
 
 --
+-- Indexes for table `otherimages`
+--
+ALTER TABLE `otherimages`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
@@ -53081,6 +53145,12 @@ ALTER TABLE `sizes`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sliders`
+--
+ALTER TABLE `sliders`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `states`
 --
 ALTER TABLE `states`
@@ -53113,7 +53183,7 @@ ALTER TABLE `vendors`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `businesses`
@@ -53170,10 +53240,16 @@ ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `otherimages`
+--
+ALTER TABLE `otherimages`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -53185,7 +53261,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -53198,6 +53274,12 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `sizes`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `sliders`
+--
+ALTER TABLE `sliders`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `states`
@@ -53215,7 +53297,7 @@ ALTER TABLE `subcategories`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `vendors`

@@ -11,6 +11,9 @@ use App\Http\Controllers\VendorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\SliderController;
+
 
 
 /*
@@ -43,6 +46,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('product', ProductController::class);
     Route::get('product-list/', [ProductController::class, 'productList'])->name('product-list');  
     Route::post('/import',[ProductController::class,'import'])->name('import');
+    Route::get('delete-image/{id}', [ProductController::class, 'deleteimage'])->name('deleteimage'); 
 
     Route::get('state-list/', [HomeController::class, 'stateList'])->name('state-list');
     Route::get('city-list/', [HomeController::class, 'cityList'])->name('city-list');
@@ -56,5 +60,11 @@ Route::group(['middleware' => ['auth']], function() {
   
     Route::resource('size', SizeController::class);
     Route::get('size-List/', [SizeController::class, 'sizeList'])->name('size-list');
+
+    Route::resource('brands', BrandController::class);
+    Route::get('brands-List/', [BrandController::class, 'brandList'])->name('brands-list');
+
+    Route::resource('sliders', SliderController::class);
+    Route::get('slider-List/', [SliderController::class, 'sliderList'])->name('slider-list');
   
 });

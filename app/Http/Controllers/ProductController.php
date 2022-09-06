@@ -8,6 +8,8 @@ use App\Models\Product;
 use App\Models\Size;
 use App\Models\Color;
 use App\Models\User;
+use App\Models\Brand;
+use App\Models\Otherimage;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ImportProduct;
 use URL;
@@ -72,7 +74,8 @@ class ProductController extends Controller
         $category = Categorie::where('status','=',1)->pluck('name', 'id')->all();
         $size = Size::where('status','=',1)->pluck('name', 'id')->all();
         $color = Color::where('status','=',1)->pluck('name', 'id')->all();
-        return view('product.create',compact('category','shop','size','color'));
+        $brand = Brand::where('status','=',1)->pluck('name', 'id')->all();
+        return view('product.create',compact('category','shop','size','color','brand'));
     }
 
     public function store(Request $request)
@@ -86,7 +89,18 @@ class ProductController extends Controller
             $file->move(public_path('image/'), $filename);
             $input['image']= 'public/image/'.$filename;
         }
+        unset($input['otherimages']);
         $result = Product::create($input);
+        if($request->file('other_img'))
+         {
+            foreach($request->file('other_img') as $file)
+            {   
+                $extension =  $file->getClientOriginalExtension();
+                $name = date('YmdHi'). '_'. rand('0000','9999').'.'.$extension;
+                $file->move(public_path('upload_image/'), $name);  
+                Otherimage::create(array('product_id'=>$result->id,'image' => 'public/image/'.$name));
+            }
+         }
         Product::where('id',$result->id)->update(array('sku_no' => 'PRO'.'0000'.$result->id));
         return redirect()->route('product.index')
             ->with('success','product created successfully.');
@@ -108,8 +122,9 @@ class ProductController extends Controller
         $vendor = User::where('id', $post->vendor_id)->pluck('name', 'id')->all();
         $size = Size::where('status','=',1)->pluck('name', 'id')->all();
         $color = Color::where('status','=',1)->pluck('name', 'id')->all();
-       
-        return view('product.edit',compact('post','category','shop','vendor','size','color'));
+        $brand = Brand::where('status','=',1)->pluck('name', 'id')->all();
+        $images = Otherimage::where('product_id','=',$post->id)->get();
+        return view('product.edit',compact('post','category','shop','vendor','size','color','brand','images'));
     }
 
     public function update(Request $request, $id)
@@ -125,7 +140,19 @@ class ProductController extends Controller
             $file->move(public_path('image/'), $filename);
             $input['image']= 'public/image/'.$filename;
         }
-    
+
+         if($request->file('other_img'))
+         {
+            foreach($request->file('other_img') as $file)
+            {
+                $extension =  $file->getClientOriginalExtension();
+                $name = date('YmdHi'). '_'. rand('0000','9999').'.'.$extension;
+                $file->move(public_path('image/'), $name);  
+                Otherimage::create(array('product_id'=>$id,'image' => 'public/image/'.$name));
+            }
+         }
+         unset($input['otherimages']);
+       
         $post->update($input);
     
         return redirect()->route('product.index')
@@ -148,6 +175,13 @@ class ProductController extends Controller
     {
         Product::find($id)->update(array('status' => 0));
         return redirect()->route('product.index')
+            ->with('success', 'product deleted successfully.');
+    }
+
+     public function deleteimage($id)
+    {
+        Otherimage::find($id)->delete();
+        return redirect()->back()
             ->with('success', 'product deleted successfully.');
     }
 }

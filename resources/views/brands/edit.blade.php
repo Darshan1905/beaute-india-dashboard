@@ -22,30 +22,14 @@
             <div class="card-body">
                 {!! Form::model($post, ['route' => ['brands.update', $post->id], 'method'=>'PATCH']) !!}
                 <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                            <strong>Business:</strong>
-                            {!! Form::select('business', $business,null, array('class' => 'form-control')) !!}
-                        </div>   
-                </div>   
-                <div class="col-md-3">
+               
+                <div class="col-md-6">
                     <div class="form-group">
                         <strong>Name:</strong>
                         {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control','required' =>'required')) !!}
                     </div>
                 </div>     
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <strong>Company Name:</strong>
-                        {!! Form::text('companyname', null, array('placeholder' => 'Company Name','class' => 'form-control','required' =>'required')) !!}
-                    </div>
-                </div>    
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <strong>Brand Code:</strong>
-                        {!! Form::text('brandcode', null, array('placeholder' => 'Brand Code','id' => 'brandcode','class' => 'form-control','required' =>'required')) !!}
-                    </div>
-                </div>   
+                  
                 <div class="col-md-3">
                     <div class="form-group">
                         <strong>Status:</strong>

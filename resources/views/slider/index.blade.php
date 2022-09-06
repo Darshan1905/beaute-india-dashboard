@@ -4,10 +4,10 @@
       <!-- Page Header -->
       <div class="page-header">
         <div>
-            <h2 class="main-content-title tx-24 mg-b-5">Brand</h2>
+            <h2 class="main-content-title tx-24 mg-b-5">Slider</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ URL::to('/') }}">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Brand</li>
+                <li class="breadcrumb-item active" aria-current="page">Slider</li>
             </ol>
         </div>
         
@@ -21,7 +21,7 @@
                 <div class="card-body">
                     <div>
                    
-                        <h6 class="card-title mb-1">Brand</h6>
+                        <h6 class="card-title mb-1">Slider</h6>
                         @if (\Session::has('success'))
                             <div class="alert alert-success">
                                 <p>{{ \Session::get('success') }}</p>
@@ -29,16 +29,17 @@
                         @endif
                         @can('role-create')
                             <span class="float-right">
-                                <a class="btn btn-primary" href="{{ route('brands.create') }}">Create Brand</a>
+                                <a class="btn btn-primary" href="{{ route('sliders.create') }}">Create Slider</a>
                             </span>
                         @endcan
                     </div>
                     <div class="table-responsive">
+
                     <table id="exportexample1" class="table-bordered text-nowrap mb-0 table table-bordered border-t0 key-buttons text-nowrap w-100" >
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
+                                <th>Image</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -87,12 +88,12 @@
             responsive: true,
             serverSide: true,
             ajax: {
-                "url": "{{ route('brands-list') }}",
+                "url": "{{ route('slider-list') }}",
                 "type": "get",
             },
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                {data: 'name', name: 'name'},
+                {data: 'image', name: 'image'},
                 {data: 'status', name: 'status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],

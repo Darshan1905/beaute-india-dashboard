@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Brand extends Model
+class Slider extends Model
 {
     use HasFactory;
 
@@ -15,6 +15,6 @@ class Brand extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'status'	
+        'image','status'
     ];
 }

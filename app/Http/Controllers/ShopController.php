@@ -66,6 +66,13 @@ class ShopController extends Controller
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
         $input['type'] = 'shop';
+        if($request->file('image')){
+            $file= $request->file('image');
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $filename = date('YmdHi'). '_'. rand('0000','9999').'.'.$extension;
+            $file->move(public_path('image/'), $filename);
+            $input['bannerimage']= 'public/image/'.$filename;
+        }
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
          User::where('id',$user->id)->update(array('shop_id' =>$user->id));
@@ -108,6 +115,13 @@ class ShopController extends Controller
     
         $user = User::find($id);
         $input['type'] = 'shop';
+        if($request->file('image')){
+            $file= $request->file('image');
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $filename = date('YmdHi'). '_'. rand('0000','9999').'.'.$extension;
+            $file->move(public_path('image/'), $filename);
+            $input['bannerimage']= 'public/image/'.$filename;
+        }
         $user->update($input);
 
     

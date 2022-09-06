@@ -16,14 +16,20 @@ Sidemenu -->
 						<li class="nav-item show">
 							<a class="nav-link" href="{{ URL::to('/') }}"><i class="fe fe-airplay"></i><span class="sidemenu-label">Dashboard</span></a>
 						</li>
-						<li class="nav-label">Maters</li>
+						<li class="nav-label">Masters</li>
 						<li class="nav-item">
 							<a class="nav-link" href="{{ URL::to('color') }}"><i class="fe fe-layers"></i><span class="sidemenu-label">Color</span></a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="{{ URL::to('size') }}"><i class="fe fe-layers"></i><span class="sidemenu-label">Size</span></a>
 						</li>
-
+						<li class="nav-item">
+							<a class="nav-link" href="{{ URL::to('sliders') }}"><i class="fe fe-layers"></i><span class="sidemenu-label">Slider</span></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ URL::to('brands') }}"><i class="fe fe-layers"></i><span class="sidemenu-label">Brand</span></a>
+						</li>
+                      
 
 						<li class="nav-label">Applications</li>
 						<li class="nav-item">
