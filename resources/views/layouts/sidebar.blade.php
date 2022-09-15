@@ -59,6 +59,9 @@ Sidemenu -->
 						<li class="nav-item">
 							<a class="nav-link" href="{{ URL::to('vendors') }}"><i class="fe fe-layers"></i><span class="sidemenu-label">Vendor</span></a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ URL::to('orders') }}"><i class="fe fe-layers"></i><span class="sidemenu-label">Orders</span></a>
+						</li>
 						@else
                         	<li class="nav-label">Dashboard</li>
                         	<li class="nav-item show">
@@ -87,6 +90,9 @@ Sidemenu -->
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="{{ URL::to('vendors') }}"><i class="fe fe-layers"></i><span class="sidemenu-label">Vendor</span></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{ URL::to('orders') }}"><i class="fe fe-layers"></i><span class="sidemenu-label">Orders</span></a>
 							</li>
 						@endif
 						

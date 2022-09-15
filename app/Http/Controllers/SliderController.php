@@ -64,7 +64,7 @@ class SliderController extends Controller
             $extension = $request->file('image')->getClientOriginalExtension();
             $filename = date('YmdHi'). '_'. rand('0000','9999').'.'.$extension;
             $file->move(public_path('image/'), $filename);
-            $input['image']= 'public/image/'.$filename;
+            $input['image']= 'image/'.$filename;
         }
         Slider::create($input);
     
@@ -95,7 +95,7 @@ class SliderController extends Controller
             $extension = $request->file('image')->getClientOriginalExtension();
             $filename = date('YmdHi'). '_'. rand('0000','9999').'.'.$extension;
             $file->move(public_path('image/'), $filename);
-            $input['image']= 'public/image/'.$filename;
+            $input['image']= 'image/'.$filename;
         }else{
             unset($input['image']);
         }

@@ -87,7 +87,7 @@ class ProductController extends Controller
             $extension = $request->file('image')->getClientOriginalExtension();
             $filename = date('YmdHi'). '_'. rand('0000','9999').'.'.$extension;
             $file->move(public_path('image/'), $filename);
-            $input['image']= 'public/image/'.$filename;
+            $input['image']= 'image/'.$filename;
         }
         unset($input['otherimages']);
         $result = Product::create($input);
@@ -148,7 +148,7 @@ class ProductController extends Controller
                 $extension =  $file->getClientOriginalExtension();
                 $name = date('YmdHi'). '_'. rand('0000','9999').'.'.$extension;
                 $file->move(public_path('image/'), $name);  
-                Otherimage::create(array('product_id'=>$id,'image' => 'public/image/'.$name));
+                Otherimage::create(array('product_id'=>$id,'image' => 'image/'.$name));
             }
          }
          unset($input['otherimages']);

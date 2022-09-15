@@ -5,7 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\ShopController;
+use App\Http\Controllers\shopController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\ProductController;
@@ -13,9 +13,10 @@ use App\Http\Controllers\SizeController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\OrderController;
 
 
-
+ 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,8 +38,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     
-    Route::resource('shop', ShopController::class);
-    Route::get('shop-List/', [ShopController::class, 'shopList'])->name('shops-list');
+    Route::resource('shop', shopController::class);
+    Route::get('shop-List/', [shopController::class, 'shopList'])->name('shops-list');
     
     Route::resource('categorys', CategoryController::class);
     Route::get('category-list/', [CategoryController::class, 'categoryList'])->name('category-list');
@@ -66,5 +67,10 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('sliders', SliderController::class);
     Route::get('slider-List/', [SliderController::class, 'sliderList'])->name('slider-list');
-  
+    
+    Route::get('orders/', [OrderController::class, 'index'])->name('orders');
+    Route::get('orders-List/', [OrderController::class, 'ordersList'])->name('orders-list');
+    Route::get('order-invoice/{id}', [OrderController::class, 'invoice'])->name('order.invoice');
+   
+    
 });
