@@ -238,6 +238,11 @@ class ApiController extends Controller {
               $chk_category = DB::table('sliders')->where( array(
                  'status'=>1
              ))->get();
+              if(!empty($chk_category)){
+                foreach ($chk_category as $key => $value) {
+                    $chk_category[$key]->image = 'http://13.127.16.66/'.$value->image;
+                }
+              }
              if (!empty($chk_category)) {
                     $message = 'Slider Images fetch successfully';
                     return $this->sendResponse($chk_category, $message);
@@ -331,7 +336,12 @@ class ApiController extends Controller {
                
                $chk_category_id = DB::table('products')->where( array(
                 'category_id'=>$input['id'],'status'=>1
-            ))->first();
+            ))->get();
+            if(!empty($chk_category_id)){
+                foreach ($chk_category_id as $key => $value) {
+                    $chk_category_id[$key]->image = 'http://13.127.16.66/'.$value->image;
+                }
+            }
             if (!empty($chk_category_id)) {
                 $message = 'Product fetch successfully!';
                 return $this->sendResponse($chk_category_id,$message);
@@ -356,6 +366,11 @@ class ApiController extends Controller {
             $chk_product = DB::table('products')->where( array(
                'status'=>1
            ))->get();
+             if(!empty($chk_product)){
+                foreach ($chk_product as $key => $value) {
+                    $chk_product[$key]->image = 'http://13.127.16.66/'.$value->image;
+                }
+              }
            if (!empty($chk_product)) {
                   $message = 'Product fetch successfully';
                   return $this->sendResponse($chk_product, $message);
@@ -390,7 +405,9 @@ class ApiController extends Controller {
            $chk_category_id = DB::table('products')->where( array(
             'id'=>$input['id'],'status'=>1
         ))->first();
+
         if (!empty($chk_category_id)) {
+             $chk_category_id->image = 'http://13.127.16.66/'.$chk_category_id->image;
             $message = 'Product fetch successfully!';
             return $this->sendResponse($chk_category_id,$message);
     }else{
