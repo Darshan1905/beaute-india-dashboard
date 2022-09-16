@@ -50,7 +50,7 @@ class ApiController extends Controller {
     public function login(Request $request){
         $input = $request->all();
         $rule = array(
-            'email'=>'required',
+            'shop_id'=>'required',
             'password'=>'required'
       
         );
@@ -65,7 +65,7 @@ class ApiController extends Controller {
             
     
              $chk_login = DB::table('users')->where( array(
-                'email'=>$input['email']
+                'id'=>$input['shop_id']
             ))->first();
 
             if ($chk_login) {
@@ -75,7 +75,7 @@ class ApiController extends Controller {
                 }
                
             }
-            $message = 'Please check your email or password';
+            $message = 'Please check your shop_id or password';
             return $this->sendError($message,['error' => 'error occure']);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -376,6 +376,30 @@ class ApiController extends Controller {
                   return $this->sendResponse($chk_product, $message);
            }else{
               return $this->sendResponse(null, 'Product not available');
+           }
+           
+          
+           
+           return $this->sendError($message,['error' => 'error occure']);
+       } catch (\Exception $e) {
+           DB::rollBack();
+           $message = $e->getMessage();
+           return $this->sendError(false, $message);
+       }
+   }
+
+
+   public function shop_list(Request $request){
+        try {
+            $chk_product = DB::table('users')->select('id','shopname')->where( array(
+               'status'=>1,'type' => 'shop'
+           ))->get();
+             
+           if (!empty($chk_product)) {
+                  $message = 'Shop List fetch successfully';
+                  return $this->sendResponse($chk_product, $message);
+           }else{
+              return $this->sendResponse(null, 'Shop not available');
            }
            
           

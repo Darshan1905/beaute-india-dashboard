@@ -50,6 +50,7 @@ Route::post('fetch_product_by_category_id', [ApiController::class, 'fetch_produc
 
 Route::post('fetch_product_by_subcategory_id', [ApiController::class, 'fetch_product_by_subcategory_id']);
 
+Route::get('shop_list', [ApiController::class, 'shop_list']);
 
 
 
