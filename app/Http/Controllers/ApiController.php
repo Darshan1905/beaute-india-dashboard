@@ -9,11 +9,9 @@ use DB;
 use Validator;
 use Mail;
 //use Request;
-use Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
-
-
+use Illuminate\Support\Facades\Auth;
 
 class ApiController extends Controller {  
 
@@ -62,19 +60,26 @@ class ApiController extends Controller {
             return $this->sendError($message,['error' => 'error occure']);
         }
         try {
-            
-    
-             $chk_login = DB::table('users')->where( array(
-                'id'=>$input['shop_id']
-            ))->first();
-
-            if ($chk_login) {
-                if (Hash::check($input['password'],$chk_login->password)){
-                    $message = 'Login Successfull';
-                    return $this->sendResponse($chk_login, $message);
-                }
-               
+             if(Auth::attempt(['id' => $request->shop_id, 'password' => $request->password])){ 
+                $user = Auth::user(); 
+                $success['token'] =  $user->createToken('MyApp')->plainTextToken; 
+                $success['user'] =  $user;
+       
+            $message = 'Login Successfull';
+            return $this->sendResponse($success, $message);
             }
+    
+            //  $chk_login = DB::table('users')->where( array(
+            //     'id'=>$input['shop_id']
+            // ))->first();
+
+            // if ($chk_login) {
+            //     // if (Hash::check($input['password'],$chk_login->password)){
+            //     //     $message = 'Login Successfull';
+            //     //     return $this->sendResponse($chk_login, $message);
+            //     // }
+               
+            // }
             $message = 'Please check your shop_id or password';
             return $this->sendError($message,['error' => 'error occure']);
         } catch (\Exception $e) {
