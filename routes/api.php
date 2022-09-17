@@ -38,20 +38,35 @@ Route::get('subcategory', [ApiController::class, 'subcategory']);
 
 Route::get('product_list', [ApiController::class, 'product_list']);
 
+Route::get('shop_list', [ApiController::class, 'shop_list']);
+
+
 Route::post('product_by_id', [ApiController::class, 'product_by_id']);
 
 Route::post('fetch_category_by_id', [ApiController::class, 'fetch_category_by_id']);
 
-Route::post('fetch_subcategory_by_id', [ApiController::class, 'fetch_subcategory_by_id']);
-
-Route::post('fetch_subcategory_by_category_id', [ApiController::class, 'fetch_subcategory_by_category_id']);
-
 Route::post('fetch_product_by_category_id', [ApiController::class, 'fetch_product_by_category_id']);
 
-Route::post('fetch_product_by_subcategory_id', [ApiController::class, 'fetch_product_by_subcategory_id']);
+Route::post('save_address', [ApiController::class, 'save_address']);
 
-Route::get('shop_list', [ApiController::class, 'shop_list']);
+Route::post('update_address', [ApiController::class, 'update_address']);
 
+Route::post('order_store', [ApiController::class, 'order_store']);
 
+Route::post('order_product', [ApiController::class, 'order_product']);
+
+Route::post('order_status_update', [ApiController::class, 'order_status_update']);
+
+Route::get('get_order_status', [ApiController::class, 'get_order_status']);
+
+Route::post('order_update', [ApiController::class, 'order_update']);
+
+Route::post('add_cart', [ApiController::class, 'add_cart']);
+
+Route::get('delete_cart/{id}', [ApiController::class, 'delete_cart']);
+
+Route::get('cart/{id}', [ApiController::class, 'cart']);
+
+Route::get('wishlist/{id}', [ApiController::class, 'wishlist']);
 
 

@@ -6,13 +6,20 @@ use Illuminate\Support\Facades\Hash;
 use Session;
 use Stripe;
 use DB;
-use Validator;
+use Validator; 
 use Mail;
 //use Request;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Address;
+use App\Models\Order;
+use App\Models\Order_product;
+use App\Models\Order_status;
+use App\Models\Cart;
 
+
+ 
 class ApiController extends Controller {  
 
     public function sendResponse($result, $message)
@@ -445,6 +452,363 @@ class ApiController extends Controller {
          
          
          
+         return $this->sendError($message,['error' => 'error occure']);
+     } catch (\Exception $e) {
+         DB::rollBack();
+         $message = $e->getMessage();
+         return $this->sendError(false, $message);
+     }
+ }
+
+ 
+ public function save_address(Request $request){
+    $input = $request->all();
+     $rule = array(
+         'customer_id'=>'required',
+         'title'=>'required',
+         'type'=>'required',
+         'default'=>'required',
+         'address'=>'required',
+         'country'=>'required',
+         'state'=>'required',
+         'city'=>'required',
+         'zip'=>'required'
+         
+     );
+     $messages = array();
+     $validation = Validator::make($input,  $rule, $messages);
+      if ($validation->fails()) {
+         $message = $validation->messages()->first();
+        
+         return $this->sendError($message,['error' => 'error occure']);
+     }
+      try {
+           $data = array(
+             'title' => $input['title'],
+             'type' => $input['type'],
+             'default' => $input['default'],
+             'customer_id' => $input['customer_id'],
+             'address' => json_encode(array(
+                    'address' => $input['address'],
+                    'country' => $input['country'],
+                    'state' => $input['state'],
+                    'city' => $input['city'],
+                    'zip' => $input['zip']
+                )),
+
+           );
+           $result = Address::create($data);
+        if ($result) {
+            $message = 'Address Create Successfully!';
+            return $this->sendResponse($result,$message);
+        }
+         $message = 'some error occure';
+         return $this->sendError($message,['error' => 'error occure']);
+     } catch (\Exception $e) {
+         DB::rollBack();
+         $message = $e->getMessage();
+         return $this->sendError(false, $message);
+     }
+ }
+
+   public function update_address(Request $request){
+    $input = $request->all();
+     $rule = array(
+        
+         'id'=>'required',
+         'customer_id'=>'required',
+         'title'=>'required',
+         'type'=>'required',
+         'default'=>'required',
+         'address'=>'required',
+         'country'=>'required',
+         'state'=>'required',
+         'city'=>'required',
+         'zip'=>'required'
+         
+     );
+     $messages = array();
+     $validation = Validator::make($input,  $rule, $messages);
+      if ($validation->fails()) {
+         $message = $validation->messages()->first();
+        
+         return $this->sendError($message,['error' => 'error occure']);
+     }
+      try {
+           $data = array(
+             'title' => $input['title'],
+             'type' => $input['type'],
+             'default' => $input['default'],
+             'customer_id' => $input['customer_id'],
+             'address' => json_encode(array(
+                    'address' => $input['address'],
+                    'country' => $input['country'],
+                    'state' => $input['state'],
+                    'city' => $input['city'],
+                    'zip' => $input['zip']
+                )),
+
+           );
+           $id = $input['id'];
+           unset($input['id']);
+           $result = Address::where('id',$id)->update($data);
+        if ($result) {
+            $message = 'Address Update Successfully!';
+            return $this->sendResponse($result,$message);
+        }
+         $message = 'some error occure';
+         return $this->sendError($message,['error' => 'error occure']);
+     } catch (\Exception $e) {
+         DB::rollBack();
+         $message = $e->getMessage();
+         return $this->sendError(false, $message);
+     }
+ }
+
+ public function order_store(Request $request){
+    $input = $request->all();
+     $rule = array(
+         'customer_id'=>'required',
+         'customer_contact'=>'required',
+         'products'=>'required',
+         'status'=>'required',
+         'amount'=>'required',
+         'sales_tax'=>'required',
+         'paid_total'=>'required',
+         'total'=>'required',
+         'shop_id'=>'required',
+         'shipping_address'=>'required',
+         'billing_address'=>'required',
+         
+     );
+     $messages = array();
+     $validation = Validator::make($input,  $rule, $messages);
+      if ($validation->fails()) {
+         $message = $validation->messages()->first();
+         return $this->sendError($message,['error' => 'error occure']);
+     }
+      try {
+           
+           $result = Order::create($input);
+        if ($result) {
+
+            $message = 'Order Create Successfully!';
+            return $this->sendResponse($result,$message);
+        }
+         $message = 'some error occure';
+         return $this->sendError($message,['error' => 'error occure']);
+     } catch (\Exception $e) {
+         DB::rollBack();
+         $message = $e->getMessage();
+         return $this->sendError(false, $message);
+     }
+ }
+
+
+ public function order_product(Request $request){
+    $input = $request->all();
+     $rule = array(
+         'order_id'=>'required',
+         'product_id'=>'required',
+         'order_quantity'=>'required',
+         'unit_price'=>'required',
+         'subtotal'=>'required',
+         
+     );
+     $messages = array();
+     $validation = Validator::make($input,  $rule, $messages);
+      if ($validation->fails()) {
+         $message = $validation->messages()->first();
+         return $this->sendError($message,['error' => 'error occure']);
+     }
+      try {
+           
+           $result = Order_product::create($input);
+        if ($result) {
+
+            $message = 'Order Product insert Successfully!';
+            return $this->sendResponse($result,$message);
+        }
+         $message = 'some error occure';
+         return $this->sendError($message,['error' => 'error occure']);
+     } catch (\Exception $e) {
+         DB::rollBack();
+         $message = $e->getMessage();
+         return $this->sendError(false, $message);
+     }
+ }
+
+ public function order_update(Request $request){
+    $input = $request->all();
+     $rule = array(
+         'id'=>'required',
+         'customer_id'=>'required',
+         'customer_contact'=>'required',
+         'status'=>'required',
+         'amount'=>'required',
+         'sales_tax'=>'required',
+         'paid_total'=>'required',
+         'total'=>'required',
+         'shop_id'=>'required',
+         'shipping_address'=>'required',
+         'billing_address'=>'required',
+         
+     );
+     $messages = array();
+     $validation = Validator::make($input,  $rule, $messages);
+      if ($validation->fails()) {
+         $message = $validation->messages()->first();
+         return $this->sendError($message,['error' => 'error occure']);
+     }
+      try {
+           
+            $id = $input['id'];
+            unset($input['id']);
+            $result = Order::where('id',$id)->update($input);
+        if ($result) {
+            $message = 'Order Update Successfully!';
+            return $this->sendResponse($result,$message);
+        }
+         $message = 'some error occure';
+         return $this->sendError($message,['error' => 'error occure']);
+     } catch (\Exception $e) {
+         DB::rollBack();
+         $message = $e->getMessage();
+         return $this->sendError(false, $message);
+     }
+ }
+
+ 
+ public function add_cart(Request $request){
+    $input = $request->all();
+     $rule = array(
+        'customer_id' => 'required',
+        'product_id'=>'required',
+        'qty'=>'required',
+        'type'=>'required',
+     );
+     $messages = array();
+     $validation = Validator::make($input,  $rule, $messages);
+      if ($validation->fails()) {
+         $message = $validation->messages()->first();
+        
+         return $this->sendError($message,['error' => 'error occure']);
+     }
+      try {
+           $exist =Cart::where(array('type' => $input['type'],'customer_id' => $input['customer_id'],'product_id'=>$input['product_id']))->first();
+           if($exist == ''){
+               $chk_category_id = Cart::create($input);
+           }else{
+               $chk_category_id = Cart::where(array('type' => $input['type'],'customer_id' => $input['customer_id'],'product_id'=>$input['product_id']))->update($input);
+           }
+        if (!empty($chk_category_id)) {
+            $message = 'Add to Cart successfully!';
+            return $this->sendResponse($chk_category_id,$message);
+        }
+         $message = 'Some error occure!';
+         return $this->sendError($message,['error' => 'error occure']);
+     } catch (\Exception $e) {
+         DB::rollBack();
+         $message = $e->getMessage();
+         return $this->sendError(false, $message);
+     }
+ }
+
+ public function delete_cart($id){
+    try {
+           $chk_category_id = Cart::where('id',$id)->delete();
+        if (!empty($chk_category_id)) {
+            $message = 'Delete to Cart successfully!';
+            return $this->sendResponse($chk_category_id,$message);
+        }
+         $message = 'Some error occure!';
+         return $this->sendError($message,['error' => 'error occure']);
+     }catch (\Exception $e) {
+         DB::rollBack();
+         $message = $e->getMessage();
+         return $this->sendError(false, $message);
+     }
+ }
+
+ 
+ public function cart($id){
+    try {
+           $chk_category_id = Cart::where( array(
+            'customer_id'=>$id,'type' => 'cart'))->get();
+        if (!empty($chk_category_id)) {
+            $message = 'Cart fetch successfully!';
+            return $this->sendResponse($chk_category_id,$message);
+    }else{
+        $message = 'not have any data';
+    }
+         
+         return $this->sendError($message,['error' => 'error occure']);
+     } catch (\Exception $e) {
+         DB::rollBack();
+         $message = $e->getMessage();
+         return $this->sendError(false, $message);
+     }
+ }
+
+ public function wishlist($id){
+    try {
+           
+           $chk_category_id = Cart::where( array(
+            'customer_id'=>$id,'type' => 'wishlist'))->get();
+        if (!empty($chk_category_id)) {
+            $message = 'wishlist fetch successfully!';
+            return $this->sendResponse($chk_category_id,$message);
+    }else{
+        $message = 'not have any data';
+    }
+         
+         return $this->sendError($message,['error' => 'error occure']);
+     } catch (\Exception $e) {
+         DB::rollBack();
+         $message = $e->getMessage();
+         return $this->sendError(false, $message);
+     }
+ }
+
+ public function get_order_status(){
+    try {
+           $chk_category_id = Order_status::get();
+        if (!empty($chk_category_id)) {
+            $message = 'Order Status fetch successfully!';
+            return $this->sendResponse($chk_category_id,$message);
+    }else{
+        $message = 'not have any data';
+    }
+         
+         return $this->sendError($message,['error' => 'error occure']);
+     } catch (\Exception $e) {
+         DB::rollBack();
+         $message = $e->getMessage();
+         return $this->sendError(false, $message);
+     }
+ }
+
+ public function order_status_update(Request $request){
+    $input = $request->all();
+     $rule = array(
+        'order_id' => 'required',
+        'status'=>'required',
+     );
+     $messages = array();
+     $validation = Validator::make($input,  $rule, $messages);
+      if ($validation->fails()) {
+         $message = $validation->messages()->first();
+        
+         return $this->sendError($message,['error' => 'error occure']);
+     }
+      try {
+        $chk_category_id = Order::where(array('id' => $input['order_id']))->update(array('status'=> $input['status']));
+       
+        if (!empty($chk_category_id)) {
+            $message = 'Order Status Update successfully!';
+            return $this->sendResponse($chk_category_id,$message);
+        }
+         $message = 'Some error occure!';
          return $this->sendError($message,['error' => 'error occure']);
      } catch (\Exception $e) {
          DB::rollBack();
