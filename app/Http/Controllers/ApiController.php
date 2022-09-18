@@ -460,11 +460,11 @@ class ApiController extends Controller {
      }
  }
 
- 
+
  public function save_address(Request $request){
+    $user = $request->user();
     $input = $request->all();
      $rule = array(
-         'customer_id'=>'required',
          'title'=>'required',
          'type'=>'required',
          'default'=>'required',
@@ -487,7 +487,7 @@ class ApiController extends Controller {
              'title' => $input['title'],
              'type' => $input['type'],
              'default' => $input['default'],
-             'customer_id' => $input['customer_id'],
+             'customer_id' => $user->id,
              'address' => json_encode(array(
                     'address' => $input['address'],
                     'country' => $input['country'],
@@ -516,7 +516,6 @@ class ApiController extends Controller {
      $rule = array(
         
          'id'=>'required',
-         'customer_id'=>'required',
          'title'=>'required',
          'type'=>'required',
          'default'=>'required',
@@ -539,7 +538,6 @@ class ApiController extends Controller {
              'title' => $input['title'],
              'type' => $input['type'],
              'default' => $input['default'],
-             'customer_id' => $input['customer_id'],
              'address' => json_encode(array(
                     'address' => $input['address'],
                     'country' => $input['country'],
@@ -566,9 +564,9 @@ class ApiController extends Controller {
  }
 
  public function order_store(Request $request){
+    $user = $request->user();
     $input = $request->all();
      $rule = array(
-         'customer_id'=>'required',
          'customer_contact'=>'required',
          'products'=>'required',
          'status'=>'required',
@@ -588,7 +586,7 @@ class ApiController extends Controller {
          return $this->sendError($message,['error' => 'error occure']);
      }
       try {
-           
+           $input['customer_id'] = $user->id;
            $result = Order::create($input);
         if ($result) {
 
@@ -642,7 +640,6 @@ class ApiController extends Controller {
     $input = $request->all();
      $rule = array(
          'id'=>'required',
-         'customer_id'=>'required',
          'customer_contact'=>'required',
          'status'=>'required',
          'amount'=>'required',
@@ -680,9 +677,10 @@ class ApiController extends Controller {
 
  
  public function add_cart(Request $request){
+    $user = $request->user();
+         
     $input = $request->all();
      $rule = array(
-        'customer_id' => 'required',
         'product_id'=>'required',
         'qty'=>'required',
         'type'=>'required',
@@ -695,6 +693,7 @@ class ApiController extends Controller {
          return $this->sendError($message,['error' => 'error occure']);
      }
       try {
+           $input['customer_id'] = $user->id;
            $exist =Cart::where(array('type' => $input['type'],'customer_id' => $input['customer_id'],'product_id'=>$input['product_id']))->first();
            if($exist == ''){
                $chk_category_id = Cart::create($input);
@@ -716,13 +715,9 @@ class ApiController extends Controller {
 
  public function delete_cart($id){
     try {
-           $chk_category_id = Cart::where('id',$id)->delete();
-        if (!empty($chk_category_id)) {
-            $message = 'Delete to Cart successfully!';
-            return $this->sendResponse($chk_category_id,$message);
-        }
-         $message = 'Some error occure!';
-         return $this->sendError($message,['error' => 'error occure']);
+        $chk_category_id = Cart::where('id',$id)->delete();
+        $message = 'Delete to Cart successfully!';
+        return $this->sendResponse($chk_category_id,$message);
      }catch (\Exception $e) {
          DB::rollBack();
          $message = $e->getMessage();
@@ -731,10 +726,12 @@ class ApiController extends Controller {
  }
 
  
- public function cart($id){
+ public function cart(Request $request){
     try {
+           $user = $request->user();
+           $id=1;
            $chk_category_id = Cart::where( array(
-            'customer_id'=>$id,'type' => 'cart'))->get();
+            'customer_id'=>$user->id,'type' => 'cart'))->get();
         if (!empty($chk_category_id)) {
             $message = 'Cart fetch successfully!';
             return $this->sendResponse($chk_category_id,$message);
@@ -750,11 +747,11 @@ class ApiController extends Controller {
      }
  }
 
- public function wishlist($id){
+ public function wishlist(Request $request){
     try {
-           
+           $user = $request->user();
            $chk_category_id = Cart::where( array(
-            'customer_id'=>$id,'type' => 'wishlist'))->get();
+            'customer_id'=>$user->id,'type' => 'wishlist'))->get();
         if (!empty($chk_category_id)) {
             $message = 'wishlist fetch successfully!';
             return $this->sendResponse($chk_category_id,$message);
@@ -817,6 +814,19 @@ class ApiController extends Controller {
      }
  }
   
+  public function logout(){
+     try {
+          
+          auth()->user()->tokens()->delete();
 
+          $message = 'Logged Out';
+          return $this->sendResponse([], $message);
+       
+       } catch (\Exception $e) {
+           DB::rollBack();
+           $message = $e->getMessage();
+           return $this->sendError(false, $message);
+       }
+  }
 }
 
