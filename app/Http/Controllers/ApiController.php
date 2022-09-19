@@ -18,7 +18,7 @@ use App\Models\Order_product;
 use App\Models\Order_status;
 use App\Models\Cart;
 
-
+use URL;
  
 class ApiController extends Controller {  
 
@@ -252,7 +252,7 @@ class ApiController extends Controller {
              ))->get();
               if(!empty($chk_category)){
                 foreach ($chk_category as $key => $value) {
-                    $chk_category[$key]->image = 'http://13.127.16.66/'.$value->image;
+                    $chk_category[$key]->image = URL::to('/').'/'.$value->image;
                 }
               }
              if (!empty($chk_category)) {
@@ -295,22 +295,11 @@ class ApiController extends Controller {
      }
 
     
-     public function fetch_category_by_id(Request $request){
-        $input = $request->all();
-         $rule = array(
-            'id'=>'required',
-         );
-         $messages = array();
-         $validation = Validator::make($input,  $rule, $messages);
-          if ($validation->fails()) {
-             $message = $validation->messages()->first();
-            
-             return $this->sendError($message,['error' => 'error occure']);
-         }
-          try {
+     public function fetch_category_by_id($id){
+        try {
                
                $chk_category_id = DB::table('categories')->where( array(
-                'id'=>$input['id'],'status'=>1
+                'id'=>$id,'status'=>1
             ))->first();
             if (!empty($chk_category_id)) {
                 $message = 'category fetch successfully!';
@@ -332,26 +321,16 @@ class ApiController extends Controller {
 
     
 
-     public function fetch_product_by_category_id(Request $request){
-        $input = $request->all();
-         $rule = array(
-            'id'=>'required',
-         );
-         $messages = array();
-         $validation = Validator::make($input,  $rule, $messages);
-          if ($validation->fails()) {
-             $message = $validation->messages()->first();
-            
-             return $this->sendError($message,['error' => 'error occure']);
-         }
+     public function fetch_product_by_category_id($id){
+       
           try {
                
                $chk_category_id = DB::table('products')->where( array(
-                'category_id'=>$input['id'],'status'=>1
+                'category_id'=>$id,'status'=>1
             ))->get();
             if(!empty($chk_category_id)){
                 foreach ($chk_category_id as $key => $value) {
-                    $chk_category_id[$key]->image = 'http://13.127.16.66/'.$value->image;
+                    $chk_category_id[$key]->image = URL::to('/').'/'.$value->image;
                 }
             }
             if (!empty($chk_category_id)) {
@@ -375,12 +354,18 @@ class ApiController extends Controller {
      
      public function product_list(Request $request){
         try {
-            $chk_product = DB::table('products')->where( array(
-               'status'=>1
-           ))->get();
+            if($request->category_id){
+                $chk_product = DB::table('products')->where( array(
+               'status'=>1 ,'category_id' => $request->category_id))->get();
+            }else{
+                $chk_product = DB::table('products')->where( array(
+               'status'=>1  ))->get();
+            }
+           
+
              if(!empty($chk_product)){
                 foreach ($chk_product as $key => $value) {
-                    $chk_product[$key]->image = 'http://13.127.16.66/'.$value->image;
+                    $chk_product[$key]->image = URL::to('/').'/'.$value->image;
                 }
               }
            if (!empty($chk_product)) {
@@ -424,30 +409,20 @@ class ApiController extends Controller {
        }
    }
 
-   public function product_by_id(Request $request){
-    $input = $request->all();
-     $rule = array(
-        'id'=>'required',
-     );
-     $messages = array();
-     $validation = Validator::make($input,  $rule, $messages);
-      if ($validation->fails()) {
-         $message = $validation->messages()->first();
-        
-         return $this->sendError($message,['error' => 'error occure']);
-     }
+   public function product_by_id($id){
+   
       try {
            
            $chk_category_id = DB::table('products')->where( array(
-            'id'=>$input['id'],'status'=>1
+            'id'=>$id,'status'=>1
         ))->first();
 
         if (!empty($chk_category_id)) {
-             $chk_category_id->image = 'http://13.127.16.66/'.$chk_category_id->image;
+             $chk_category_id->image = URL::to('/').'/'.$chk_category_id->image;
             $message = 'Product fetch successfully!';
             return $this->sendResponse($chk_category_id,$message);
     }else{
-        $message = 'Wrong product id';
+        $message = 'product id not valid';
     }
          
          

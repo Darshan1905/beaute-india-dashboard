@@ -41,11 +41,11 @@ Route::get('product_list', [ApiController::class, 'product_list']);
 Route::get('shop_list', [ApiController::class, 'shop_list']);
 
 
-Route::post('product_by_id', [ApiController::class, 'product_by_id']);
+Route::get('product_by_id/{id}', [ApiController::class, 'product_by_id']);
 
-Route::post('fetch_category_by_id', [ApiController::class, 'fetch_category_by_id']);
+Route::get('fetch_category_by_id/{id}', [ApiController::class, 'fetch_category_by_id']);
 
-Route::post('fetch_product_by_category_id', [ApiController::class, 'fetch_product_by_category_id']);
+Route::get('fetch_product_by_category_id/{id}', [ApiController::class, 'fetch_product_by_category_id']);
 
 
 
