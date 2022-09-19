@@ -36,7 +36,6 @@ Route::get('sliderimages', [ApiController::class, 'sliderimages']);
 
 Route::get('subcategory', [ApiController::class, 'subcategory']);
 
-Route::get('product_list', [ApiController::class, 'product_list']);
 
 Route::get('shop_list', [ApiController::class, 'shop_list']);
 
@@ -66,5 +65,7 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
       Route::post('order_store', [ApiController::class, 'order_store']);
       Route::post('order_product', [ApiController::class, 'order_product']);
       Route::post('order_update', [ApiController::class, 'order_update']);
+
+      Route::get('product_list', [ApiController::class, 'product_list']);
        
 });

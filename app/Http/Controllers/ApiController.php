@@ -353,13 +353,15 @@ class ApiController extends Controller {
     
      
      public function product_list(Request $request){
+        $user = $request->user();
+        return $user;
         try {
             if($request->category_id){
                 $chk_product = DB::table('products')->where( array(
-               'status'=>1 ,'category_id' => $request->category_id))->get();
+               'status'=>1 ,'category_id' => $request->category_id,'shop_id'=> $user->id))->get();
             }else{
                 $chk_product = DB::table('products')->where( array(
-               'status'=>1  ))->get();
+               'status'=>1 ,'shop_id'=> $user->id ))->get();
             }
            
 
