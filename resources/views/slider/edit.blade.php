@@ -20,7 +20,7 @@
                 </span>
             </div>
             <div class="card-body">
-                {!! Form::model($post, ['route' => ['sliders.update', $post->id], 'method'=>'PATCH']) !!}
+                {!! Form::model($post, ['route' => ['sliders.update', $post->id], 'method'=>'PATCH','enctype' => 'multipart/form-data']) !!}
                   <div class="row">
                      <div class="col-md-3">
                         <div class="form-group">
