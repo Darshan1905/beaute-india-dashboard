@@ -17,6 +17,7 @@ use App\Models\Order;
 use App\Models\Order_product;
 use App\Models\Order_status;
 use App\Models\Cart;
+use Illuminate\Support\Facades\Crypt;
 
 use URL;
  
@@ -55,6 +56,45 @@ class ApiController extends Controller {
     public function login(Request $request){
         $input = $request->all();
         $rule = array(
+            'email'=>'required',
+            'otp'=>'required'
+      
+        );
+        $messages = array();
+        $validation = Validator::make($input,$rule, $messages);
+        if ($validation->fails()) {
+            $message = $validation->messages()->first();
+           
+            return $this->sendError($message,['error' => 'error occure']);
+        }
+        try {
+             $user = User::where(array('email'=> $input['email'],'otp' => $input['otp']))->first(); 
+            
+            if($user){ 
+               if($user->otp != 0){ 
+                $success['token'] =  $user->createToken('MyApp')->plainTextToken; 
+                $success['user'] =  $user;
+       
+                $message = 'Login Successfull';
+                return $this->sendResponse($success, $message);
+              }else{
+                  $message = 'Please Enter Valid OTP';
+                  return $this->sendError($message,['error' => 'error occure']);
+              }
+            }
+            $message = 'Please Enter Valid OTP';
+            return $this->sendError($message,['error' => 'error occure']);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $message = $e->getMessage();
+            return $this->sendError(false, $message);
+        }
+    }
+
+
+     public function shop_login(Request $request){
+        $input = $request->all();
+        $rule = array(
             'shop_id'=>'required',
             'password'=>'required'
       
@@ -67,26 +107,20 @@ class ApiController extends Controller {
             return $this->sendError($message,['error' => 'error occure']);
         }
         try {
-             if(Auth::attempt(['id' => $request->shop_id, 'password' => $request->password])){ 
-                $user = Auth::user(); 
-                $success['token'] =  $user->createToken('MyApp')->plainTextToken; 
-                $success['user'] =  $user;
-       
-            $message = 'Login Successfull';
-            return $this->sendResponse($success, $message);
-            }
     
-            //  $chk_login = DB::table('users')->where( array(
-            //     'id'=>$input['shop_id']
-            // ))->first();
+            $chk_login = DB::table('users')->where( array(
+                'id'=>$input['shop_id']
+            ))->first();
 
-            // if ($chk_login) {
-            //     // if (Hash::check($input['password'],$chk_login->password)){
-            //     //     $message = 'Login Successfull';
-            //     //     return $this->sendResponse($chk_login, $message);
-            //     // }
+            if ($chk_login) {
+                if (Hash::check($input['password'],$chk_login->password)){
+                    $chk_login->token =  Crypt::encryptString($chk_login->id);
+
+                    $message = 'fetch shop Successfull';
+                    return $this->sendResponse($chk_login, $message);
+                }
                
-            // }
+            }
             $message = 'Please check your shop_id or password';
             return $this->sendError($message,['error' => 'error occure']);
         } catch (\Exception $e) {
@@ -99,12 +133,8 @@ class ApiController extends Controller {
     
     public function registration(Request $request){
         $input = $request->all(); 
-        $email = $input['email'];
-        $input['password'] = Hash::make($input['password']);
         $rule = array(
-            'name'=>'required',
             'email'=>'required',
-            'password'=>'required'
         );
         $messages = array();
         $validation = Validator::make($input,  $rule,  $messages);
@@ -114,18 +144,20 @@ class ApiController extends Controller {
             return $this->sendError($message,['error' => 'error occure']);
         }
         try {
-             $chk_officer_id = DB::table('users')->where('email',$email)->first();
+             $input['otp'] = mt_rand('1000','9999');
+             $input['type'] = 'customer';
+             $input['name'] = 'customer';
+             $input['password'] = '123456';
+             $chk_officer_id = DB::table('users')->where('email',$input['email'])->first();
             if (!empty($chk_officer_id)) {
-               $result= true; 
-                $message = 'Email id already exist!';
-                return $this->sendResponse($result, $message);
+               $result = DB::table('users')->where('email',$input['email'])->update($input);
             }else{
                  $result = DB::table('users')->insert($input);
             }
            
             if ($result) {
-                $message = 'Register successfully';
-                return $this->sendResponse($result, $message);
+                $message = 'Send OTP Your Email Address Successfull!';
+                return $this->sendResponse($input['otp'], $message);
             }
             $message = 'Failed12';
             return $this->sendError(false, $message);
@@ -353,15 +385,14 @@ class ApiController extends Controller {
     
      
      public function product_list(Request $request){
-        $user = $request->user();
-        return $user;
         try {
+            $shop_id = Crypt::decryptString($request->header('token'));
             if($request->category_id){
                 $chk_product = DB::table('products')->where( array(
-               'status'=>1 ,'category_id' => $request->category_id,'shop_id'=> $user->id))->get();
+               'status'=>1 ,'category_id' => $request->category_id,'shop_id'=> $shop_id))->get();
             }else{
                 $chk_product = DB::table('products')->where( array(
-               'status'=>1 ,'shop_id'=> $user->id ))->get();
+               'status'=>1 ,'shop_id'=> $shop_id ))->get();
             }
            
 

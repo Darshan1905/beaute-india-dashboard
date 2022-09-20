@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('shop_login', [ApiController::class, 'shop_login']);
 Route::post('login', [ApiController::class, 'login']);
 
 Route::post('registration', [ApiController::class, 'registration']);
@@ -39,7 +40,7 @@ Route::get('subcategory', [ApiController::class, 'subcategory']);
 
 Route::get('shop_list', [ApiController::class, 'shop_list']);
 
-
+Route::get('product_list', [ApiController::class, 'product_list']);
 Route::get('product_by_id/{id}', [ApiController::class, 'product_by_id']);
 
 Route::get('fetch_category_by_id/{id}', [ApiController::class, 'fetch_category_by_id']);
@@ -65,7 +66,5 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
       Route::post('order_store', [ApiController::class, 'order_store']);
       Route::post('order_product', [ApiController::class, 'order_product']);
       Route::post('order_update', [ApiController::class, 'order_update']);
-
-      Route::get('product_list', [ApiController::class, 'product_list']);
        
 });
