@@ -46,13 +46,13 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <strong>Vendor:</strong>
-                    {!! Form::select('vendor_id', [],null, array('id'=>'vendor_id' ,'class' => 'form-control')) !!}
+                     {!! Form::select('vendor_id', $vendor,null, array('class' => 'form-control')) !!}
                 </div>   
             </div>   
             <div class="col-md-3">
                 <div class="form-group">
                     <strong>Category:</strong>
-                    {!! Form::select('category_id', $category,null, array('class' => 'form-control')) !!}
+                    {!! Form::select('category_id', $vendor,null, array('class' => 'form-control')) !!}
                 </div>
             </div>     
             <div class="col-md-3">

@@ -10,6 +10,7 @@ use App\Models\Color;
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\Otherimage;
+use App\Models\Vendor;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ImportProduct;
 use URL;
@@ -75,7 +76,8 @@ class ProductController extends Controller
         $size = Size::where('status','=',1)->pluck('name', 'id')->all();
         $color = Color::where('status','=',1)->pluck('name', 'id')->all();
         $brand = Brand::where('status','=',1)->pluck('name', 'id')->all();
-        return view('product.create',compact('category','shop','size','color','brand'));
+        $vendor = Vendor::where('status','=',1)->pluck('name', 'id')->all();
+        return view('product.create',compact('category','shop','size','color','brand','vendor')); 
     }
 
     public function store(Request $request)

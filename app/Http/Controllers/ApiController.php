@@ -387,6 +387,7 @@ class ApiController extends Controller {
      public function product_list(Request $request){
         try {
             $shop_id = Crypt::decryptString($request->header('token'));
+            
             if($request->category_id){
                 $chk_product = DB::table('products')->where( array(
                'status'=>1 ,'category_id' => $request->category_id,'shop_id'=> $shop_id))->get();
@@ -409,7 +410,7 @@ class ApiController extends Controller {
            }
            
           
-           
+           $message = 'Not Found any Product';
            return $this->sendError($message,['error' => 'error occure']);
        } catch (\Exception $e) {
            DB::rollBack();
