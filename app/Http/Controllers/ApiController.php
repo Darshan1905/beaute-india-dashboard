@@ -150,7 +150,8 @@ class ApiController extends Controller {
              $input['password'] = '123456';
              $chk_officer_id = DB::table('users')->where('email',$input['email'])->first();
             if (!empty($chk_officer_id)) {
-               $result = DB::table('users')->where('email',$input['email'])->update($input);
+                DB::table('users')->where('email',$input['email'])->update($input);
+                $result = 1;
             }else{
                  $result = DB::table('users')->insert($input);
             }
