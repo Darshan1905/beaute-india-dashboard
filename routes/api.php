@@ -40,10 +40,10 @@ Route::get('subcategory', [ApiController::class, 'subcategory']);
 
 Route::get('shop_list', [ApiController::class, 'shop_list']);
 
-Route::get('product_list', [ApiController::class, 'product_list']);
-Route::get('product_by_id/{id}', [ApiController::class, 'product_by_id']);
+Route::get('product', [ApiController::class, 'product_list']);
+Route::get('product/{id}', [ApiController::class, 'product_by_id']);
 
-Route::get('fetch_category_by_id/{id}', [ApiController::class, 'fetch_category_by_id']);
+Route::get('category/{id}', [ApiController::class, 'fetch_category_by_id']);
 
 Route::get('fetch_product_by_category_id/{id}', [ApiController::class, 'fetch_product_by_category_id']);
 
@@ -51,7 +51,7 @@ Route::get('fetch_product_by_category_id/{id}', [ApiController::class, 'fetch_pr
 
 Route::post('order_status_update', [ApiController::class, 'order_status_update']);
 
-Route::get('get_order_status', [ApiController::class, 'get_order_status']);
+Route::get('order-status', [ApiController::class, 'get_order_status']);
 
 
 Route::group(['middleware'=>['auth:sanctum']], function(){
@@ -61,10 +61,15 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
       Route::get('wishlist', [ApiController::class, 'wishlist']);
       Route::post('add_cart', [ApiController::class, 'add_cart']);
       Route::get('delete_cart/{id}', [ApiController::class, 'delete_cart']);
-      Route::post('save_address', [ApiController::class, 'save_address']);
-      Route::post('update_address', [ApiController::class, 'update_address']);
-      Route::post('order_store', [ApiController::class, 'order_store']);
+      Route::get('address', [ApiController::class, 'address']);
+      Route::post('address', [ApiController::class, 'save_address']);
+      Route::post('address/edit/{id}', [ApiController::class, 'update_address']);
+      Route::post('order', [ApiController::class, 'order_store']);
+      Route::post('order/edit/{id}', [ApiController::class, 'order_update']);
       Route::post('order_product', [ApiController::class, 'order_product']);
-      Route::post('order_update', [ApiController::class, 'order_update']);
+      
+
+      Route::resource('sliders', SliderController::class);
+   
        
 });

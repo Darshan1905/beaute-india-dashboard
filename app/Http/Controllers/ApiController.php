@@ -144,7 +144,7 @@ class ApiController extends Controller {
             return $this->sendError($message,['error' => 'error occure']);
         }
         try {
-             $input['otp'] = mt_rand('1000','9999');
+             $input['otp'] = 1234;
              $input['type'] = 'customer';
              $input['name'] = 'customer';
              $input['password'] = '123456';
@@ -386,7 +386,7 @@ class ApiController extends Controller {
      
      public function product_list(Request $request){
         try {
-            $shop_id = Crypt::decryptString($request->header('token'));
+            $shop_id = Crypt::decryptString($request->header('X-Shop-Key'));
             
             if($request->category_id){
                 $chk_product = DB::table('products')->where( array(
@@ -469,6 +469,26 @@ class ApiController extends Controller {
      }
  }
 
+ public function address(Request $request){
+    try {
+           $user = $request->user();
+          
+           $address = Address::where(array(
+            'customer_id'=>$user->id))->get();
+        if (!empty($address)) {
+            $message = 'Address fetch successfully!';
+            return $this->sendResponse($address,$message);
+    }else{
+        $message = 'not have any address';
+    }
+         
+         return $this->sendError($message,['error' => 'error occure']);
+     } catch (\Exception $e) {
+         DB::rollBack();
+         $message = $e->getMessage();
+         return $this->sendError(false, $message);
+     }
+ }
 
  public function save_address(Request $request){
     $user = $request->user();
@@ -511,7 +531,7 @@ class ApiController extends Controller {
             $message = 'Address Create Successfully!';
             return $this->sendResponse($result,$message);
         }
-         $message = 'some error occure';
+         $message = 'Address Not Found';
          return $this->sendError($message,['error' => 'error occure']);
      } catch (\Exception $e) {
          DB::rollBack();
@@ -520,11 +540,9 @@ class ApiController extends Controller {
      }
  }
 
-   public function update_address(Request $request){
+   public function update_address(Request $request,$id){
     $input = $request->all();
      $rule = array(
-        
-         'id'=>'required',
          'title'=>'required',
          'type'=>'required',
          'default'=>'required',
@@ -556,8 +574,6 @@ class ApiController extends Controller {
                 )),
 
            );
-           $id = $input['id'];
-           unset($input['id']);
            $result = Address::where('id',$id)->update($data);
         if ($result) {
             $message = 'Address Update Successfully!';
@@ -595,9 +611,34 @@ class ApiController extends Controller {
          return $this->sendError($message,['error' => 'error occure']);
      }
       try {
-           $input['customer_id'] = $user->id;
-           $result = Order::create($input);
+           $data = array(
+            'customer_id'=> $user->id,
+            'customer_contact'=>$input['customer_contact'],
+            'status'=>$input['status'],
+            'amount'=>$input['amount'],
+            'sales_tax'=>$input['sales_tax'],
+            'paid_total'=>$input['paid_total'],
+            'total'=>$input['total'],
+            'shop_id'=>$input['shop_id'],
+            'shipping_address'=>json_encode($input['shipping_address']),
+            'billing_address'=> json_encode($input['billing_address']),
+           );
+           $result = Order::create($data);
         if ($result) {
+            if(!empty($input['products'])){
+                foreach ($input['products'] as $key => $value) {
+                     $product = array(
+                           'order_id'=>$result->id,
+                           'product_id'=>$value['product_id'],
+                           'order_quantity'=>$value['order_quantity'],
+                           'unit_price'=>$value['unit_price'],
+                           'subtotal'=>$value['subtotal'],
+                     );
+                  $prod =  Order_product::create($product);
+                }
+
+              $result->product =Order_product::where('order_id',$result->id)->get();
+            }
 
             $message = 'Order Create Successfully!';
             return $this->sendResponse($result,$message);
@@ -612,44 +653,12 @@ class ApiController extends Controller {
  }
 
 
- public function order_product(Request $request){
+ public function order_update(Request $request,$id){
+    $user = $request->user();
     $input = $request->all();
      $rule = array(
-         'order_id'=>'required',
-         'product_id'=>'required',
-         'order_quantity'=>'required',
-         'unit_price'=>'required',
-         'subtotal'=>'required',
-         
-     );
-     $messages = array();
-     $validation = Validator::make($input,  $rule, $messages);
-      if ($validation->fails()) {
-         $message = $validation->messages()->first();
-         return $this->sendError($message,['error' => 'error occure']);
-     }
-      try {
-           
-           $result = Order_product::create($input);
-        if ($result) {
-
-            $message = 'Order Product insert Successfully!';
-            return $this->sendResponse($result,$message);
-        }
-         $message = 'some error occure';
-         return $this->sendError($message,['error' => 'error occure']);
-     } catch (\Exception $e) {
-         DB::rollBack();
-         $message = $e->getMessage();
-         return $this->sendError(false, $message);
-     }
- }
-
- public function order_update(Request $request){
-    $input = $request->all();
-     $rule = array(
-         'id'=>'required',
          'customer_contact'=>'required',
+         'products'=>'required',
          'status'=>'required',
          'amount'=>'required',
          'sales_tax'=>'required',
@@ -667,13 +676,40 @@ class ApiController extends Controller {
          return $this->sendError($message,['error' => 'error occure']);
      }
       try {
-           
-            $id = $input['id'];
-            unset($input['id']);
-            $result = Order::where('id',$id)->update($input);
+           $data = array(
+            'customer_id'=> $user->id,
+            'customer_contact'=>$input['customer_contact'],
+            'status'=>$input['status'],
+            'amount'=>$input['amount'],
+            'sales_tax'=>$input['sales_tax'],
+            'paid_total'=>$input['paid_total'],
+            'total'=>$input['total'],
+            'shop_id'=>$input['shop_id'],
+            'shipping_address'=>json_encode($input['shipping_address']),
+            'billing_address'=> json_encode($input['billing_address']),
+           );
+           $result = Order::where('id',$id)->update($data);
+
         if ($result) {
+            if(!empty($input['products'])){
+                Order_product::where('order_id',$id)->delete();
+                $order = Order::where('id',$id)->first();
+                foreach ($input['products'] as $key => $value) {
+                     $product = array(
+                           'order_id'=>$id,
+                           'product_id'=>$value['product_id'],
+                           'order_quantity'=>$value['order_quantity'],
+                           'unit_price'=>$value['unit_price'],
+                           'subtotal'=>$value['subtotal'],
+                     );
+                  $prod =  Order_product::create($product);
+                }
+
+              $order->product =Order_product::where('order_id',$id)->get();
+            }
+
             $message = 'Order Update Successfully!';
-            return $this->sendResponse($result,$message);
+            return $this->sendResponse($order,$message);
         }
          $message = 'some error occure';
          return $this->sendError($message,['error' => 'error occure']);
@@ -684,6 +720,7 @@ class ApiController extends Controller {
      }
  }
 
+ 
  
  public function add_cart(Request $request){
     $user = $request->user();

@@ -31,7 +31,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <strong>Vendor:</strong>
-                    {!! Form::select('vendor_id', $vendor,null, array('id'=>'vendor_id' ,'class' => 'form-control')) !!}
+                    {!! Form::select('vendor_id', $vendor,null, array('class' => 'form-control')) !!}
                 </div>   
             </div>   
             <div class="col-md-3">

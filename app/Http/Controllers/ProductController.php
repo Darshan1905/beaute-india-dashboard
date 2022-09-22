@@ -121,7 +121,7 @@ class ProductController extends Controller
         $post = Product::find($id);
         $shop = User::where(array('status' => 1,'type' => 'shop'))->pluck('name', 'id')->all();
         $category = Categorie::where('status','=',1)->pluck('name', 'id')->all();
-        $vendor = User::where('id', $post->vendor_id)->pluck('name', 'id')->all();
+        $vendor = Vendor::where('id', $post->vendor_id)->pluck('name', 'id')->all();
         $size = Size::where('status','=',1)->pluck('name', 'id')->all();
         $color = Color::where('status','=',1)->pluck('name', 'id')->all();
         $brand = Brand::where('status','=',1)->pluck('name', 'id')->all();
