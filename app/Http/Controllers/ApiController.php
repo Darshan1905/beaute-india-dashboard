@@ -498,7 +498,7 @@ class ApiController extends Controller {
            $user = $request->user();
           
            $address = Address::where(array(
-            'customer_id'=>$user->id,'default' =>1))->get();
+            'customer_id'=>$user->id,'default' =>1))->orderBy('id','DESC')->get();
         if (!empty($address)) {
             $message = 'Address fetch successfully!';
             return $this->sendResponse($address,$message);
