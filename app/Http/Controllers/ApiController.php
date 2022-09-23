@@ -491,6 +491,26 @@ class ApiController extends Controller {
      }
  }
 
+
+ public function addressbyId($id){
+    try {
+           $address = Address::where(array(
+            'id'=>$id))->first();
+        if (!empty($address)) {
+            $message = 'Address fetch successfully!';
+            return $this->sendResponse($address,$message);
+    }else{
+        $message = 'not have any address';
+    }
+         
+         return $this->sendError($message,['error' => 'error occure']);
+     } catch (\Exception $e) {
+         DB::rollBack();
+         $message = $e->getMessage();
+         return $this->sendError(false, $message);
+     }
+ }
+
  public function save_address(Request $request){
     $user = $request->user();
     $input = $request->all();
@@ -866,6 +886,20 @@ class ApiController extends Controller {
           
           auth()->user()->tokens()->delete();
 
+          $message = 'Logged Out';
+          return $this->sendResponse([], $message);
+       
+       } catch (\Exception $e) {
+           DB::rollBack();
+           $message = $e->getMessage();
+           return $this->sendError(false, $message);
+       }
+  }
+
+  public function shop_logout(Request $request){
+      try {
+          $encryptedValue = $request->header('X-Shop-Key');
+          $decrypted = decrypt($encryptedValue);
           $message = 'Logged Out';
           return $this->sendResponse([], $message);
        
