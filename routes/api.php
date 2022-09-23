@@ -63,6 +63,7 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
       Route::post('add_cart', [ApiController::class, 'add_cart']);
       Route::get('delete_cart/{id}', [ApiController::class, 'delete_cart']);
       Route::get('address', [ApiController::class, 'address']);
+      Route::get('address/default', [ApiController::class, 'addressDefault']);
       Route::post('address', [ApiController::class, 'save_address']);
       Route::get('address/{id}', [ApiController::class, 'addressbyId']);
      

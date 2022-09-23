@@ -19,6 +19,7 @@ use App\Models\Order_status;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Crypt;
 
+use Closure;
 use URL;
  
 class ApiController extends Controller {  
@@ -492,6 +493,28 @@ class ApiController extends Controller {
  }
 
 
+ public function addressDefault(Request $request){
+    try {
+           $user = $request->user();
+          
+           $address = Address::where(array(
+            'customer_id'=>$user->id,'default' =>1))->get();
+        if (!empty($address)) {
+            $message = 'Address fetch successfully!';
+            return $this->sendResponse($address,$message);
+    }else{
+        $message = 'not have any address';
+    }
+         
+         return $this->sendError($message,['error' => 'error occure']);
+     } catch (\Exception $e) {
+         DB::rollBack();
+         $message = $e->getMessage();
+         return $this->sendError(false, $message);
+     }
+ }
+
+
  public function addressbyId($id){
     try {
            $address = Address::where(array(
@@ -898,11 +921,10 @@ class ApiController extends Controller {
 
   public function shop_logout(Request $request){
       try {
-          $encryptedValue = $request->header('X-Shop-Key');
-          $decrypted = decrypt($encryptedValue);
-          $message = 'Logged Out';
-          return $this->sendResponse([], $message);
-       
+            
+        $request->header('X-Shop-Key', '');
+        return $request->header('X-Shop-Key');
+           
        } catch (\Exception $e) {
            DB::rollBack();
            $message = $e->getMessage();
