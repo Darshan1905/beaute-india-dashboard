@@ -28,10 +28,14 @@ class ImportProduct implements  ToCollection,WithHeadingRow
             $result =    Product::create([
                         'user_id'        => Auth::user()->id,
                         'name'       => $dd->prodcut_name,
+                        'inventory_count' => $dd->inventory_count,
                         'normal_price'       => $dd->mrp,
                         'sale_price'       => $dd->selling_price,
                         'shipping_price'       => $dd->shipping_price,
                         'short_description'       => $dd->short_description,
+                        'image'       => $dd->image,
+                        'shop_id'       => $dd->shop_id,
+                        'category_id'       => $dd->category_id,
                         'long_decription'       => $dd->long_decription,
                     ]);
             Product::where('id',$result->id)->update(array('sku_no' => 'PRO'.'0000'.$result->id));

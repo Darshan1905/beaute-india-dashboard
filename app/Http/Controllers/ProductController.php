@@ -89,7 +89,7 @@ class ProductController extends Controller
             $extension = $request->file('image')->getClientOriginalExtension();
             $filename = date('YmdHi'). '_'. rand('0000','9999').'.'.$extension;
             $file->move(public_path('image/'), $filename);
-            $input['image']= 'image/'.$filename;
+            $input['image']= URL::to('/').'/image/'.$filename;
         }
         unset($input['otherimages']);
         $result = Product::create($input);
@@ -100,7 +100,7 @@ class ProductController extends Controller
                 $extension =  $file->getClientOriginalExtension();
                 $name = date('YmdHi'). '_'. rand('0000','9999').'.'.$extension;
                 $file->move(public_path('upload_image/'), $name);  
-                Otherimage::create(array('product_id'=>$result->id,'image' => 'public/image/'.$name));
+                Otherimage::create(array('product_id'=>$result->id,'image' => URL::to('/').'/image/'.$name));
             }
          }
         Product::where('id',$result->id)->update(array('sku_no' => 'PRO'.'0000'.$result->id));
@@ -140,7 +140,7 @@ class ProductController extends Controller
             $extension = $request->file('image')->getClientOriginalExtension();
             $filename = date('YmdHi'). '_'. rand('0000','9999').'.'.$extension;
             $file->move(public_path('image/'), $filename);
-            $input['image']= 'public/image/'.$filename;
+            $input['image']= URL::to('/').'/image/'.$filename;
         }
 
          if($request->file('other_img'))
@@ -150,7 +150,7 @@ class ProductController extends Controller
                 $extension =  $file->getClientOriginalExtension();
                 $name = date('YmdHi'). '_'. rand('0000','9999').'.'.$extension;
                 $file->move(public_path('image/'), $name);  
-                Otherimage::create(array('product_id'=>$id,'image' => 'image/'.$name));
+                Otherimage::create(array('product_id'=>$id,'image' => URL::to('/').'/image/'.$name));
             }
          }
          unset($input['otherimages']);
