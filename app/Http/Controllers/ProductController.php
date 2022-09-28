@@ -45,7 +45,7 @@ class ProductController extends Controller
         return datatables()->of($industry)
             ->editColumn('created_at', '{{ date("d-m-Y", strtotime($created_at)) }}')
             ->editColumn('image', function($row) {
-                return '<img src="'.URL::to('/').'/'.$row->image.'" style="width: 50px; height:50px;">'; })
+                return '<img src="'.$row->image.'" style="width: 50px; height:50px;">'; })
             ->editColumn('category', function($row) {
                 return Categorie::where('id','=',$row->category_id)->first()->name; })
             ->editColumn('status', function($row) {
