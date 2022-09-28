@@ -362,11 +362,7 @@ class ApiController extends Controller {
                $chk_category_id = DB::table('products')->where( array(
                 'category_id'=>$id,'status'=>1
             ))->get();
-            if(!empty($chk_category_id)){
-                foreach ($chk_category_id as $key => $value) {
-                    $chk_category_id[$key]->image = URL::to('/').'/'.$value->image;
-                }
-            }
+            
             if (!empty($chk_category_id)) {
                 $message = 'Product fetch successfully!';
                 return $this->sendResponse($chk_category_id,$message);
@@ -397,13 +393,7 @@ class ApiController extends Controller {
                 $chk_product = DB::table('products')->where( array(
                'status'=>1 ,'shop_id'=> $shop_id ))->get();
             }
-           
-
-             if(!empty($chk_product)){
-                foreach ($chk_product as $key => $value) {
-                    $chk_product[$key]->image = URL::to('/').'/'.$value->image;
-                }
-              }
+             
            if (!empty($chk_product)) {
                   $message = 'Product fetch successfully';
                   return $this->sendResponse($chk_product, $message);
@@ -454,7 +444,6 @@ class ApiController extends Controller {
         ))->first();
 
         if (!empty($chk_category_id)) {
-             $chk_category_id->image = URL::to('/').'/'.$chk_category_id->image;
             $message = 'Product fetch successfully!';
             return $this->sendResponse($chk_category_id,$message);
     }else{
