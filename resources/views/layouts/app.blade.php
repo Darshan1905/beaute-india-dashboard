@@ -49,6 +49,11 @@
 		<link href="{{ URL::to('/') }}/assets/plugins/sidemenu/sidemenu.css" rel="stylesheet">
 		
 		
+
+		<!---DataTables css-->
+		<link href="{{ URL::to('/') }}/assets/plugins/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
+		<link href="{{ URL::to('/') }}/assets/plugins/datatable/responsivebootstrap4.min.css" rel="stylesheet">
+		<link href="{{ URL::to('/') }}/assets/plugins/datatable/fileexport/buttons.bootstrap4.min.css" rel="stylesheet">
 		<!---Switcher css-->
 		<link href="{{ URL::to('/') }}/assets/switcher/css/switcher.css" rel="stylesheet">
 		<link href="{{ URL::to('/') }}/assets/switcher/demo.css" rel="stylesheet">	
