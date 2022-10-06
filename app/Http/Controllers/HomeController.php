@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\State;
 use App\Models\Cities;
 use App\Models\Vendor;
+use App\Models\User;
+use App\Models\Product;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,8 +28,11 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
-        return view('home');
+    {   $shop = User::where(array('type'=>'shop','status' =>1))->count();
+        $customer = User::where(array('type'=>'customer','status' =>1))->count();
+        $products = Product::where(array('status' =>1))->count();
+        $orders = Order::count();
+        return view('home',compact('shop','customer','products','orders'));
     }
 
     public function fetchvendorsList(Request $request) {

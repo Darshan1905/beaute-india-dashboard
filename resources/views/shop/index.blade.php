@@ -39,6 +39,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Shop ID</th>
                                 <th>Name</th>
                                 <th>Address</th>
                                 <th>Contact</th>
@@ -96,7 +97,8 @@
                 "type": "get",
             },
             columns: [
-                {data: 'DT_RowIndex', name: 'id'},
+                {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                {data: 'id', name: 'id'},
                 {data: 'name', name: 'status'},
                 {data: 'address', name: 'address'},
                 {data: 'contact', name: 'contact'},

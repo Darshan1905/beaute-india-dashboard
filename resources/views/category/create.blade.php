@@ -33,7 +33,7 @@
                 <span class="float-right">
                     <a class="btn btn-primary" href="{{ route('categorys.index') }}">Back</a>
                 </span>
-            </div>
+            </div> 
             <div class="card-body">
             {!! Form::open(array('route' => 'categorys.store', 'method'=>'POST','enctype' => 'multipart/form-data')) !!}
             <div class="row">
@@ -50,7 +50,12 @@
                         {!! Form::textarea('description', null, array('placeholder' => 'Category Description','class' => 'form-control','required' =>'required','value'=>'')) !!}
                     </div>
                 </div>      
-                
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <strong>Banner Image:</strong>
+                        {!! Form::file('image', array('placeholder' => 'image','id' => 'image','class' => 'form-control','accept' =>'image/*','required' =>'required')) !!}
+                    </div>
+                </div> 
                 <div class="col-md-3">
                     <div class="form-group">
                         <strong>Status:</strong>

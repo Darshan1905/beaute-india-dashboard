@@ -8,10 +8,10 @@
 		<meta name="author" content="Spruko Technologies Private Limited">
 		<meta name="keywords" content="sales dashboard, admin dashboard, bootstrap 4 admin template, html admin template, admin panel design, admin panel design, bootstrap 4 dashboard, admin panel template, html dashboard template, bootstrap admin panel, sales dashboard design, best sales dashboards, sales performance dashboard, html5 template, dashboard template">
 		<!-- Favicon -->
-		<link rel="icon" href="{{ URL::to('/') }}/assets/img/brand/favicon.ico" type="image/x-icon">
+		<!-- <link rel="icon" href="{{ URL::to('/') }}/assets/img/brand/favicon.ico" type="image/x-icon"> -->
 
 		<!-- Title -->
-		<title>Dashlead -  Admin Panel HTML Dashboard Template</title>
+		<title>Beaut India -  Admin Panel</title>
 
 		<!---Fontawesome css-->
 		<link href="{{ URL::to('/') }}/assets/plugins/fontawesome-free/css/all.min.css" rel="stylesheet">
@@ -76,14 +76,14 @@
 			<!-- Main Content-->
 			<div class="main-content side-content pt-0">
 				<!-- Main Header-->
-				<div class="main-header side-header sticky">
+				<div class="main-header side-header sticky" style="background: #000;">
 					<div class="container-fluid">
 						<div class="main-header-left">
 							<a class="main-logo d-lg-none" href="{{ URL::to('/') }}">
-								<img src="{{ URL::to('/') }}/assets/img/brand/logo.png" class="header-brand-img desktop-logo" alt="logo">
-								<img src="{{ URL::to('/') }}/assets/img/brand/icon.png" class="header-brand-img icon-logo" alt="logo">
-								<img src="{{ URL::to('/') }}/assets/img/brand/logo-light.png" class="header-brand-img desktop-logo theme-logo" alt="logo">
-								<img src="{{ URL::to('/') }}/assets/img/brand/icon-light.png" class="header-brand-img icon-logo theme-logo" alt="logo">
+								<img src="{{ URL::to('/') }}/assets/img/beautindia.png" class="header-brand-img desktop-logo" alt="logo">
+								<img src="{{ URL::to('/') }}/assets/img/beautindia.png" class="header-brand-img icon-logo" alt="logo">
+								<img src="{{ URL::to('/') }}/assets/img/beautindia.png" class="header-brand-img desktop-logo theme-logo" alt="logo">
+								<img src="{{ URL::to('/') }}/assets/img/beautindia.png" class="header-brand-img icon-logo theme-logo" alt="logo">
 							</a>
 							<a class="main-header-menu-icon" href="" id="mainSidebarToggle"><span></span></a>
 						</div>
@@ -172,11 +172,11 @@
 									
 								</div>
 							</div>
-							<div class="dropdown d-md-flex header-settings">
+							<!-- <div class="dropdown d-md-flex header-settings">
 								<a href="#" class="nav-link icon" data-toggle="sidebar-right" data-target=".sidebar-right">
 									<i class="fe fe-align-right"></i>
 								</a>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>

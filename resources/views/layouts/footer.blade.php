@@ -114,7 +114,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <span>Copyright © 2019 <a href="#">Dashlead</a>. Designed by <a href="../../index.htm">Spruko</a> All rights reserved.</span>
+                <span>Copyright © 2022 <a href="#">Beaut India</a>. Designed by Beaut India.</span>
             </div>
         </div>
     </div>

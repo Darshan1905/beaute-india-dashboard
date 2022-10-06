@@ -1,11 +1,11 @@
 Sidemenu -->
 <div class="main-sidebar main-sidebar-sticky side-menu">
-				<div class="sidemenu-logo">
+				<div class="sidemenu-logo" style="background: #000;">
 					<a class="main-logo" href="index.html">
-						<img src="{{ URL::to('/') }}/assets/img/brand/logo.png" class="header-brand-img desktop-logo" alt="logo">
-						<img src="{{ URL::to('/') }}/assets/img/brand/icon.png" class="header-brand-img icon-logo" alt="logo">
-						<img src="{{ URL::to('/') }}/assets/img/brand/logo-light.png" class="header-brand-img desktop-logo theme-logo" alt="logo">
-						<img src="{{ URL::to('/') }}/assets/img/brand/icon-light.png" class="header-brand-img icon-logo theme-logo" alt="logo">
+						<img src="{{ URL::to('/') }}/assets/img/beautindia.png" class="header-brand-img desktop-logo" alt="logo">
+						<img src="{{ URL::to('/') }}/assets/img/beautindia.png" class="header-brand-img icon-logo" alt="logo">
+						<img src="{{ URL::to('/') }}/assets/img/beautindia.png" class="header-brand-img desktop-logo theme-logo" alt="logo">
+						<img src="{{ URL::to('/') }}/assets/img/beautindia.png" class="header-brand-img icon-logo theme-logo" alt="logo">
 					</a>
 				</div>
 				<div class="main-sidebar-body">

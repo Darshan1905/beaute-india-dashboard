@@ -9,7 +9,7 @@
 	transition: margin-left 0.45s ease;
 }
 .side-menu .nav-link:hover{
-	color:#8760fb;
+	color:#343a40;
 }
 .side-menu .nav-item{
 	transition-duration: 0.25s;
@@ -93,7 +93,7 @@
     left: -12px;
     top:0;
     bottom: 0;
-    background: #8760fb;
+    background: #343a40;
     height: 40px;
     width: 3px;
 }*/

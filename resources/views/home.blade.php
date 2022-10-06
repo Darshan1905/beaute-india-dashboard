@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+ 
 @section('content')
 <div class="container-fluid">
     <!-- Page Header -->
@@ -11,7 +11,7 @@
                 <li class="breadcrumb-item active" aria-current="page">Sales Dashboard</li>
             </ol>
         </div>
-        <div class="d-flex">
+       <!--  <div class="d-flex">
             <div class="mr-2">
                 <a class="btn ripple btn-outline-primary dropdown-toggle mb-0" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <i class="fe fe-external-link"></i> Export <i class="fas fa-caret-down ml-1"></i>
@@ -27,7 +27,7 @@
                     <i class="fe fe-filter mr-1"></i>  Filter <i class="fas fa-caret-down ml-1"></i>
                 </a>
             </div>
-        </div>
+        </div> -->
     </div>
     <!-- End Page Header -->
 
@@ -264,21 +264,21 @@
             <div class="card custom-card">
                 <div class="card-body dash1">
                     <div class="d-flex">
-                        <p class="mb-1 tx-inverse">Number Of Sales</p>
+                        <p class="mb-1 tx-inverse">Total Shops</p>
                         <div class="ml-auto">
                             <i class="fas fa-chart-line fs-20 text-primary"></i>
                         </div>
                     </div>
                     <div>
-                        <h3 class="dash-25">568</h3>
+                        <h3 class="dash-25">{{ $shop }}</h3>
                     </div>
                     <div class="progress mb-1">
                         <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" class="progress-bar progress-bar-xs wd-70p" role="progressbar"></div>
                     </div>
-                    <div class="expansion-label d-flex">
+                    <!-- <div class="expansion-label d-flex">
                         <span class="text-muted">Last Month</span>
                         <span class="ml-auto"><i class="fas fa-caret-up mr-1 text-success"></i>0.7%</span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -286,21 +286,21 @@
             <div class="card custom-card">
                 <div class="card-body dash1">
                     <div class="d-flex">
-                        <p class="mb-1 tx-inverse">New Revenue</p>
+                        <p class="mb-1 tx-inverse">Total Customer</p>
                         <div class="ml-auto">
                             <i class="fab fa-rev fs-20 text-secondary"></i>
                         </div>
                     </div>
                     <div>
-                        <h3 class="dash-25">$12,897</h3>
+                        <h3 class="dash-25">{{ $customer }}</h3>
                     </div>
                     <div class="progress mb-1">
                         <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" class="progress-bar progress-bar-xs wd-60p bg-secondary" role="progressbar"></div>
                     </div>
-                    <div class="expansion-label d-flex">
+                    <!-- <div class="expansion-label d-flex">
                         <span class="text-muted">Last Month</span>
                         <span class="ml-auto"><i class="fas fa-caret-down mr-1 text-danger"></i>0.43%</span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -308,21 +308,21 @@
             <div class="card custom-card">
                 <div class="card-body dash1">
                     <div class="d-flex">
-                        <p class="mb-1 tx-inverse">Total Cost</p>
+                        <p class="mb-1 tx-inverse">Total Product</p>
                         <div class="ml-auto">
                             <i class="fas fa-dollar-sign fs-20 text-success"></i>
                         </div>
                     </div>
                     <div>
-                        <h3 class="dash-25">$11,234</h3>
+                        <h3 class="dash-25">{{ $products }}</h3>
                     </div>
                     <div class="progress mb-1">
                         <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" class="progress-bar progress-bar-xs wd-50p bg-success" role="progressbar"></div>
                     </div>
-                    <div class="expansion-label d-flex text-muted">
+                    <!-- <div class="expansion-label d-flex text-muted">
                         <span class="text-muted">Last Month</span>
                         <span class="ml-auto"><i class="fas fa-caret-down mr-1 text-danger"></i>1.44%</span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -330,21 +330,21 @@
             <div class="card custom-card">
                 <div class="card-body dash1">
                     <div class="d-flex">
-                        <p class="mb-1 tx-inverse">Profit By Sale</p>
+                        <p class="mb-1 tx-inverse">Total Orders</p>
                         <div class="ml-auto">
                             <i class="fas fa-signal fs-20 text-info"></i>
                         </div>
                     </div>
                     <div>
-                        <h3 class="dash-25">$789</h3>
+                        <h3 class="dash-25">{{ $orders }}</h3>
                     </div>
                     <div class="progress mb-1">
                         <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" class="progress-bar progress-bar-xs wd-40p bg-info" role="progressbar"></div>
                     </div>
-                    <div class="expansion-label d-flex text-muted">
+                    <!-- <div class="expansion-label d-flex text-muted">
                         <span class="text-muted">Last Month</span>
                         <span class="ml-auto"><i class="fas fa-caret-up mr-1 text-success"></i>0.9%</span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -352,7 +352,7 @@
     <!--End  Row -->
 
     <!-- Row -->
-    <div class="row row-sm">
+    <!-- <div class="row row-sm">
         <div class="col-sm-12 col-xl-8 col-lg-8">
             <div class="card custom-card overflow-hidden">
                 <div class="card-body">
@@ -429,11 +429,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- End Row -->
 
     <!-- Row -->
-    <div class="row row-sm">
+   <!--  <div class="row row-sm">
         <div class="col-sm-12 col-xl-4 col-lg-4">
             <div class="card custom-card">
                 <div class="card-body">
@@ -678,11 +678,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- End Row -->
 
     <!-- Row-->
-    <div class="row">
+   <!--  <div class="row">
         <div class="col-sm-12 col-xl-12 col-lg-12">
             <div class="card custom-card">
                 <div class="card-body">
@@ -782,7 +782,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- End Row -->
 
     </div>

@@ -4,14 +4,14 @@
 
 		<meta charset="utf-8">
 		<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-		<meta name="description" content="Dashlead -  Admin Panel HTML Dashboard Template">
+		<meta name="description" content="Beaut India -  Admin Panel HTML Dashboard Template">
 		<meta name="author" content="Spruko Technologies Private Limited">
 		<meta name="keywords" content="sales dashboard, admin dashboard, bootstrap 4 admin template, html admin template, admin panel design, admin panel design, bootstrap 4 dashboard, admin panel template, html dashboard template, bootstrap admin panel, sales dashboard design, best sales dashboards, sales performance dashboard, html5 template, dashboard template">
 		<!-- Favicon -->
 		<link rel="icon" href="{{ URL::to('/') }}/assets/img/brand/favicon.ico" type="image/x-icon"/>
 
 		<!-- Title -->
-		<title>Dashlead -  Admin Panel HTML Dashboard Template</title>
+		<title>Beaut India -  Admin Panel </title>
 
 		<!---Fontawesome css-->
 		<link href="{{ URL::to('/') }}/assets/plugins/fontawesome-free/css/all.min.css" rel="stylesheet">
@@ -26,7 +26,7 @@
 		<link href="{{ URL::to('/') }}/assets/plugins/feather/feather.css" rel="stylesheet">
 
 		<!---Falg-icons css-->
-		<link href="{{ URL::to('/') }}/assets/plugins/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
+		<!-- <link href="{{ URL::to('/') }}/assets/plugins/flag-icon-css/css/flag-icon.min.css" rel="stylesheet"> -->
 
 		<!---Style css-->
 		<link href="{{ URL::to('/') }}/assets/css/style.css" rel="stylesheet">
@@ -38,7 +38,7 @@
 		
 	</head>
 
-	<body>
+	<body style="background: #000000;">
 		<!-- Loader -->
 		<div id="global-loader">
 			<img src="{{ URL::to('/') }}/assets/img/loader.svg" class="loader-img" alt="Loader">
@@ -53,8 +53,8 @@
 			<div class="row text-center pl-0 pr-0 ml-0 mr-0">
 				<div class="col-lg-3 d-block mx-auto">
 					<div class="text-center mb-2">
-						<img src="{{ URL::to('/') }}/assets/img/brand/logo.png" class="header-brand-img" alt="logo">
-						<img src="{{ URL::to('/') }}/assets/img/brand/logo-light.png" class="header-brand-img theme-logos" alt="logo">
+						<img src="{{ URL::to('/') }}/assets/img/beautindia.png" class="header-brand-img" alt="logo">
+						<img src="{{ URL::to('/') }}/assets/img/beautindia.png" class="header-brand-img theme-logos" alt="logo">
 					</div>
 					<div class="card custom-card">
 						<div class="card-body">
@@ -91,10 +91,10 @@
 							</form>
 						
 							<div class="mt-3 text-center">
-								@if (Route::has('password.request'))
+							<!-- 	@if (Route::has('password.request'))
 								<p class="mb-1"><a  href="{{ route('password.request') }}">Forgot password?</a></p>
-								@endif
-							<p class="mb-0">Don't have an account? <a href="signup">Create an Account</a></p>
+								@endif -->
+							<!-- <p class="mb-0">Don't have an account? <a href="signup">Create an Account</a></p> -->
 						</div>
 						</div>
 					</div>

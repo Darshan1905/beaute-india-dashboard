@@ -385,10 +385,39 @@ class ApiController extends Controller {
      public function product_list(Request $request){
         try {
             $shop_id = Crypt::decryptString($request->header('X-Shop-Key'));
-            
-            if($request->category_id){
-                $chk_product = DB::table('products')->where( array(
-               'status'=>1 ,'category_id' => $request->category_id,'shop_id'=> $shop_id))->get();
+            if($request->all()){
+                $where =array('status'=>1 ,'category_id' => $request->category_id,'shop_id'=> $shop_id);
+                if($request->category_id){
+                    $where =array_merge(array('category_id' => $request->category_id),$where);
+                }
+
+                if($request->brand_id != ''){
+                    $where =array_merge(array('brand_id' => $request->brand_id),$where);
+                }
+
+                if($request->product_size != ''){
+                    $where =array_merge(array('product_size' => $request->product_size),$where);
+                }
+              
+
+                if($request->price_mini != '' && $request->product_max != ''){
+                    $where =array_merge(array('sale_price >=' => $request->price_mini,'sale_price <=' => $request->product_max),$where);
+                }
+
+                if($request->sorting != ''){
+                   if($request->sorting == 'low'){
+
+                     $chk_product = DB::table('products')->where($where)->orderBy('sale_price','DESC')->get();
+                    }elseif($request->sorting == 'high'){
+                     $chk_product = DB::table('products')->where($where)->orderBy('sale_price','ASC')->get();
+                    }elseif($request->sorting == 'popularity'){
+                      $chk_product = DB::table('products')->where($where)->orderBy('id','DESC')->get();
+                    }
+                }else{
+                     $chk_product = DB::table('products')->where($where)->orderBy('id','DESC')->get();
+                }
+
+               
             }else{
                 $chk_product = DB::table('products')->where( array(
                'status'=>1 ,'shop_id'=> $shop_id ))->get();

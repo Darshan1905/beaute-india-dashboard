@@ -6,8 +6,9 @@ use App\Models\Branch;
 use Illuminate\Http\Request;
 use App\Models\Businessactivitie;
 use App\Models\Business;
-use App\Models\Categorie;
+use App\Models\Categorie; 
 use Auth;
+use URL;
 class CategoryController extends Controller
 {
     
@@ -29,6 +30,10 @@ class CategoryController extends Controller
         $industry = Categorie::get();
         return datatables()->of($industry)
             ->editColumn('created_at', '{{ date("d-m-Y", strtotime($created_at)) }}')
+             ->editColumn('image', function($row) {
+                return '<img src="'.$row->image.'" style="width: 50px; height:50px;">'; })
+           
+            ->addIndexColumn()
             ->editColumn('status', function($row) {
                             return $row->status == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">In-Active</span>';
                         })
@@ -41,8 +46,7 @@ class CategoryController extends Controller
             ->rawColumns([
                 'status' => 'status',
                 'category_name' => 'category_name',
-                'bussiness' => 'bussiness',
-                'category_code' => 'category_code',
+                'image' => 'image',
                 'action' => 'action'
             ])
             ->make(true);
@@ -62,6 +66,13 @@ class CategoryController extends Controller
         ]);
         $input = $request->except(['_token']);
         $input['user_id'] = Auth::user()->id;
+        if($request->file('image')){
+            $file= $request->file('image');
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $filename = date('YmdHi'). '_'. rand('0000','9999').'.'.$extension;
+            $file->move(public_path('image/'), $filename);
+            $input['image']= URL::to('/').'/image/'.$filename;
+        }
         Categorie::create($input);
     
         return redirect()->route('categorys.index')
@@ -86,12 +97,19 @@ class CategoryController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'description'=>'required',
         ]);
-
+        
+        $input = $request->except(['_token']);
+         if($request->file('image')){
+            $file= $request->file('image');
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $filename = date('YmdHi'). '_'. rand('0000','9999').'.'.$extension;
+            $file->move(public_path('image/'), $filename);
+            $input['image']= URL::to('/').'/image/'.$filename;
+        }
         $post = Categorie::find($id);
     
-        $post->update($request->all());
+        $post->update($input);
     
         return redirect()->route('categorys.index')
             ->with('success', 'Category updated successfully.');

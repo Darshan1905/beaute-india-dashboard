@@ -39,8 +39,10 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Cagetory ID</th>
                                 <th>Name</th>
                                 <th>Description</th>
+                                <th>Banner Image</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -93,9 +95,12 @@
                 "type": "get",
             },
             columns: [
+            
+                {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'id', name: 'id'},
                 {data: 'name', name: 'name'},
                 {data: 'description', name: 'description'},
+                {data: 'image', name: 'image'},
                 {data: 'status', name: 'status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],
