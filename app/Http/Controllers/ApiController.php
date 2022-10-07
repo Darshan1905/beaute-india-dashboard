@@ -13,7 +13,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Address;
+use App\Models\Product;
 use App\Models\Order;
+use App\Models\Band;
 use App\Models\Order_product;
 use App\Models\Order_status;
 use App\Models\Cart;
@@ -386,6 +388,10 @@ class ApiController extends Controller {
         try {
             $shop_id = Crypt::decryptString($request->header('X-Shop-Key'));
             if($request->all()){
+             if($request->keyword != ''){ 
+                 $chk_product = Product::with('brand','vendor','category','size')->where('name','like','%'.$request->keyword.'%')->where('status','=',1)->where('shop_id','=', $shop_id)->orderBy('id','DESC')->get();
+             }else{
+
                 $where =array('status'=>1 ,'category_id' => $request->category_id,'shop_id'=> $shop_id);
                 if($request->category_id){
                     $where =array_merge(array('category_id' => $request->category_id),$where);
@@ -403,23 +409,27 @@ class ApiController extends Controller {
                 if($request->price_mini != '' && $request->product_max != ''){
                     $where =array_merge(array('sale_price >=' => $request->price_mini,'sale_price <=' => $request->product_max),$where);
                 }
+               
 
                 if($request->sorting != ''){
                    if($request->sorting == 'low'){
 
-                     $chk_product = DB::table('products')->where($where)->orderBy('sale_price','DESC')->get();
+                     $chk_product = Product::with('brand','vendor','category','size')->where($where)->orderBy('sale_price','DESC')->get();
                     }elseif($request->sorting == 'high'){
-                     $chk_product = DB::table('products')->where($where)->orderBy('sale_price','ASC')->get();
+                     $chk_product = Product::with('brand','vendor','category','size')->where($where)->orderBy('sale_price','ASC')->get();
                     }elseif($request->sorting == 'popularity'){
-                      $chk_product = DB::table('products')->where($where)->orderBy('id','DESC')->get();
+                      $chk_product = Product::with('brand','vendor','category','size')->where($where)->orderBy('id','DESC')->get();
                     }
                 }else{
-                     $chk_product = DB::table('products')->where($where)->orderBy('id','DESC')->get();
+                     $chk_product = Product::with('brand','vendor','category','size')->where($where)->orderBy('id','DESC')->get();
                 }
+             }
+                
+
 
                
             }else{
-                $chk_product = DB::table('products')->where( array(
+                $chk_product = Product::with('brand','vendor','category','size')->where( array(
                'status'=>1 ,'shop_id'=> $shop_id ))->get();
             }
              

@@ -28,7 +28,7 @@ class ProductController extends Controller
 
    
     public function index(Request $request)
-    {
+    { 
 
         $category = Categorie::where('status','=',1)->get();
         return view('product.index',compact('category'));
@@ -36,10 +36,10 @@ class ProductController extends Controller
 
     public function productList() {
          if(Auth::user()->type == 'admin'){
-           $industry = Product::orderBy('id','DESC')->get();
+           $industry = Product::with('brand','vendor','category','size')->orderBy('id','DESC')->get();
         }else{
           
-           $industry = Product::where('shop_id', Auth::user()->shop_id)->orderBy('id','DESC')->get();
+           $industry = Product::with('brand','vendor','category','size')->where('shop_id', Auth::user()->shop_id)->orderBy('id','DESC')->get();
         }
        
         return datatables()->of($industry)
@@ -47,7 +47,7 @@ class ProductController extends Controller
             ->editColumn('image', function($row) {
                 return '<img src="'.$row->image.'" style="width: 50px; height:50px;">'; })
             ->editColumn('category', function($row) {
-                return Categorie::where('id','=',$row->category_id)->first()->name; })
+                return $row->category->name; })
             ->editColumn('status', function($row) {
                             return $row->status == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">In-Active</span>';
                         })
@@ -121,7 +121,7 @@ class ProductController extends Controller
         $post = Product::find($id);
         $shop = User::where(array('status' => 1,'type' => 'shop'))->pluck('name', 'id')->all();
         $category = Categorie::where('status','=',1)->pluck('name', 'id')->all();
-        $vendor = Vendor::where('id', $post->vendor_id)->pluck('name', 'id')->all();
+        $vendor = Vendor::pluck('name', 'id')->all();
         $size = Size::where('status','=',1)->pluck('name', 'id')->all();
         $color = Color::where('status','=',1)->pluck('name', 'id')->all();
         $brand = Brand::where('status','=',1)->pluck('name', 'id')->all();

@@ -28,12 +28,12 @@
                     {!! Form::select('shop_id', $shop,null, array('id' => 'shop_id','class' => 'form-control','onchange' => "getVendorFn()")) !!}
                 </div>   
             </div>   
-            <div class="col-md-3">
+           <div class="col-md-3">
                 <div class="form-group">
                     <strong>Vendor:</strong>
-                    {!! Form::select('vendor_id', $vendor,null, array('class' => 'form-control')) !!}
+                     {!! Form::select('vendor_id', $vendor, $post->vendor_id, array('class' => 'form-control')) !!}
                 </div>   
-            </div>   
+            </div>     
             <div class="col-md-3">
                 <div class="form-group">
                     <strong>Category:</strong>
