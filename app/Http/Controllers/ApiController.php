@@ -394,51 +394,54 @@ class ApiController extends Controller {
         try {
             $shop_id = Crypt::decryptString($request->header('X-Shop-Key'));
             if($request->all()){
-             if($request->keyword != ''){ 
-                 $chk_product = Product::with('brand','vendor','category','size')->where('name','like','%'.$request->keyword.'%')->where('status','=',1)->where('shop_id','=', $shop_id)->orderBy('id','DESC')->get();
-             }else{
-
-                $where =array('status'=>1 ,'category_id' => $request->category_id,'shop_id'=> $shop_id);
+                $chk_product = Product::with('brand','vendor','category','size');
+                $chk_product =$chk_product->where(array('status'=>1 ,'shop_id'=> $shop_id));
                 if($request->category_id){
-                    $where =array_merge(array('category_id' => $request->category_id),$where);
+                    $chk_product =$chk_product->where('category_id','=',$request->category_id);
+                   
                 }
 
                 if($request->brand_id != ''){
-                    $where =array_merge(array('brand_id' => $request->brand_id),$where);
+                    $brands = explode(',', $request->brand_id);
+                    $chk_product =$chk_product->wherein('products.brand_id',$brands);
                 }
 
                 if($request->product_size != ''){
-                    $where =array_merge(array('product_size' => $request->product_size),$where);
+                     $product_size = explode(',', $request->product_size);
+                     $chk_product =$chk_product->wherein('products.product_size',$product_size);
                 }
               
 
                 if($request->price_mini != '' && $request->product_max != ''){
-                    $where =array_merge(array('sale_price >=' => $request->price_mini,'sale_price <=' => $request->product_max),$where);
+                    $chk_product =$chk_product->where('sale_price','>=',$request->price_mini);
+                    $chk_product =$chk_product->where('sale_price','<=',$request->product_max);
+                   
                 }
                
 
                 if($request->sorting != ''){
                    if($request->sorting == 'low'){
-
-                     $chk_product = Product::with('brand','vendor','category','size')->where($where)->orderBy('sale_price','DESC')->get();
+                        $chk_product =$chk_product->orderBy('sale_price','DESC');
                     }elseif($request->sorting == 'high'){
-                     $chk_product = Product::with('brand','vendor','category','size')->where($where)->orderBy('sale_price','ASC')->get();
+                     $chk_product =$chk_product->orderBy('sale_price','ASC');
                     }elseif($request->sorting == 'popularity'){
-                      $chk_product = Product::with('brand','vendor','category','size')->where($where)->orderBy('id','DESC')->get();
+                      $chk_product =$chk_product->orderBy('id','DESC');
                     }
                 }else{
-                     $chk_product = Product::with('brand','vendor','category','size')->where($where)->orderBy('id','DESC')->get();
+                    $chk_product =$chk_product->orderBy('id','DESC');
                 }
+
+                if($request->keyword != ''){
+                      $chk_product =$chk_product->where('name','like','%'.$request->keyword.'%');
+                }
+
+
              }
                 
 
-
+               $chk_product = $chk_product->get();
                
-            }else{
-                $chk_product = Product::with('brand','vendor','category','size')->where( array(
-               'status'=>1 ,'shop_id'=> $shop_id ))->get();
-            }
-             
+           
            if (!empty($chk_product)) {
                   $message = 'Product fetch successfully';
                   return $this->sendResponse($chk_product, $message);
