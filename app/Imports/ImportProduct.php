@@ -36,6 +36,8 @@ class ImportProduct implements  ToCollection,WithHeadingRow
                         'image'       => $dd->image,
                         'shop_id'       => $dd->shop_id,
                         'category_id'       => $dd->category_id,
+                        'brand_id'       => $dd->brand_id,
+                        'product_size'       => $dd->product_size_id,
                         'long_decription'       => $dd->long_decription,
                     ]);
             Product::where('id',$result->id)->update(array('sku_no' => 'PRO'.'0000'.$result->id));

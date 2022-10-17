@@ -78,7 +78,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row row-sm">
-                        <div class="col-lg">
+                        <!-- <div class="col-lg">
                             <select class="form-control" name="category_id" required>
                                 @if($category)
                                 @foreach ($category as $key => $value)
@@ -86,7 +86,7 @@
                                 @endforeach
                                 @endif
                             </select>
-                        </div>
+                        </div> -->
                         <div class="col-lg">
                             <input class="form-control" name="file" placeholder="Input box" type="file">
                             <a href="{{ URL::to('/') }}/public/products.xlsx" download="">Example Product Excel File</p>

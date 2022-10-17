@@ -160,6 +160,12 @@ class ApiController extends Controller {
             }
            
             if ($result) {
+                  $details = [
+                        'title' => 'Your Verification OTP',
+                        'body' => 'Your OTP is:'.$input['otp']
+                    ];
+                   
+                    \Mail::to($input['email'])->send(new \App\Mail\MyTestMail($details));
                 $message = 'Send OTP Your Email Address Successfull!';
                 return $this->sendResponse($input['otp'], $message);
             }
