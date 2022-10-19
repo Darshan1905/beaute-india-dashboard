@@ -439,9 +439,10 @@ class ApiController extends Controller {
      public function product_list(Request $request){
         try {
             $shop_id = Crypt::decryptString($request->header('X-Shop-Key'));
+             $chk_product = Product::with('brand','vendor','category','size');
+             $chk_product =$chk_product->where(array('status'=>1 ,'shop_id'=> $shop_id));
+               
             if($request->all()){
-                $chk_product = Product::with('brand','vendor','category','size');
-                $chk_product =$chk_product->where(array('status'=>1 ,'shop_id'=> $shop_id));
                 if($request->category_id){
                     $chk_product =$chk_product->where('category_id','=',$request->category_id);
                    
@@ -474,7 +475,7 @@ class ApiController extends Controller {
                       $chk_product =$chk_product->orderBy('id','DESC');
                     }
                 }else{
-                    $chk_product =$chk_product->orderBy('id','DESC');
+                    $chk_product = $chk_product->orderBy('id','DESC');
                 }
 
                 if($request->keyword != ''){
@@ -486,8 +487,7 @@ class ApiController extends Controller {
                 
 
                $chk_product = $chk_product->get();
-               
-           
+             
            if (!empty($chk_product)) {
                   $message = 'Product fetch successfully';
                   return $this->sendResponse($chk_product, $message);
