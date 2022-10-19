@@ -16,6 +16,7 @@ use App\Models\Address;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\Band;
+use App\Models\Size;
 use App\Models\Order_product;
 use App\Models\Order_status;
 use App\Models\Cart;
@@ -302,6 +303,51 @@ class ApiController extends Controller {
                     return $this->sendResponse($chk_category, $message);
              }else{
                 return $this->sendResponse(null, 'Slider Images not available');
+             }
+             
+            
+             
+             return $this->sendError($message,['error' => 'error occure']);
+         } catch (\Exception $e) {
+             DB::rollBack();
+             $message = $e->getMessage();
+             return $this->sendError(false, $message);
+         }
+     }
+
+     public function size(Request $request){
+          try {
+              $chk_category = DB::table('sizes')->where( array(
+                 'status'=>1
+             ))->get();
+             if (!empty($chk_category)) {
+                    $message = 'Size fetch successfully';
+                    return $this->sendResponse($chk_category, $message);
+             }else{
+                return $this->sendResponse(null, 'size not available');
+             }
+             
+            
+             
+             return $this->sendError($message,['error' => 'error occure']);
+         } catch (\Exception $e) {
+             DB::rollBack();
+             $message = $e->getMessage();
+             return $this->sendError(false, $message);
+         }
+     }
+
+
+     public function brand(Request $request){
+          try {
+              $chk_category = DB::table('brands')->where( array(
+                 'status'=>1
+             ))->get();
+             if (!empty($chk_category)) {
+                    $message = 'Brands fetch successfully';
+                    return $this->sendResponse($chk_category, $message);
+             }else{
+                return $this->sendResponse(null, 'brands not available');
              }
              
             
