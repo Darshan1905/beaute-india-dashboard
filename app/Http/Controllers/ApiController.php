@@ -443,43 +443,43 @@ class ApiController extends Controller {
              $chk_product =$chk_product->where(array('status'=>1 ,'shop_id'=> $shop_id));
                
             if($request->all()){
-                if($request->category_id){
-                    $chk_product =$chk_product->where('category_id','=',$request->category_id);
+                if($request->category){
+                    $chk_product =$chk_product->where('category_id','=',$request->category);
                    
                 }
 
-                if($request->brand_id != ''){
-                    $brands = explode(',', $request->brand_id);
+                if($request->brand != ''){
+                    $brands = explode(',', $request->brand);
                     $chk_product =$chk_product->wherein('products.brand_id',$brands);
                 }
 
-                if($request->product_size != ''){
-                     $product_size = explode(',', $request->product_size);
+                if($request->size != ''){
+                     $product_size = explode(',', $request->size);
                      $chk_product =$chk_product->wherein('products.product_size',$product_size);
                 }
               
 
-                if($request->price_mini != '' && $request->product_max != ''){
-                    $chk_product =$chk_product->where('sale_price','>=',$request->price_mini);
-                    $chk_product =$chk_product->where('sale_price','<=',$request->product_max);
+                if($request->price_min != '' && $request->price_max  != ''){
+                    $chk_product =$chk_product->where('sale_price','>=',$request->price_min);
+                    $chk_product =$chk_product->where('sale_price','<=',$request->price_max);
                    
                 }
                
 
-                if($request->sorting != ''){
-                   if($request->sorting == 'low'){
+                if($request->sort_by != ''){
+                   if($request->sort_by == 'low'){
                         $chk_product =$chk_product->orderBy('sale_price','DESC');
-                    }elseif($request->sorting == 'high'){
+                    }elseif($request->sort_by == 'high'){
                      $chk_product =$chk_product->orderBy('sale_price','ASC');
-                    }elseif($request->sorting == 'popularity'){
+                    }elseif($request->sort_by == 'popularity'){
                       $chk_product =$chk_product->orderBy('id','DESC');
                     }
                 }else{
                     $chk_product = $chk_product->orderBy('id','DESC');
                 }
 
-                if($request->keyword != ''){
-                      $chk_product =$chk_product->where('name','like','%'.$request->keyword.'%');
+                if($request->search != ''){
+                      $chk_product =$chk_product->where('name','like','%'.$request->search.'%');
                 }
 
 
