@@ -91,9 +91,9 @@
 							</form>
 						
 							<div class="mt-3 text-center">
-							<!-- 	@if (Route::has('password.request'))
+								@if (Route::has('password.request'))
 								<p class="mb-1"><a  href="{{ route('password.request') }}">Forgot password?</a></p>
-								@endif -->
+								@endif
 							<!-- <p class="mb-0">Don't have an account? <a href="signup">Create an Account</a></p> -->
 						</div>
 						</div>

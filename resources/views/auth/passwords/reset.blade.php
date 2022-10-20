@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+    <head> 
 
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
@@ -11,7 +11,7 @@
         <link rel="icon" href="{{ URL::to('/') }}/assets/img/brand/favicon.ico" type="image/x-icon"/>
 
         <!-- Title -->
-        <title>Dashlead -  Admin Panel HTML Dashboard Template</title>
+        <title>Beaut India -  Admin Panel   </title>
 
         <!---Fontawesome css-->
         <link href="{{ URL::to('/') }}/assets/plugins/fontawesome-free/css/all.min.css" rel="stylesheet">
@@ -47,14 +47,15 @@
 
 
                             <!-- Page -->
-        <div class="page main-signin-wrapper">
+        <div class="page main-signin-wrapper" style="    background: black;
+">
 
             <!-- Row -->
             <div class="row text-center pl-0 pr-0 ml-0 mr-0">
-                <div class="col-lg-3 d-block mx-auto">
+                <div class="col-lg-8 d-block mx-auto">
                     <div class="text-center mb-2">
-                        <img src="{{ URL::to('/') }}/assets/img/brand/logo.png" class="header-brand-img" alt="logo">
-                        <img src="{{ URL::to('/') }}/assets/img/brand/logo-light.png" class="header-brand-img theme-logos" alt="logo">
+                        <img src="{{ URL::to('/') }}/assets/img/beautindia.png" class="header-brand-img" alt="logo">
+                        <img src="{{ URL::to('/') }}/assets/img/beautindia.png" class="header-brand-img theme-logos" alt="logo">
                     </div>
                     <div class="card custom-card">
                         <div class="card-body">

@@ -149,10 +149,10 @@ class ApiController extends Controller {
             return $this->sendError($message,['error' => 'error occure']);
         }
         try {
-             $input['otp'] = 1234;
+             $input['otp'] = rand('1000','9999');
              $input['type'] = 'customer';
              $input['name'] = 'customer';
-             $input['password'] = '123456';
+             $input['password'] = Hash::make('123456');
              $chk_officer_id = DB::table('users')->where('email',$input['email'])->first();
             if (!empty($chk_officer_id)) {
                 DB::table('users')->where('email',$input['email'])->update($input);
