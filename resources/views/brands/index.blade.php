@@ -38,6 +38,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Brand ID</th>
                                 <th>Name</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -92,6 +93,7 @@
             },
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                {data: 'id', name: 'id'},
                 {data: 'name', name: 'name'},
                 {data: 'status', name: 'status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
