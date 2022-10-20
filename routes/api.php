@@ -59,6 +59,8 @@ Route::post('order_status_update', [ApiController::class, 'order_status_update']
 Route::get('order-status', [ApiController::class, 'get_order_status']);
 
 
+Route::post('newsletter', [ApiController::class, 'newsletter']);
+
 Route::group(['middleware'=>['auth:sanctum']], function(){
 
       Route::get('logout', [ApiController::class, 'logout']);

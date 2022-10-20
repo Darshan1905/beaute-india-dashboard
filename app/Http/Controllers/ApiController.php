@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Address;
+use App\Models\Newsletter;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\Band;
@@ -1013,6 +1014,38 @@ class ApiController extends Controller {
            $message = $e->getMessage();
            return $this->sendError(false, $message);
        }
+  }
+
+  public function newsletter(Request $request){
+    $user = $request->user();
+    $input = $request->all();
+     $rule = array(
+         'email'=>'required',
+         
+     );
+     $messages = array();
+     $validation = Validator::make($input,  $rule, $messages);
+      if ($validation->fails()) {
+         $message = $validation->messages()->first();
+        
+         return $this->sendError($message,['error' => 'error occure']);
+     }
+      try {
+           $data = array(
+             'email' => $input['email']
+           );
+           $result = Newsletter::create($data);
+        if ($result) {
+            $message = 'Newsletter Add Successfully!';
+            return $this->sendResponse($result,$message);
+        }
+         $message = 'Newsletter Not Add';
+         return $this->sendError($message,['error' => 'error occure']);
+     } catch (\Exception $e) {
+         DB::rollBack();
+         $message = $e->getMessage();
+         return $this->sendError(false, $message);
+     }
   }
 }
 
