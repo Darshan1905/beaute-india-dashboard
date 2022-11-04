@@ -534,7 +534,7 @@ class ApiController extends Controller {
    
       try {
            
-           $chk_category_id = DB::table('products')->where( array(
+           $chk_category_id = Product::with('brand','vendor','category','size')->where( array(
             'id'=>$id,'status'=>1
         ))->first();
 
