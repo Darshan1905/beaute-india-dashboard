@@ -36,10 +36,15 @@
                             <tr>
                                 <th>#</th>
                                 <th>Order No.</th>
-                                <th>Customer Name</th>
-                                <th>Customer Email</th>
-                                <th>Customer Contact</th>
+                                <th>Date</th>
+                                <th>Store</th>
+                                <th>Shipping Charges</th>
+                                <th>Discount</th>
                                 <th>Total Amount</th>
+                                <th>Coupon Code</th>
+                                <th>Payment Method</th>
+                                <th>Billing Address</th>
+                                <th>Shipping Address</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -135,10 +140,15 @@
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'id', name: 'id'},
-                {data: 'customer_name', name: 'customer_name'},
-                {data: 'customer_email', name: 'customer_email'},
-                {data: 'customer_contact', name: 'customer_contact'},
+                {data: 'created_at', name: 'created_at'},
+                {data: 'shop_id', name: 'shop_id'},
+                {data: 'sales_tax', name: 'sales_tax'},
+                {data: 'discount', name: 'discount'},
                 {data: 'total', name: 'total'},
+                {data: 'coupon_id', name: 'coupon_id'},
+                {data: 'payment_gateway', name: 'payment_gateway'},
+                {data: 'shipping_address', name: 'shipping_address'},
+                {data: 'billing_address', name: 'billing_address'},
                 {data: 'status', name: 'status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],
@@ -149,4 +159,5 @@
 
 
 </script>
+
 @endsection
