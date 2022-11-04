@@ -509,7 +509,7 @@
 								<a class="main-img-user" href=""><img alt="avatar" src="{{ URL::to('/') }}/assets/img/users/1.jpg"></a>
 								<div class="dropdown-menu">
 									<div class="header-navheading">
-										<h6 class="main-notification-title">Sonia Taylor</h6>
+										<h6 class="main-notification-title">{{Auth::user()->name}}</h6>
 										<p class="main-notification-text">Web Designer</p>
 									</div>
 									<a class="dropdown-item border-top" href="">

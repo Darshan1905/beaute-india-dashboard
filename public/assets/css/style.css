@@ -11551,7 +11551,7 @@ body {
 	position: relative;
 	width: 15px;
 	height: 2px;
-	background-color:white;
+	background-color:black;
 	border-radius: 3px;
 	transition: all 0.2s ease-in-out;
 }
@@ -11577,12 +11577,12 @@ body {
 }
 .main-header-menu-icon span::before {
 
-	background-color:white;
+	background-color:black;
 	top: -6px;
 }
 .main-header-menu-icon span::after {
 	
-	background-color:white;
+	background-color:black;
 	bottom: -6px;
 }
 .main-header-menu {

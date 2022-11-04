@@ -119,6 +119,12 @@
     $(document).ready(function () {
 
         table = $('#exportexample1').DataTable({
+            dom: 'lBrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+
+            lengthMenu: [[25, 100, -1], [25, 100, "All"]],
             processing: true,
             responsive: true,
             serverSide: true,

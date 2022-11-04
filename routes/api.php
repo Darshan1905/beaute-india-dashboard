@@ -34,6 +34,7 @@ Route::post('forgot_password', [ApiController::class, 'forgot_password']);
 
 Route::get('category', [ApiController::class, 'category']);
 
+Route::get('razorpay', [ApiController::class, 'razorpay']);
 
 Route::get('size', [ApiController::class, 'size']);
 Route::get('brand', [ApiController::class, 'brand']);

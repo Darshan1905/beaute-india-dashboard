@@ -76,14 +76,14 @@
 			<!-- Main Content-->
 			<div class="main-content side-content pt-0">
 				<!-- Main Header-->
-				<div class="main-header side-header sticky" style="background: #000;">
+				<div class="main-header side-header sticky" style="background: #F7F7F7;">
 					<div class="container-fluid">
 						<div class="main-header-left">
 							<a class="main-logo d-lg-none" href="{{ URL::to('/') }}">
-								<img src="{{ URL::to('/') }}/assets/img/beautindia.png" class="header-brand-img desktop-logo" alt="logo">
-								<img src="{{ URL::to('/') }}/assets/img/beautindia.png" class="header-brand-img icon-logo" alt="logo">
-								<img src="{{ URL::to('/') }}/assets/img/beautindia.png" class="header-brand-img desktop-logo theme-logo" alt="logo">
-								<img src="{{ URL::to('/') }}/assets/img/beautindia.png" class="header-brand-img icon-logo theme-logo" alt="logo">
+								<img src="{{ URL::to('/') }}/assets/img/beautindia.jpg" class="header-brand-img desktop-logo" alt="logo">
+								<img src="{{ URL::to('/') }}/assets/img/beautindia.jpg" class="header-brand-img icon-logo" alt="logo">
+								<img src="{{ URL::to('/') }}/assets/img/beautindia.jpg" class="header-brand-img desktop-logo theme-logo" alt="logo">
+								<img src="{{ URL::to('/') }}/assets/img/beautindia.jpg" class="header-brand-img icon-logo theme-logo" alt="logo">
 							</a>
 							<a class="main-header-menu-icon" href="" id="mainSidebarToggle"><span></span></a>
 						</div>
@@ -142,16 +142,16 @@
 								<a class="main-img-user" href=""><img alt="avatar" src="{{ URL::to('/') }}/assets/img/users/1.jpg"></a>
 								<div class="dropdown-menu">
 									<div class="header-navheading">
-										<h6 class="main-notification-title">Sonia Taylor</h6>
-										<p class="main-notification-text">Web Designer</p>
+										<h6 class="main-notification-title">{{Auth::user()->name}}</h6>
+										<!-- <p class="main-notification-text">Web Designer</p> -->
 									</div>
-									<a class="dropdown-item border-top" href="">
+								<!-- 	<a class="dropdown-item border-top" href="">
 										<i class="fe fe-user"></i> My Profile
 									</a>
 									<a class="dropdown-item" href="">
 										<i class="fe fe-edit"></i> Edit Profile
-									</a>
-									<a class="dropdown-item" href="">
+									</a> -->
+									<!-- <a class="dropdown-item" href="">
 										<i class="fe fe-settings"></i> Account Settings
 									</a>
 									<a class="dropdown-item" href="">
@@ -159,7 +159,7 @@
 									</a>
 									<a class="dropdown-item" href="">
 										<i class="fe fe-compass"></i> Activity
-									</a>
+									</a> -->
 									
 									<a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

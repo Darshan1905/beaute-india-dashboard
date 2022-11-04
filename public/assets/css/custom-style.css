@@ -601,7 +601,7 @@ body{
 }
 .main-header-right .nav-link.icon{
 	font-size: 20px;
-    color: #fff;
+    color: black;
 	cursor:pointer;
 	line-height: .9;
 }

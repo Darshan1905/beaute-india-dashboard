@@ -1016,6 +1016,25 @@ class ApiController extends Controller {
        }
   }
 
+
+  public function razorpay(Request $request){
+    try {
+           $chk_category_id =array('razorpay_key'=>env('RAZORPAY_KEY'),'razorpay_secret'=>env('RAZORPAY_SECRET'),'currency_code'=>env('CURRENCY_CODE'));
+        if (!empty($chk_category_id)) {
+            $message = 'Razorpay Details fetch successfully!';
+            return $this->sendResponse($chk_category_id,$message);
+    }else{
+        $message = 'not have any data';
+    }
+         
+         return $this->sendError($message,['error' => 'error occure']);
+     } catch (\Exception $e) {
+         DB::rollBack();
+         $message = $e->getMessage();
+         return $this->sendError(false, $message);
+     }
+  }
+
   public function newsletter(Request $request){
     $user = $request->user();
     $input = $request->all();

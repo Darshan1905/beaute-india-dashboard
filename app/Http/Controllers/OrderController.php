@@ -70,6 +70,7 @@ class OrderController extends Controller
     {
         $post = Order::find($id);
         $product = Order_product::where('order_id',$id)->with('product_detail')->get();
+        return $post;
         return view('orders.invoice', compact('post','product'));
     }
 }
