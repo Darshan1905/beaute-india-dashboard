@@ -80,10 +80,10 @@
 					<div class="container-fluid">
 						<div class="main-header-left">
 							<a class="main-logo d-lg-none" href="{{ URL::to('/') }}">
-								<img src="{{ URL::to('/') }}/assets/img/beautindia.jpg" class="header-brand-img desktop-logo" alt="logo">
-								<img src="{{ URL::to('/') }}/assets/img/beautindia.jpg" class="header-brand-img icon-logo" alt="logo">
-								<img src="{{ URL::to('/') }}/assets/img/beautindia.jpg" class="header-brand-img desktop-logo theme-logo" alt="logo">
-								<img src="{{ URL::to('/') }}/assets/img/beautindia.jpg" class="header-brand-img icon-logo theme-logo" alt="logo">
+								<img src="{{ URL::to('/') }}/assets/img/beauteindia.png" class="header-brand-img desktop-logo" alt="logo">
+								<img src="{{ URL::to('/') }}/assets/img/beauteindia.png" class="header-brand-img icon-logo" alt="logo">
+								<img src="{{ URL::to('/') }}/assets/img/beauteindia.png" class="header-brand-img desktop-logo theme-logo" alt="logo">
+								<img src="{{ URL::to('/') }}/assets/img/beauteindia.png" class="header-brand-img icon-logo theme-logo" alt="logo">
 							</a>
 							<a class="main-header-menu-icon" href="" id="mainSidebarToggle"><span></span></a>
 						</div>
