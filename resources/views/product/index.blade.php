@@ -89,7 +89,7 @@
                         </div> -->
                         <div class="col-lg">
                             <input class="form-control" name="file" placeholder="Input box" type="file">
-                            <a href="{{ URL::to('/') }}/public/products.xlsx" download="">Example Product Excel File</p>
+                            <a href="{{ URL::to('/') }}/products.xlsx" download="">Example Product Excel File</p>
                         </div>
                     </div>
                 </div>
