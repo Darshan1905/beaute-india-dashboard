@@ -1,7 +1,7 @@
 Sidemenu -->
 <div class="main-sidebar main-sidebar-sticky side-menu">
 				<div class="sidemenu-logo" style="background: #F7F7F7;">
-					<a class="main-logo" href="index.html">
+					<a class="main-logo" href="http://54.91.88.149:3001/">
 						<img src="{{ URL::to('/') }}/assets/img/beauteindia.png" class="header-brand-img desktop-logo" alt="logo">
 						<img src="{{ URL::to('/') }}/assets/img/beauteindia.png" class="header-brand-img icon-logo" alt="logo">
 						<img src="{{ URL::to('/') }}/assets/img/beauteindia.png" class="header-brand-img desktop-logo theme-logo" alt="logo">

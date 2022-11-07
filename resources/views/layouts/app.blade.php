@@ -79,7 +79,7 @@
 				<div class="main-header side-header sticky" style="background: #F7F7F7;">
 					<div class="container-fluid">
 						<div class="main-header-left">
-							<a class="main-logo d-lg-none" href="{{ URL::to('/') }}">
+							<a class="main-logo d-lg-none" href="http://54.91.88.149:3001/">
 								<img src="{{ URL::to('/') }}/assets/img/beauteindia.png" class="header-brand-img desktop-logo" alt="logo">
 								<img src="{{ URL::to('/') }}/assets/img/beauteindia.png" class="header-brand-img icon-logo" alt="logo">
 								<img src="{{ URL::to('/') }}/assets/img/beauteindia.png" class="header-brand-img desktop-logo theme-logo" alt="logo">
