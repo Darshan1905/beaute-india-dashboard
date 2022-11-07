@@ -310,7 +310,7 @@
                     <div class="d-flex">
                         <p class="mb-1 tx-inverse">Total Product</p>
                         <div class="ml-auto">
-                            <i class="fas fa-dollar-sign fs-20 text-success"></i>
+                            <i class="fas fa-shopping-cart fs-20 text-success"></i>
                         </div>
                     </div>
                     <div>
