@@ -1,5 +1,5 @@
 @extends('layouts.app')
- 
+
 @section('content')
 <div class="container-fluid">
     <!-- Page Header -->
@@ -11,7 +11,7 @@
                 <li class="breadcrumb-item active" aria-current="page">Sales Dashboard</li>
             </ol>
         </div>
-       <!--  <div class="d-flex">
+        <!--  <div class="d-flex">
             <div class="mr-2">
                 <a class="btn ripple btn-outline-primary dropdown-toggle mb-0" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <i class="fe fe-external-link"></i> Export <i class="fas fa-caret-down ml-1"></i>
@@ -46,7 +46,8 @@
                                             <div class="input-group-text">
                                                 <i class="fe fe-calendar lh--9 op-6"></i>
                                             </div>
-                                        </div><input class="form-control fc-datepicker" placeholder="11/01/2019" type="text">
+                                        </div><input class="form-control fc-datepicker" placeholder="11/01/2019"
+                                            type="text">
                                     </div>
                                 </div>
                             </div>
@@ -58,7 +59,8 @@
                                             <div class="input-group-text">
                                                 <i class="fe fe-calendar lh--9 op-6"></i>
                                             </div>
-                                        </div><input class="form-control fc-datepicker" placeholder="11/08/2019" type="text">
+                                        </div><input class="form-control fc-datepicker" placeholder="11/08/2019"
+                                            type="text">
                                     </div>
                                 </div>
                             </div>
@@ -252,14 +254,18 @@
                 </div>
                 <hr>
                 <div class="text-right">
-                    <a href="#" class="btn btn-primary" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Apply</a>
-                    <a href="#" class="btn btn-secondary" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Reset</a>
+                    <a href="#" class="btn btn-primary" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false"
+                        aria-label="Toggle navigation">Apply</a>
+                    <a href="#" class="btn btn-secondary" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false"
+                        aria-label="Toggle navigation">Reset</a>
                 </div>
             </div>
         </div>
     </div>
     <!--End Navbar -->
-                        <div class="row row-sm">
+    <div class="row row-sm">
         <div class="col-sm-6 col-xl-3 col-lg-6">
             <div class="card custom-card">
                 <div class="card-body dash1">
@@ -273,7 +279,8 @@
                         <h3 class="dash-25">{{ $shop }}</h3>
                     </div>
                     <div class="progress mb-1">
-                        <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" class="progress-bar progress-bar-xs wd-70p" role="progressbar"></div>
+                        <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="70"
+                            class="progress-bar progress-bar-xs wd-70p" role="progressbar"></div>
                     </div>
                     <!-- <div class="expansion-label d-flex">
                         <span class="text-muted">Last Month</span>
@@ -295,7 +302,8 @@
                         <h3 class="dash-25">{{ $customer }}</h3>
                     </div>
                     <div class="progress mb-1">
-                        <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" class="progress-bar progress-bar-xs wd-60p bg-secondary" role="progressbar"></div>
+                        <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="70"
+                            class="progress-bar progress-bar-xs wd-60p bg-secondary" role="progressbar"></div>
                     </div>
                     <!-- <div class="expansion-label d-flex">
                         <span class="text-muted">Last Month</span>
@@ -317,7 +325,8 @@
                         <h3 class="dash-25">{{ $products }}</h3>
                     </div>
                     <div class="progress mb-1">
-                        <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" class="progress-bar progress-bar-xs wd-50p bg-success" role="progressbar"></div>
+                        <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="70"
+                            class="progress-bar progress-bar-xs wd-50p bg-success" role="progressbar"></div>
                     </div>
                     <!-- <div class="expansion-label d-flex text-muted">
                         <span class="text-muted">Last Month</span>
@@ -339,7 +348,8 @@
                         <h3 class="dash-25">{{ $orders }}</h3>
                     </div>
                     <div class="progress mb-1">
-                        <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" class="progress-bar progress-bar-xs wd-40p bg-info" role="progressbar"></div>
+                        <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="70"
+                            class="progress-bar progress-bar-xs wd-40p bg-info" role="progressbar"></div>
                     </div>
                     <!-- <div class="expansion-label d-flex text-muted">
                         <span class="text-muted">Last Month</span>
@@ -433,7 +443,7 @@
     <!-- End Row -->
 
     <!-- Row -->
-   <!--  <div class="row row-sm">
+    <!--  <div class="row row-sm">
         <div class="col-sm-12 col-xl-4 col-lg-4">
             <div class="card custom-card">
                 <div class="card-body">
@@ -682,7 +692,7 @@
     <!-- End Row -->
 
     <!-- Row-->
-   <!--  <div class="row">
+    <!--  <div class="row">
         <div class="col-sm-12 col-xl-12 col-lg-12">
             <div class="card custom-card">
                 <div class="card-body">
@@ -785,7 +795,7 @@
     </div> -->
     <!-- End Row -->
 
-    </div>
-	
+</div>
+
 
 @endsection
