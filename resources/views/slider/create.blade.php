@@ -37,6 +37,12 @@
             <div class="card-body">
             {!! Form::open(array('route' => 'sliders.store', 'method'=>'POST','enctype' => 'multipart/form-data')) !!}
             <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <strong>Shop:</strong>
+                        {!! Form::select('shop_id', $shop,null, array('id' => 'shop_id','class' => 'form-control','onchange' => "getVendorFn()")) !!}
+                    </div>   
+                </div>  
                  <div class="col-md-3">
                     <div class="form-group">
                         <strong>Image:</strong>

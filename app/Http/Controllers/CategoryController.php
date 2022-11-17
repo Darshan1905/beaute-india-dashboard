@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Businessactivitie;
 use App\Models\Business;
 use App\Models\Categorie; 
+use App\Models\User;
 use Auth;
 use URL;
 class CategoryController extends Controller
@@ -32,7 +33,10 @@ class CategoryController extends Controller
             ->editColumn('created_at', '{{ date("d-m-Y", strtotime($created_at)) }}')
              ->editColumn('image', function($row) {
                 return '<img src="'.$row->image.'" style="width: 50px; height:50px;">'; })
-           
+           ->editColumn('shop', function($row) {
+                          
+                        if(isset(User::where('id','=',$row->shop_id)->first()->shopname)){ return User::where('id','=',$row->shop_id)->first()->shopname;} })
+
             ->addIndexColumn()
             ->editColumn('status', function($row) {
                             return $row->status == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">In-Active</span>';
@@ -45,6 +49,7 @@ class CategoryController extends Controller
             })
             ->rawColumns([
                 'status' => 'status',
+                'shop' => 'shop',
                 'category_name' => 'category_name',
                 'image' => 'image',
                 'action' => 'action'
@@ -55,7 +60,8 @@ class CategoryController extends Controller
     
     public function create()
     {   
-        return view('category.create');
+        $shop = User::where(array('status' => 1,'type' => 'shop'))->pluck('name', 'id')->all();
+        return view('category.create',compact('shop'));
     }
 
     public function store(Request $request)
@@ -90,7 +96,9 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $post = Categorie::find($id);
-        return view('category.edit',compact('post'));
+        $shop = User::where(array('status' => 1,'type' => 'shop'))->pluck('name', 'id')->all();
+        
+        return view('category.edit',compact('post','shop'));
     }
 
     public function update(Request $request, $id)

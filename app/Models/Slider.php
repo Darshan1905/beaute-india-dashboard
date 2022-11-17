@@ -15,6 +15,6 @@ class Slider extends Model
      * @var array
      */
     protected $fillable = [
-        'image','status'
+       'shop_id', 'image','status'
     ];
 }

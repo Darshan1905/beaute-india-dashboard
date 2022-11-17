@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Slider;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
 use URL;
@@ -29,7 +30,10 @@ class SliderController extends Controller
             ->editColumn('created_at', '{{ date("d-m-Y", strtotime($created_at)) }}')
             ->editColumn('image', function($row) {
                 return '<img src="'.URL::to('/').'/'.$row->image.'" style="width: 50px; height:50px;">'; })
-          
+            ->editColumn('shop', function($row) {
+                          
+                        if(isset(User::where('id','=',$row->shop_id)->first()->shopname)){ return User::where('id','=',$row->shop_id)->first()->shopname;} })
+
             ->editColumn('status', function($row) {
                             return $row->status == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">In-Active</span>';
                         })
@@ -43,6 +47,7 @@ class SliderController extends Controller
             })
             ->rawColumns([
                 'status' => 'status',
+                'shop' => 'shop',
                 'image' => 'image',
                 'action' => 'action'
             ])
@@ -52,7 +57,8 @@ class SliderController extends Controller
     
     public function create()
     {   
-        return view('slider.create');
+        $shop = User::where(array('status' => 1,'type' => 'shop'))->pluck('name', 'id')->all();
+        return view('slider.create',compact('shop'));
     }
 
     public function store(Request $request)
@@ -83,7 +89,8 @@ class SliderController extends Controller
     public function edit($id)
     {
         $post = Slider::find($id);
-        return view('slider.edit',compact('post'));
+        $shop = User::where(array('status' => 1,'type' => 'shop'))->pluck('name', 'id')->all();
+        return view('slider.edit',compact('post','shop'));
     }
 
     public function update(Request $request, $id)

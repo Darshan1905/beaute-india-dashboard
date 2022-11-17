@@ -40,6 +40,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Cagetory ID</th>
+                                <th>Shop</th>
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Banner Image</th>
@@ -98,6 +99,7 @@
             
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'id', name: 'id'},
+                {data: 'shop', name: 'shop'},
                 {data: 'name', name: 'name'},
                 {data: 'description', name: 'description'},
                 {data: 'image', name: 'image'},

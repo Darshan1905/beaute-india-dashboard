@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
 class BrandController extends Controller
@@ -26,6 +27,10 @@ class BrandController extends Controller
         $industry = Brand::get();
         return datatables()->of($industry)
             ->editColumn('created_at', '{{ date("d-m-Y", strtotime($created_at)) }}')
+            ->editColumn('shop', function($row) {
+                          
+                        if(isset(User::where('id','=',$row->shop_id)->first()->shopname)){ return User::where('id','=',$row->shop_id)->first()->shopname;} })
+
             ->editColumn('status', function($row) {
                             return $row->status == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">In-Active</span>';
                         })
@@ -39,6 +44,7 @@ class BrandController extends Controller
             ->addIndexColumn()
             ->rawColumns([
                 'status' => 'status',
+                'shop' => 'shop',
                 'action' => 'action'
             ])
             ->make(true);
@@ -47,7 +53,8 @@ class BrandController extends Controller
     
     public function create()
     {   
-        return view('brands.create');
+        $shop = User::where(array('status' => 1,'type' => 'shop'))->pluck('name', 'id')->all();
+        return view('brands.create',compact('shop'));
     }
 
     public function store(Request $request)
@@ -74,7 +81,8 @@ class BrandController extends Controller
     public function edit($id)
     {
         $post = Brand::find($id);
-        return view('brands.edit',compact('post'));
+        $shop = User::where(array('status' => 1,'type' => 'shop'))->pluck('name', 'id')->all();
+        return view('brands.edit',compact('post','shop'));
     }
 
     public function update(Request $request, $id)

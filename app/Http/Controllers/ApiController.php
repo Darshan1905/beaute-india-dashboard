@@ -291,9 +291,12 @@ class ApiController extends Controller {
  
     public function sliderimages(Request $request){
           try {
-              $chk_category = DB::table('sliders')->where( array(
-                 'status'=>1
-             ))->get();
+              if(isset($_GET['shop'])){
+
+              $chk_category = DB::table('sliders')->where(array('status'=>1,'shop_id'=>$_GET['shop']))->get(); 
+              }else{
+              $chk_category = DB::table('sliders')->where(array('status'=>1))->get();
+              }
               if(!empty($chk_category)){
                 foreach ($chk_category as $key => $value) {
                     $chk_category[$key]->image = URL::to('/').'/'.$value->image;
@@ -341,9 +344,17 @@ class ApiController extends Controller {
 
      public function brand(Request $request){
           try {
-              $chk_category = DB::table('brands')->where( array(
+
+             if(isset($_GET['shop'])){
+                $chk_category = DB::table('brands')->where( array(
+                 'status'=>1,'shop_id'=>$_GET['shop']
+                ))->get();
+              }else{
+                $chk_category = DB::table('brands')->where( array(
                  'status'=>1
-             ))->get();
+                ))->get();
+              }
+              
              if (!empty($chk_category)) {
                     $message = 'Brands fetch successfully';
                     return $this->sendResponse($chk_category, $message);
@@ -363,9 +374,17 @@ class ApiController extends Controller {
 
      public function category(Request $request){
           try {
-              $chk_category = DB::table('categories')->where( array(
+
+            if(isset($_GET['shop'])){
+                 $chk_category = DB::table('categories')->where( array(
+                 'status'=>1,'shop_id'=>$_GET['shop']
+                  ))->get();
+              }else{
+                 $chk_category = DB::table('categories')->where( array(
                  'status'=>1
-             ))->get();
+                  ))->get();
+              }
+             
              if (!empty($chk_category)) {
                     $message = 'Category fetch successfully';
                     return $this->sendResponse($chk_category, $message);

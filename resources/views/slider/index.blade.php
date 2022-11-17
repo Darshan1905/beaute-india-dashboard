@@ -39,6 +39,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Shop</th>
                                 <th>Image</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -93,6 +94,7 @@
             },
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                {data: 'shop', name: 'shop'},
                 {data: 'image', name: 'image'},
                 {data: 'status', name: 'status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
