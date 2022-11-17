@@ -46,7 +46,12 @@
                     {!! Form::text('name', null, array('placeholder'=> 'Product Name','class' => 'form-control','required' =>'required')) !!}
                 </div>
             </div>    
-                
+            <div class="col-md-3">
+                <div class="form-group">
+                    <strong>SKU No.:</strong>
+                    {!! Form::text('sku_no', null, array('placeholder'=> 'SKU No.','class' => 'form-control','required' =>'required')) !!}
+                </div>
+            </div>     
             <div class="col-md-3">
                     <div class="form-group">
                         <strong>MRP:</strong>

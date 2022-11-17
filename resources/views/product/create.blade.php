@@ -14,7 +14,7 @@
     </div>
     <!-- End Page Header -->
 
-    <!-- Row-->
+    <!-- Row--> 
     <div class="row">
         <div class="col-sm-12 col-xl-12 col-lg-12">
             <div class="card custom-card">
@@ -61,8 +61,13 @@
                     {!! Form::text('name', null, array('placeholder'=> 'Product Name','class' => 'form-control','required' =>'required')) !!}
                 </div>
             </div>    
-                
-            <div class="col-md-3">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <strong>SKU No.:</strong>
+                        {!! Form::number('sku_no', null, array('placeholder'=> 'SKU No.','class' => 'form-control','required' =>'required')) !!}
+                    </div>
+                </div> 
+                <div class="col-md-3">
                     <div class="form-group">
                         <strong>MRP:</strong>
                         {!! Form::number('normal_price', null, array('placeholder'=> 'MRP','class' => 'form-control','required' =>'required')) !!}

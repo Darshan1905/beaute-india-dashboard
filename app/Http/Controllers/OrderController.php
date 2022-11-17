@@ -40,7 +40,7 @@ class OrderController extends Controller
         return datatables()->of($industry)
             ->editColumn('created_at', '{{ date("d-m-Y", strtotime($created_at)) }}')
             ->editColumn('shop_id', function($row) {
-            return User::where('id','=',$row->shop_id)->first()->shopname; })
+                   if(isset(User::where('id','=',$row->shop_id)->first()->shopname)){ return User::where('id','=',$row->shop_id)->first()->shopname;} })
 
             ->editColumn('shipping_address', function($row) {
                 $add = json_decode($row->shipping_address);
@@ -76,7 +76,7 @@ class OrderController extends Controller
     {
         $post = Order::find($id);
         $product = Order_product::where('order_id',$id)->with('product_detail')->get();
-        return $post;
+        // return $post;
         return view('orders.invoice', compact('post','product'));
     }
 }

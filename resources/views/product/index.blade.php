@@ -45,6 +45,7 @@
                                 <th>SKU No.</th>
                                 <th>Image</th>
                                 <th>Category</th>
+                                <th>Brand</th>
                                 <th>Name</th>
                                 <th>MRP</th>
                                 <th>Sale Price</th>
@@ -139,6 +140,7 @@
                 {data: 'sku_no', name: 'sku_no'},
                 {data: 'image', name: 'image'},
                 {data: 'category', name: 'category'},
+                {data: 'brand', name: 'brand'},
                 {data: 'name', name: 'name'},
                 {data: 'normal_price', name: 'normal_price'},
                 {data: 'sale_price', name: 'sale_price'},

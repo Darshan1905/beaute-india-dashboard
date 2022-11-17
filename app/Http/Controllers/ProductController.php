@@ -47,7 +47,9 @@ class ProductController extends Controller
             ->editColumn('image', function($row) {
                 return '<img src="'.$row->image.'" style="width: 50px; height:50px;">'; })
             ->editColumn('category', function($row) {
-                return $row->category->name; })
+                if(isset($row->category->name)){ return $row->category->name;} })
+            ->editColumn('brand', function($row) {
+                if(isset($row->brand->name)){ return $row->brand->name;} })
             ->editColumn('status', function($row) {
                             return $row->status == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">In-Active</span>';
                         })
@@ -63,6 +65,7 @@ class ProductController extends Controller
                 'status' => 'status',
                 'image' => 'image',
                 'category' => 'category',
+                'brand' => 'brand',
                 'action' => 'action'
             ])
             ->make(true);
@@ -103,7 +106,7 @@ class ProductController extends Controller
                 Otherimage::create(array('product_id'=>$result->id,'image' => URL::to('/').'/image/'.$name));
             }
          }
-        Product::where('id',$result->id)->update(array('sku_no' => 'PRO'.'0000'.$result->id));
+        // Product::where('id',$result->id)->update(array('sku_no' => 'PRO'.'0000'.$result->id));
         return redirect()->route('product.index')
             ->with('success','product created successfully.');
     }
