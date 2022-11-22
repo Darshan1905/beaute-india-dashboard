@@ -59,6 +59,8 @@ Route::post('order_status_update', [ApiController::class, 'order_status_update']
 
 Route::get('order-status', [ApiController::class, 'get_order_status']);
 
+Route::get('get_coupons', [ApiController::class, 'get_coupons']);
+Route::get('get_coupons/{id}', [ApiController::class, 'get_coupons_byid']);
 
 Route::post('newsletter', [ApiController::class, 'newsletter']);
 
@@ -79,7 +81,7 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
       Route::post('order/edit/{id}', [ApiController::class, 'order_update']);
       Route::post('order_product', [ApiController::class, 'order_product']);
       
-
+      
       Route::resource('sliders', SliderController::class);
    
        

@@ -20,6 +20,7 @@ use App\Models\Band;
 use App\Models\Size;
 use App\Models\Order_product;
 use App\Models\Order_status;
+use App\Models\Giftcard;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Crypt;
 
@@ -35,7 +36,7 @@ class ApiController extends Controller {
             'data'    => $result,
             'message' => $message,
         ];
-
+ 
 
         return response()->json($response, 200);
     }
@@ -1085,5 +1086,42 @@ class ApiController extends Controller {
          return $this->sendError(false, $message);
      }
   }
+
+  public function get_coupons(){
+    try {
+           $chk_category_id = Order_status::get();
+        if (!empty($chk_category_id)) {
+            $message = 'Coupons fetch successfully!';
+            return $this->sendResponse($chk_category_id,$message);
+    }else{
+        $message = 'not have any data';
+    }
+         
+         return $this->sendError($message,['error' => 'error occure']);
+     } catch (\Exception $e) {
+         DB::rollBack();
+         $message = $e->getMessage();
+         return $this->sendError(false, $message);
+     }
+ }
+
+ public function get_coupons_byid($id){
+    try {
+           $chk_category_id = Order_status::where('id',$id)->first();
+        if (!empty($chk_category_id)) {
+            $message = 'Coupon fetch successfully!';
+            return $this->sendResponse($chk_category_id,$message);
+    }else{
+        $message = 'not have any data';
+    }
+         
+         return $this->sendError($message,['error' => 'error occure']);
+     } catch (\Exception $e) {
+         DB::rollBack();
+         $message = $e->getMessage();
+         return $this->sendError(false, $message);
+     }
+ }
+ 
 }
 

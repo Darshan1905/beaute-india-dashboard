@@ -40,7 +40,7 @@ class OrderController extends Controller
         return datatables()->of($industry)
             ->editColumn('created_at', '{{ date("d-m-Y", strtotime($created_at)) }}')
             ->editColumn('shop_id', function($row) {
-                   if(isset(User::where('id','=',$row->shop_id)->first()->shopname)){ return User::where('id','=',$row->shop_id)->first()->shopname;} })
+                if(isset(User::where('id','=',$row->shop_id)->first()->shopname)){ return User::where('id','=',$row->shop_id)->first()->shopname;} })
 
             ->editColumn('shipping_address', function($row) {
                 $add = json_decode($row->shipping_address);

@@ -14,7 +14,7 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\OrderController;
-
+use App\Http\Controllers\GiftcardController;
 
  
 /*
@@ -72,6 +72,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('orders/', [OrderController::class, 'index'])->name('orders');
     Route::get('orders-List/', [OrderController::class, 'ordersList'])->name('orders-list');
     Route::get('order-invoice/{id}', [OrderController::class, 'invoice'])->name('order.invoice');
+
+    Route::resource('giftcard', GiftcardController::class);
+    Route::get('giftcard-List/', [GiftcardController::class, 'giftcardList'])->name('giftcard-list');
    
     
 });

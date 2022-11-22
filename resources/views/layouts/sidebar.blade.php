@@ -75,6 +75,10 @@ Sidemenu -->
                 <a class="nav-link" href="{{ URL::to('orders') }}"><i class="fe fe-layers"></i><span
                         class="sidemenu-label">Orders</span></a>
             </li>
+             <li class="nav-item">
+                <a class="nav-link" href="{{ URL::to('giftcard') }}"><i class="fe fe-layers"></i><span
+                        class="sidemenu-label">Coupons</span></a>
+            </li>
             @else
             <li class="nav-label">Dashboard</li>
             <li class="nav-item show">
@@ -111,6 +115,8 @@ Sidemenu -->
                 <a class="nav-link" href="{{ URL::to('orders') }}"><i class="fe fe-layers"></i><span
                         class="sidemenu-label">Orders</span></a>
             </li>
+          
+             
             @endif
 
 
