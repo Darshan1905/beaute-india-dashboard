@@ -36,10 +36,10 @@ class ProductController extends Controller
 
     public function productList() {
          if(Auth::user()->type == 'admin'){
-           $industry = Product::with('brand','vendor','category','size')->orderBy('id','DESC')->get();
+           $industry = Product::with('brand','vendor','category','size')->where('delete_at',null)->orderBy('id','DESC')->get();
         }else{
           
-           $industry = Product::with('brand','vendor','category','size')->where('shop_id', Auth::user()->shop_id)->orderBy('id','DESC')->get();
+           $industry = Product::with('brand','vendor','category','size')->where('delete_at',null)->owhere('shop_id', Auth::user()->shop_id)->orderBy('id','DESC')->get();
         }
        
         return datatables()->of($industry)
@@ -57,7 +57,11 @@ class ProductController extends Controller
             ->addColumn('action', function($row) {
                 $btn = '';
                 $btn .= '<div class="btn-group">';
-                $btn .= ' <a class="btn btn-primary" href="' . route('product.edit', [$row->id]) . '">Edit</a>';
+                $btn .= ' <a style="margin-right: 5px" class="btn btn-primary" href="' . route('product.edit', [$row->id]) . '">Edit</a>';
+                 
+                $btn .= ' <a  class="btn btn-danger" href="' . route('product.delete', [$row->id]) . '">Delete</a>';
+
+                $btn .= '</div>';
                 return $btn;
             })
             
@@ -178,7 +182,7 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
-        Product::find($id)->update(array('status' => 0));
+        Product::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
         return redirect()->route('product.index')
             ->with('success', 'product deleted successfully.');
     }

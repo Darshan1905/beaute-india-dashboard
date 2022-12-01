@@ -18,7 +18,7 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'short_description', 'long_description','normal_price', 'sale_price', 'inventory_count', 'product_size', 'sku_no', 'stock_status', 'shipping_price', 'category_id','image','shop_id','vendor_id','product_color','brand_id'
+        'name', 'short_description', 'long_description','normal_price', 'sale_price', 'inventory_count', 'product_size', 'sku_no', 'stock_status', 'shipping_price', 'category_id','image','shop_id','vendor_id','product_color','brand_id','delete_at','status'
     ];
 
     public function brand()

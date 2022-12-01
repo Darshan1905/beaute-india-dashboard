@@ -1089,7 +1089,7 @@ class ApiController extends Controller {
 
   public function get_coupons(){
     try {
-           $chk_category_id = Order_status::get();
+           $chk_category_id = Giftcard::get();
         if (!empty($chk_category_id)) {
             $message = 'Coupons fetch successfully!';
             return $this->sendResponse($chk_category_id,$message);
@@ -1105,9 +1105,15 @@ class ApiController extends Controller {
      }
  }
 
- public function get_coupons_byid($id){
+ public function get_coupons_byid($code){
     try {
-           $chk_category_id = Order_status::where('id',$id)->first();
+           $chk_category_id = Giftcard::where('giftcode',$code)->first();
+           if($chk_category_id->start_date <= date('Y-m-d') && $chk_category_id->end_date >= date('Y-m-d') ){
+               $chk_category_id->expired_status = 'valid';
+           }else{
+               
+               $chk_category_id->expired_status = 'expired';
+           }
         if (!empty($chk_category_id)) {
             $message = 'Coupon fetch successfully!';
             return $this->sendResponse($chk_category_id,$message);
