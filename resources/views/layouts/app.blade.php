@@ -10,10 +10,10 @@
     <meta name="keywords"
         content="sales dashboard, admin dashboard, bootstrap 4 admin template, html admin template, admin panel design, admin panel design, bootstrap 4 dashboard, admin panel template, html dashboard template, bootstrap admin panel, sales dashboard design, best sales dashboards, sales performance dashboard, html5 template, dashboard template">
     <!-- Favicon -->
-    <!-- <link rel="icon" href="{{ URL::to('/') }}/assets/img/brand/favicon.ico" type="image/x-icon"> -->
+    <link rel="icon" href="{{ URL::to('/') }}/assets/img/brand/favicon.ico" type="image/x-icon">
 
     <!-- Title -->
-    <title>Beaut India - Admin Panel</title>
+    <title>Luxeoutlet - Admin Panel</title>
 
     <!---Fontawesome css-->
     <link href="{{ URL::to('/') }}/assets/plugins/fontawesome-free/css/all.min.css" rel="stylesheet">
@@ -82,13 +82,13 @@
                 <div class="container-fluid">
                     <div class="main-header-left">
                         <a class="main-logo d-lg-none" href="http://13.235.96.145/">
-                            <img src="{{ URL::to('/') }}/assets/img/beauteindia.png"
+                            <img src="{{ URL::to('/') }}/assets/img/header-logo.png"
                                 class="header-brand-img desktop-logo" alt="logo">
-                            <img src="{{ URL::to('/') }}/assets/img/beauteindia.png" class="header-brand-img icon-logo"
+                            <img src="{{ URL::to('/') }}/assets/img/header-logo.png" class="header-brand-img icon-logo"
                                 alt="logo">
-                            <img src="{{ URL::to('/') }}/assets/img/beauteindia.png"
+                            <img src="{{ URL::to('/') }}/assets/img/header-logo.png"
                                 class="header-brand-img desktop-logo theme-logo" alt="logo">
-                            <img src="{{ URL::to('/') }}/assets/img/beauteindia.png"
+                            <img src="{{ URL::to('/') }}/assets/img/header-logo.png"
                                 class="header-brand-img icon-logo theme-logo" alt="logo">
                         </a>
                         <a class="main-header-menu-icon" href="" id="mainSidebarToggle"><span></span></a>

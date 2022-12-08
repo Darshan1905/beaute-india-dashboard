@@ -2,11 +2,11 @@ Sidemenu -->
 <div class="main-sidebar main-sidebar-sticky side-menu">
     <div class="sidemenu-logo" style="background: #F7F7F7;">
         <a class="main-logo" href="http://13.235.96.145/">
-            <img src="{{ URL::to('/') }}/assets/img/beauteindia.png" class="header-brand-img desktop-logo" alt="logo">
-            <img src="{{ URL::to('/') }}/assets/img/beauteindia.png" class="header-brand-img icon-logo" alt="logo">
-            <img src="{{ URL::to('/') }}/assets/img/beauteindia.png" class="header-brand-img desktop-logo theme-logo"
+            <img src="{{ URL::to('/') }}/assets/img/header-logo.png" class="header-brand-img desktop-logo" alt="logo">
+            <img src="{{ URL::to('/') }}/assets/img/header-logo.png" class="header-brand-img icon-logo" alt="logo">
+            <img src="{{ URL::to('/') }}/assets/img/header-logo.png" class="header-brand-img desktop-logo theme-logo"
                 alt="logo">
-            <img src="{{ URL::to('/') }}/assets/img/beauteindia.png" class="header-brand-img icon-logo theme-logo"
+            <img src="{{ URL::to('/') }}/assets/img/header-logo.png" class="header-brand-img icon-logo theme-logo"
                 alt="logo">
         </a>
     </div>
@@ -75,7 +75,7 @@ Sidemenu -->
                 <a class="nav-link" href="{{ URL::to('orders') }}"><i class="fe fe-layers"></i><span
                         class="sidemenu-label">Orders</span></a>
             </li>
-             <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" href="{{ URL::to('giftcard') }}"><i class="fe fe-layers"></i><span
                         class="sidemenu-label">Coupons</span></a>
             </li>
@@ -115,8 +115,8 @@ Sidemenu -->
                 <a class="nav-link" href="{{ URL::to('orders') }}"><i class="fe fe-layers"></i><span
                         class="sidemenu-label">Orders</span></a>
             </li>
-          
-             
+
+
             @endif
 
 
