@@ -38,6 +38,8 @@ class BrandController extends Controller
                 $btn = '';
                 $btn .= '<div class="btn-group">';
                 $btn .= ' <a class="btn btn-primary" href="' . route('brands.edit', [$row->id]) . '">Edit</a>';
+                $btn .= ' <a  class="btn btn-danger" href="' . route('brands.delete', [$row->id]) . '">Delete</a>';
+                $btn .= '<div>';
                 return $btn;
             })
             
@@ -101,7 +103,7 @@ class BrandController extends Controller
 
     public function destroy($id)
     {
-        Brand::find($id)->update(array('status' => 0));
+        Brand::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
         return redirect()->route('brands.index')
             ->with('success', 'Brand deleted successfully.');
     }

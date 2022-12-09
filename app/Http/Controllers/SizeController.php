@@ -35,6 +35,8 @@ class SizeController extends Controller
                 $btn = '';
                 $btn .= '<div class="btn-group">';
                 $btn .= ' <a class="btn btn-primary" href="' . route('size.edit', [$row->id]) . '">Edit</a>';
+                $btn .= ' <a class="btn btn-primary" href="' . route('size.delete', [$row->id]) . '">Delete</a>';
+                $btn.= '</div>';
                 return $btn;
             })
             ->rawColumns([
@@ -92,7 +94,7 @@ class SizeController extends Controller
 
     public function destroy($id)
     {
-        Size::find($id)->update(array('status' => 0));
+        Size::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
         return redirect()->route('size.index')
             ->with('success', 'Size deleted successfully.');
     }

@@ -35,6 +35,9 @@ class ColorController extends Controller
                 $btn = '';
                 $btn .= '<div class="btn-group">';
                 $btn .= ' <a class="btn btn-primary" href="' . route('color.edit', [$row->id]) . '">Edit</a>';
+               $btn .= ' <a  class="btn btn-danger" href="' . route('color.delete', [$row->id]) . '">Delete</a>';
+
+                $btn .= '</div>';
                 return $btn;
             })
             ->rawColumns([
@@ -94,7 +97,7 @@ class ColorController extends Controller
 
     public function destroy($id)
     {
-        Color::find($id)->update(array('status' => 0));
+        Color::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
         return redirect()->route('color.index')
             ->with('success', 'Color deleted successfully.');
     }

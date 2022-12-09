@@ -43,6 +43,8 @@ class SliderController extends Controller
                 $btn = '';
                 $btn .= '<div class="btn-group">';
                 $btn .= ' <a class="btn btn-primary" href="' . route('sliders.edit', [$row->id]) . '">Edit</a>';
+                $btn .= ' <a class="btn btn-primary" href="' . route('sliders.delete', [$row->id]) . '">Delete</a>';
+                $btn .= '</div>';
                 return $btn;
             })
             ->rawColumns([
@@ -114,7 +116,7 @@ class SliderController extends Controller
 
     public function destroy($id)
     {
-        Slider::find($id)->update(array('status' => 0));
+        Slider::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
         return redirect()->route('sliders.index')
             ->with('success', 'Size deleted successfully.');
     }

@@ -50,10 +50,15 @@ class VendorController extends Controller
                             $btn = '';
                             $btn .= '<div class="btn-group">';
                             $btn .= ' <a class="btn btn-primary" href="' . route('vendors.edit', [$row->id]) . '">Edit</a>';
+                            $btn .= ' <a  class="btn btn-danger" href="' . route('vendors.delete', [$row->id]) . '">Delete</a>';
+                
+                            $btn .= '</div>';
                             return $btn;
                         })
 
-                        ->addIndexColumn()
+                        ->addIndexColumn(
+                            
+                        )
                         ->rawColumns([
                             'shop' => 'shop',
                             'business' => 'business',
@@ -141,7 +146,7 @@ class VendorController extends Controller
 
     public function destroy($id)
     {
-        Vendor::find($id)->update(array('status' => 0));
+        Vendor::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
         return redirect()->route('vendors.index')
             ->with('success', 'Vendor deleted successfully.');
     }

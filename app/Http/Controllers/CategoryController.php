@@ -9,6 +9,7 @@ use App\Models\Business;
 use App\Models\Categorie; 
 use App\Models\User;
 use Auth;
+use PhpOffice\PhpSpreadsheet\Calculation\Category;
 use URL;
 class CategoryController extends Controller
 {
@@ -44,7 +45,11 @@ class CategoryController extends Controller
             ->addColumn('action', function($row) {
                 $btn = '';
                 $btn .= '<div class="btn-group">';
-                $btn .= ' <a class="btn btn-primary" href="' . route('categorys.edit', [$row->id]) . '">Edit</a>';
+               $btn .= ' <a class="btn btn-primary" href="' . route('categorys.edit', [$row->id]) . '">Edit</a>';
+               
+               $btn .= ' <a  class="btn btn-danger" href="' . route('categorys.delete', [$row->id]) . '">Delete</a>';
+               
+               $btn.= '</div>';
                 return $btn;
             })
             ->rawColumns([
@@ -125,8 +130,11 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
-        Branch::find($id)->update(array('status' => 0));
-        return redirect()->route('branches.index')
+        
+        Categorie::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
+      //  Branch::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
+        // return redirect()->route('branches.index')
+        return redirect()->route('categorys.index')
             ->with('success', 'Category deleted successfully.');
     }
 }

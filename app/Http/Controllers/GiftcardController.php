@@ -33,6 +33,7 @@ class GiftcardController extends Controller
                 $btn = '';
                 $btn .= '<div class="btn-group">';
                 $btn .= ' <a class="btn btn-primary" href="' . route('giftcard.edit', [$row->id]) . '">Edit</a>';
+                $btn .= ' <a  class="btn btn-danger" href="' . route('giftcard.delete', [$row->id]) . '">Delete</a>';
                 $btn .= '<div>';
                 return $btn;
             })
@@ -114,8 +115,11 @@ class GiftcardController extends Controller
 
     public function destroy($id)
     {
-        Giftcard::where('id',$id)->delete();
-        return redirect()->route('giftcard.index')
+        //Giftcard::where('id',$id)->delete();
+     
+       Giftcard::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
+             
+       return redirect()->route('giftcard.index')
             ->with('success', 'Gift Card deleted successfully.');
     }
 
