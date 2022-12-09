@@ -92,10 +92,19 @@ class SizeController extends Controller
             ->with('success', 'Size updated successfully.');
     }
 
+    // public function destroy($id)
+    // {
+    //     Size::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
+    //     return redirect()->route('size.index')
+    //         ->with('success', 'Size deleted successfully.');
+    // }
+
+
+
     public function destroy($id)
     {
-        Size::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
-        return redirect()->route('size.index')
+        Size::find($id)->delete();
+        return redirect()->back()
             ->with('success', 'Size deleted successfully.');
     }
 }

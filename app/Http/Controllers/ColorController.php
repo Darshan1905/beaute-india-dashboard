@@ -95,10 +95,18 @@ class ColorController extends Controller
             ->with('success', 'Color updated successfully.');
     }
 
+    // public function destroy($id)
+    // {
+    //     Color::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
+    //     return redirect()->route('color.index')
+    //         ->with('success', 'Color deleted successfully.');
+    // }
+
+
     public function destroy($id)
     {
-        Color::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
-        return redirect()->route('color.index')
+        Color::find($id)->delete();
+        return redirect()->back()
             ->with('success', 'Color deleted successfully.');
     }
 }

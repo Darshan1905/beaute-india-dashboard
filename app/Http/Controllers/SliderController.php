@@ -114,10 +114,19 @@ class SliderController extends Controller
             ->with('success', 'Size updated successfully.');
     }
 
+    // public function destroy($id)
+    // {
+    //     Slider::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
+    //     return redirect()->route('sliders.index')
+    //         ->with('success', 'Size deleted successfully.');
+    // }
+
+
+
     public function destroy($id)
     {
-        Slider::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
-        return redirect()->route('sliders.index')
-            ->with('success', 'Size deleted successfully.');
+        Slider::find($id)->delete();
+        return redirect()->back()
+            ->with('success', 'Slider deleted successfully.');
     }
 }

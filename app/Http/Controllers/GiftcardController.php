@@ -113,14 +113,22 @@ class GiftcardController extends Controller
             ->with('success', 'Gift Card updated successfully.');
     }
 
+    // public function destroy($id)
+    // {
+    //     //Giftcard::where('id',$id)->delete();
+     
+    //    Giftcard::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
+             
+    //    return redirect()->route('giftcard.index')
+    //         ->with('success', 'Gift Card deleted successfully.');
+    // }
+
+
     public function destroy($id)
     {
-        //Giftcard::where('id',$id)->delete();
-     
-       Giftcard::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
-             
-       return redirect()->route('giftcard.index')
-            ->with('success', 'Gift Card deleted successfully.');
+        Giftcard::find($id)->delete();
+        return redirect()->back()
+            ->with('success', 'Giftcard deleted successfully.');
     }
 
  

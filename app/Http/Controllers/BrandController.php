@@ -101,10 +101,18 @@ class BrandController extends Controller
             ->with('success', 'Brand updated successfully.');
     }
 
+    // public function destroy($id)
+    // {
+    //     Brand::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
+    //     return redirect()->route('brands.index')
+    //         ->with('success', 'Brand deleted successfully.');
+    // }
+
+
     public function destroy($id)
     {
-        Brand::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
-        return redirect()->route('brands.index')
+        Brand::find($id)->delete();
+        return redirect()->back()
             ->with('success', 'Brand deleted successfully.');
     }
 }

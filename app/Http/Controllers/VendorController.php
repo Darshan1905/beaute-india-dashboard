@@ -144,10 +144,17 @@ class VendorController extends Controller
             ->with('success', 'Vendor updated successfully.');
     }
 
-    public function destroy($id)
+    // public function destroy($id)
+    // {
+    //     Vendor::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
+    //     return redirect()->route('vendors.index')
+    //         ->with('success', 'Vendor deleted successfully.');
+    // }
+
+    public function deleteimage($id)
     {
-        Vendor::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
-        return redirect()->route('vendors.index')
-            ->with('success', 'Vendor deleted successfully.');
+        Vendor::find($id)->delete();
+        return redirect()->back()
+            ->with('success', 'Vender deleted successfully.');
     }
 }
