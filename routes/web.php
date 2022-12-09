@@ -70,7 +70,7 @@ Route::group(['middleware' => ['auth']], function() {
   
     Route::resource('size', SizeController::class);
     Route::get('size-List/', [SizeController::class, 'sizeList'])->name('size-list');
-    Route::get('size-delete/{id}',[SizeController::class,'destory'])->name('size.delete');
+    Route::get('size-delete/{id}',[SizeController::class,'destroy'])->name('size.delete');
 
     Route::resource('brands', BrandController::class);
     Route::get('brands-List/', [BrandController::class, 'brandList'])->name('brands-list');
