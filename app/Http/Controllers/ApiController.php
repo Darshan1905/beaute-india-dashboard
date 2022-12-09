@@ -924,7 +924,7 @@ class ApiController extends Controller {
     try {
            $user = $request->user();
            $id=1;
-           $chk_category_id = Cart::where( array(
+           $chk_category_id = Cart::with('product')->where( array(
             'customer_id'=>$user->id,'type' => 'cart'))->get();
         if (!empty($chk_category_id)) {
             $message = 'Cart fetch successfully!';
@@ -944,7 +944,7 @@ class ApiController extends Controller {
  public function wishlist(Request $request){
     try {
            $user = $request->user();
-           $chk_category_id = Cart::where( array(
+           $chk_category_id = Cart::with('product')->where( array(
             'customer_id'=>$user->id,'type' => 'wishlist'))->get();
         if (!empty($chk_category_id)) {
             $message = 'wishlist fetch successfully!';
