@@ -151,7 +151,7 @@ class VendorController extends Controller
     //         ->with('success', 'Vendor deleted successfully.');
     // }
 
-    public function deleteimage($id)
+    public function destroy($id)
     {
         Vendor::find($id)->delete();
         return redirect()->back()
