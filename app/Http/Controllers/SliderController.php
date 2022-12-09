@@ -42,8 +42,8 @@ class SliderController extends Controller
             ->addColumn('action', function($row) {
                 $btn = '';
                 $btn .= '<div class="btn-group">';
-                $btn .= ' <a class="btn btn-primary" href="' . route('sliders.edit', [$row->id]) . '">Edit</a>';
-                $btn .= ' <a class="btn btn-primary" href="' . route('sliders.delete', [$row->id]) . '">Delete</a>';
+                $btn .= ' <a style="margin-right: 5px" class="btn btn-primary" href="' . route('sliders.edit', [$row->id]) . '">Edit</a>';
+                $btn .= ' <a class="btn btn-danger" href="' . route('sliders.delete', [$row->id]) . '">Delete</a>';
                 $btn .= '</div>';
                 return $btn;
             })
