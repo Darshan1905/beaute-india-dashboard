@@ -70,7 +70,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <strong>MRP:</strong>
-                        {!! Form::number('normal_price', null, array('placeholder'=> 'MRP','class' => 'form-control','required' =>'required')) !!}
+                        {!! Form::number('normal_price', null, array('placeholder'=> 'MRP','class' => 'form-control')) !!}
                     </div>
                 </div> 
                 <div class="col-md-3">
