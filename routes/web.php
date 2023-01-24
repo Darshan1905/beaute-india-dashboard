@@ -17,7 +17,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\GiftcardController;
 
 
- 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,27 +33,30 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('product-list/', [ProductController::class, 'productList'])->name('product-list');
+Route::get('products-deletes/', [ProductController::class, 'destroyMultiple'])->name('products-deletes');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', UserController::class);
-    
+
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
-    
+
     Route::resource('shop', ShopController::class);
     Route::get('shop-List/', [ShopController::class, 'shopList'])->name('shops-list');
-    
+
     Route::resource('categorys', CategoryController::class);
     Route::get('categorys-delete/{id}',[CategoryController::class,'destroy'])->name('categorys.delete');
     Route::get('category-list/', [CategoryController::class, 'categoryList'])->name('category-list');
-   
-    Route::resource('product', ProductController::class);
-    
-    Route::get('product-list/', [ProductController::class, 'productList'])->name('product-list');
 
-    Route::get('product-delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');  
+    Route::resource('product', ProductController::class);
+
+     Route::get('product-list/', [ProductController::class, 'productList'])->name('product-list');
+    Route::post('products-deletes/', [ProductController::class, 'destroyMultiple'])->name('products-deletes');
+
+    Route::get('product-delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
     Route::post('/import',[ProductController::class,'import'])->name('import');
-    Route::get('delete-image/{id}', [ProductController::class, 'deleteimage'])->name('deleteimage'); 
+    Route::get('delete-image/{id}', [ProductController::class, 'deleteimage'])->name('deleteimage');
 
     Route::get('state-list/', [HomeController::class, 'stateList'])->name('state-list');
     Route::get('city-list/', [HomeController::class, 'cityList'])->name('city-list');
@@ -61,13 +64,13 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('vendors', VendorController::class);
     Route::get('vendorsList/', [VendorController::class, 'vendorsList'])->name('vendors-list');
-    Route::get('vvendor-delete/{id}', [VendorController::class, 'destroy'])->name('vendors.delete');  
-  
+    Route::get('vvendor-delete/{id}', [VendorController::class, 'destroy'])->name('vendors.delete');
+
 
     Route::resource('color', ColorController::class);
     Route::get('color-List/', [ColorController::class, 'colorList'])->name('color-list');
     Route::get('color-delete/{id}',[ColorController::class,'destroy'])->name('color.delete');
-  
+
     Route::resource('size', SizeController::class);
     Route::get('size-List/', [SizeController::class, 'sizeList'])->name('size-list');
     Route::get('size-delete/{id}',[SizeController::class,'destroy'])->name('size.delete');
@@ -79,7 +82,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('sliders', SliderController::class);
     Route::get('slider-List/', [SliderController::class, 'sliderList'])->name('slider-list');
     Route::get('slider-delete/{id}',[SliderController::class,'destroy'])->name('sliders.delete');
-    
+
     Route::get('orders/', [OrderController::class, 'index'])->name('orders');
     Route::get('orders-List/', [OrderController::class, 'ordersList'])->name('orders-list');
     Route::get('order-invoice/{id}', [OrderController::class, 'invoice'])->name('order.invoice');
@@ -87,5 +90,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('giftcard', GiftcardController::class);
     Route::get('giftcard-List/', [GiftcardController::class, 'giftcardList'])->name('giftcard-list');
    Route::get('giftcard-delete/{id}',[GiftcardController::class,'destroy'])->name('giftcard.delete');
-    
+
 });
