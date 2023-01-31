@@ -57,7 +57,8 @@ class CategoryController extends Controller
                 'shop' => 'shop',
                 'category_name' => 'category_name',
                 'image' => 'image',
-                'action' => 'action'
+                'action' => 'action',
+                'checkbox' => 'checkbox'
             ])
             ->make(true);
     }
@@ -128,20 +129,31 @@ class CategoryController extends Controller
             ->with('success', 'Category updated successfully.');
     }
 
+    public function destroy($id)
+    {
+        
+        Categorie::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
+      
+        return redirect()->route('categorys.index')
+            ->with('success', 'Category deleted successfully.');
+    }
+
     // public function destroy($id)
     // {
         
-    //     Categorie::find($id)->update(array('status' => 0,'delete_at'=>date('Y-m-d H:i:s')));
-      
-    //     return redirect()->route('categorys.index')
+    //     Categorie::find($id)->delete();
+    //     return redirect()->back()
     //         ->with('success', 'Category deleted successfully.');
     // }
-
-    public function destroy($id)
+    public function destroyMultiple(Request $request)
     {
-        Categorie::find($id)->delete();
-        return redirect()->back()
-            ->with('success', 'Category deleted successfully.');
+        try {
+            // dd($request->id);
+            Categorie::destroy($request->id);
+            return Redirect::back()->withErrors(['msg' => 'The Message']);
+        } catch (\Exception $e) {
+            report($e);
+        }
     }
 
 }

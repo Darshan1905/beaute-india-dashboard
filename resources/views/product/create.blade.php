@@ -52,7 +52,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <strong>Category:</strong>
-                    {!! Form::select('category_id', $vendor,null, array('class' => 'form-control')) !!}
+                    {!! Form::select('category_id', $category,null, array('class' => 'form-control')) !!}
                 </div>
             </div>     
             <div class="col-md-3">

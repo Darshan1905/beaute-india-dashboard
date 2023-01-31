@@ -47,12 +47,13 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('categorys', CategoryController::class);
     Route::get('categorys-delete/{id}',[CategoryController::class,'destroy'])->name('categorys.delete');
+    //Route::post('category-deletes/', [CategoryController::class, 'destroyMultiple'])->name('categorys-deletes');
     Route::get('category-list/', [CategoryController::class, 'categoryList'])->name('category-list');
 
     Route::resource('product', ProductController::class);
 
-     Route::get('product-list/', [ProductController::class, 'productList'])->name('product-list');
-    Route::post('products-deletes/', [ProductController::class, 'destroyMultiple'])->name('products-deletes');
+    Route::get('product-list/', [ProductController::class, 'productList'])->name('product-list');
+    Route::post('products-deletes/',[ProductController::class, 'destroyMultiple'])->name('products-deletes');
 
     Route::get('product-delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
     Route::post('/import',[ProductController::class,'import'])->name('import');

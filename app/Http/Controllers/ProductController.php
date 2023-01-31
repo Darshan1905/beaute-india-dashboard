@@ -86,8 +86,12 @@ class ProductController extends Controller
     public function create()
     {
         $shop = User::where(array('status' => 1,'type' => 'shop'))->pluck('name', 'id')->all();
-        $category = Categorie::where('status','=',1)->pluck('name', 'id')->all();
-        $size = Size::where('status','=',1)->pluck('name', 'id')->all();
+        if(auth()->user()->type=== 'shop'){
+            $category = Categorie::where('status', '=', 1)->where('shop_id', auth()->user()->id)->pluck('name', 'id')->all();
+        }
+        else{
+          $category = Categorie::where('status','=',1)->pluck('name', 'id')->all();
+        }        $size = Size::where('status','=',1)->pluck('name', 'id')->all();
         $color = Color::where('status','=',1)->pluck('name', 'id')->all();
         $brand = Brand::where('status','=',1)->pluck('name', 'id')->all();
         $vendor = Vendor::where('status','=',1)->pluck('name', 'id')->all();

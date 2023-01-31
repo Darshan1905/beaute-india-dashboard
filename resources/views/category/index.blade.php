@@ -33,11 +33,13 @@
                             </span>
                         @endcan
                     </div>
+                    <form method="post" action="{{ url('categorys-deletes') }}">
                     <div class="table-responsive">
-
+                        <input class="btn btn-success" type="submit" name="submit" value="Delete All Category" />
                     <table id="exportexample1" class="table-bordered text-nowrap mb-0 table table-bordered border-t0 key-buttons text-nowrap w-100" >
                         <thead>
                             <tr>
+                                <th> <input type="checkbox" id="checkAll"> Select All</th>
                                 <th>#</th>
                                 <th>Cagetory ID</th>
                                 <th>Shop</th>
@@ -53,7 +55,7 @@
                         
                         </tbody>
                     </table>
-                       
+                </form>   
                     </div>
                 </div>
             </div>
@@ -105,6 +107,7 @@
                 {data: 'image', name: 'image'},
                 {data: 'status', name: 'status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
+                {data: 'checkbox', name:'checkbox', orderable: false,searchable: false}
             ],
             "fnDrawCallback": function () {
             }

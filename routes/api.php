@@ -39,6 +39,8 @@ Route::get('razorpay', [ApiController::class, 'razorpay']);
 Route::get('size', [ApiController::class, 'size']);
 Route::get('brand', [ApiController::class, 'brand']);
 
+Route::get('product_category',[ApiController::class,'product_category']);
+
 Route::get('sliderimages', [ApiController::class, 'sliderimages']);
 
 Route::get('subcategory', [ApiController::class, 'subcategory']);

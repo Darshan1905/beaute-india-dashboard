@@ -18,6 +18,7 @@ use App\Models\Product;
 use App\Models\Order;
 use App\Models\Band;
 use App\Models\Size;
+use App\Models\Categorie;
 use App\Models\Order_product;
 use App\Models\Order_status;
 use App\Models\Giftcard;
@@ -362,9 +363,6 @@ class ApiController extends Controller {
              }else{
                 return $this->sendResponse(null, 'brands not available');
              }
-             
-            
-             
              return $this->sendError($message,['error' => 'error occure']);
          } catch (\Exception $e) {
              DB::rollBack();
@@ -372,7 +370,9 @@ class ApiController extends Controller {
              return $this->sendError(false, $message);
          }
      }
+     
 
+    
      public function category(Request $request){
           try {
 
@@ -428,7 +428,34 @@ class ApiController extends Controller {
      }
 
 
-    
+     public function product_category(Request $request){
+        try {
+
+           if(isset($_GET['products'])){
+              $chk_category = DB::table('categories')->where( array(
+               'status'=>1,'category_id'=>$_GET['products']
+              ))->get();
+            }else{
+              $chk_category = DB::table('categories')->where( array(
+               'status'=>1
+              ))->get();
+            }
+            
+           if (!empty($chk_category)) {
+                  $message = 'categories fetch successfully';
+                  return $this->sendResponse($chk_category, $message);
+           }else{
+              return $this->sendResponse(null, 'categories not available');
+           }
+           
+          return $this->sendError($message,['error' => 'error occure']);
+       } catch (\Exception $e) {
+           DB::rollBack();
+           $message = $e->getMessage();
+           return $this->sendError(false, $message);
+       }
+   }
+
 
      public function fetch_product_by_category_id($id){
        
