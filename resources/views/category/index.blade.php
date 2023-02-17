@@ -31,12 +31,20 @@
                             <span class="float-right">
                                 <a class="btn btn-primary" href="{{ route('categorys.create') }}">Create Category</a>
                             </span>
+                            
                         @endcan
                     </div>
-                    <form method="post" action="{{ url('categorys-deletes') }}">
+                    
+                        {{-- <form method="post" action="{{ url('categorys-deletes') }}"> --}}
+
                     <div class="table-responsive">
+                        <form method="post" action="{{ url('categorys-deletes') }}">
+                            {{csrf_field()}}
+                            <br>
                         <input class="btn btn-success" type="submit" name="submit" value="Delete All Category" />
-                    <table id="exportexample1" class="table-bordered text-nowrap mb-0 table table-bordered border-t0 key-buttons text-nowrap w-100" >
+                        <br><br>
+                    <table id="exportexample2" 
+                    class="table-bordered text-nowrap mb-0 table table-bordered border-t0 key-buttons text-nowrap w-100" >
                         <thead>
                             <tr>
                                 <th> <input type="checkbox" id="checkAll"> Select All</th>
@@ -89,7 +97,7 @@
     var table = '';
     $(document).ready(function () {
 
-        table = $('#exportexample1').DataTable({
+        table = $('#exportexample2').DataTable({
             processing: true,
             responsive: true,
             serverSide: true,

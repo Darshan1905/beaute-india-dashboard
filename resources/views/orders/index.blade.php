@@ -46,6 +46,25 @@
                                 <th>Billing Address</th>
                                 <th>Shipping Address</th>
                                 <th>Status</th>
+                                <th>brands</th>
+                                <th>Product_name</th>
+                                <th>Product quantity</th>
+                                <th>sku_no</th>
+                                <th>Sales Price</th>
+                                <th>product</th>
+                                <th>cutomer_name</th>
+                                <th>cutomer_email</th>
+                                <th>cutomer_contact</th>
+                                <th>shipping_charges</th>
+                                <th>address</th>
+                                <th>states</th>
+                                <th>cites</th>
+                                <th>discount</th>
+                                <th>coupon_code</th>
+                                <th>Payment type</th>
+                                <th>unit_price</th>
+                               
+                                <th>Address Pincode</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -149,8 +168,28 @@
                 {data: 'payment_gateway', name: 'payment_gateway'},
                 {data: 'shipping_address', name: 'shipping_address'},
                 {data: 'billing_address', name: 'billing_address'},
+                {data: 'brands', name: 'brands'},
                 {data: 'status', name: 'status'},
+                {data: 'product_name', name: 'product_name'},
+                {data: 'product_quantity', name: 'product_quantity'},
+                {data: 'sku_no', name: 'sku_no'},
+                {data: 'sale_price', name: 'sale_price'},
+                {data: 'product', name: 'product'}, 
+                {data: 'customer_name', name: 'customer_name'},
+                {data: 'customer_email', name: 'customer_email'},
+                {data: 'customer_contact', name: 'customer_contact'}, 
+                {data: 'shipping_charges', name: 'shipping_charges'}, 
+                {data: 'address', name: 'address'}, 
+                {data: 'state', name: 'state'}, 
+                {data: 'cities', name: 'cities'}, 
+                {data: 'discount', name: 'discount'}, 
+                {data: 'coupon_code', name: 'coupon_code'}, 
+                {data: 'price mrp', name: 'normal_price'}, 
+                {data: 'payment method', name: 'type'}, 
+                {data: 'order_product', name: 'order_product'}, 
                 {data: 'action', name: 'action', orderable: false, searchable: false},
+                
+            
             ],
             "fnDrawCallback": function () {
             }
