@@ -170,7 +170,7 @@
                 {data: 'billing_address', name: 'billing_address'},
                 {data: 'brands', name: 'brands'},
                 {data: 'status', name: 'status'},
-                {data: 'product_name', name: 'product_name'},
+                // {data: 'product_name', name: 'product_name'},
                 {data: 'product_quantity', name: 'product_quantity'},
                 {data: 'sku_no', name: 'sku_no'},
                 {data: 'sale_price', name: 'sale_price'},

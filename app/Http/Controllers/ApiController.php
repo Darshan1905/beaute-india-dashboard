@@ -460,7 +460,12 @@ class ApiController extends Controller {
      public function fetch_product_by_category_id($id){
        
           try {
-               
+              
+              $chk_category_id = Categorie::where('id',$id)->first();
+              $products= $chk_category_id->products()->get();
+              //return $products;
+             // dd($products);
+              dd($chk_category_id);
                $chk_category_id = DB::table('products')->where( array(
                 'category_id'=>$id,'status'=>1
             ))->get();
@@ -485,9 +490,14 @@ class ApiController extends Controller {
     
      
      public function product_list(Request $request){
+        // $chk_product = Product::with('brand','vendor','category','size','shop_id');
+        // $chk_product =$chk_product->where(array('status'=>1 ,'shop_id'=> $shop_id));
+        // dd($chk_product);
         try {
             $shop_id = Crypt::decryptString($request->header('X-Shop-Key'));
+          //  dd($shop_id);
              $chk_product = Product::with('brand','vendor','category','size');
+           
              $chk_product =$chk_product->where(array('status'=>1 ,'shop_id'=> $shop_id));
                
             if($request->all()){
@@ -535,6 +545,7 @@ class ApiController extends Controller {
                 
 
                $chk_product = $chk_product->get();
+              // dd($chk_product);
              
            if (!empty($chk_product)) {
                   $message = 'Product fetch successfully';
@@ -608,6 +619,7 @@ class ApiController extends Controller {
           
            $address = Address::where(array(
             'customer_id'=>$user->id))->get();
+           //dd($address);
         if (!empty($address)) {
             $message = 'Address fetch successfully!';
             return $this->sendResponse($address,$message);
@@ -671,6 +683,8 @@ class ApiController extends Controller {
      $rule = array(
          'title'=>'required',
          'type'=>'required',
+         'first_name'=>'required',
+         'last_name'=>'required',
          'default'=>'required',
          'address'=>'required',
          'country'=>'required',
@@ -690,6 +704,8 @@ class ApiController extends Controller {
            $data = array(
              'title' => $input['title'],
              'type' => $input['type'],
+             'first_name'=>$input['first_name'],
+             'last_name'=>$input['last_name'],
              'default' => $input['default'],
              'customer_id' => $user->id,
              'address' => json_encode(array(
@@ -719,6 +735,8 @@ class ApiController extends Controller {
     $input = $request->all();
      $rule = array(
          'title'=>'required',
+         'first_name'=>'required',
+         'last_name'=>'required',
          'type'=>'required',
          'default'=>'required',
          'address'=>'required',
@@ -739,6 +757,8 @@ class ApiController extends Controller {
            $data = array(
              'title' => $input['title'],
              'type' => $input['type'],
+             'first_name'=>$input['first_name'],
+             'last_name'=>$input['last_name'],
              'default' => $input['default'],
              'address' => json_encode(array(
                     'address' => $input['address'],
