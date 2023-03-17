@@ -66,6 +66,12 @@ Route::get('get_coupons/{id}', [ApiController::class, 'get_coupons_byid']);
 
 Route::post('newsletter', [ApiController::class, 'newsletter']);
 
+// Route::get('address', [ApiController::class, 'address']);
+// Route::get('address/default', [ApiController::class, 'addressDefault']);
+// Route::post('address', [ApiController::class, 'save_address']);
+// Route::get('address/{id}', [ApiController::class, 'addressbyId']);
+// Route::post('address/edit/{id}', [ApiController::class, 'update_address']);
+
 Route::group(['middleware'=>['auth:sanctum']], function(){
 
       Route::get('logout', [ApiController::class, 'logout']);
@@ -77,7 +83,6 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
       Route::get('address/default', [ApiController::class, 'addressDefault']);
       Route::post('address', [ApiController::class, 'save_address']);
       Route::get('address/{id}', [ApiController::class, 'addressbyId']);
-     
       Route::post('address/edit/{id}', [ApiController::class, 'update_address']);
       Route::post('order', [ApiController::class, 'order_store']);
       Route::post('order/edit/{id}', [ApiController::class, 'order_update']);

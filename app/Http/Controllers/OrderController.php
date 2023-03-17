@@ -99,6 +99,10 @@ class OrderController extends Controller
                 ->editColumn('product', function($row) {
                                 if(isset(product::where('id','=',$row->shipping_price)->first()->shipping_price))
                                 { return product::where('id','=',$row->shipping_price)->first()->shipping_price;} })
+                ->editColumn('product', function($row) {
+                                    if(isset(product::where('id','=',$row->name)->first()->name))
+                                    { return product::where('id','=',$row->name)->first()->name;} })
+            
         
            ->editColumn('address', function ($row) {
                 if (isset(User::where('id', '=', $row->customer_id)->first()->address)) {
@@ -176,7 +180,7 @@ class OrderController extends Controller
                 'sale_price'=>'sale_price',
                 'product_table'=>'product_table',
                 'action' => 'action',
-                'product_name'=>'product_name',
+                // 'product_name'=>'product_name',
                 'customer_name'=>'customer_name',
                 'customer_email'=>'customer_email',
                 'customer_contact'=>'customer_contact',

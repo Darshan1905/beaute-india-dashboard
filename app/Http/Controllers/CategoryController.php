@@ -30,6 +30,7 @@ class CategoryController extends Controller
 
     public function categoryList() {
         $industry = Categorie::get();
+       // dd($industry);
         return datatables()->of($industry)
             ->editColumn('created_at', '{{ date("d-m-Y", strtotime($created_at)) }}')
              ->editColumn('image', function($row) {
